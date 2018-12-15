@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BitsBake</string>
+
+    <string name="ic_fav_icon">Icon favorite button</string>
+    <string name="tv_recipe_name">Recipe name</string>
+    <string name="ic_cake">Toolbar cake</string>
 </resources>

@@ -3,6 +3,7 @@
 buildscript {
     
     repositories {
+        maven { url 'https://google.bintray.com/exoplayer/' }
         google()
         jcenter()
     }
