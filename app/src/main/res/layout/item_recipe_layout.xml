@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
@@ -47,6 +45,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></View>
 
+                <ImageView
+                    android:id="@+id/iv_fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_0dp"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginEnd="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:contentDescription="@string/ic_fav_icon"
+                    android:paddingStart="@dimen/_8dp"
+                    android:paddingEnd="@dimen/_8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/view1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_fav" />
+
                 <TextView
                     android:id="@+id/tv_recipe_name"
                     android:layout_width="wrap_content"
@@ -62,20 +75,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/iv_fav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_0dp"
-                    android:layout_marginTop="@dimen/_8dp"
-                    android:layout_marginEnd="@dimen/_8dp"
-                    android:layout_marginBottom="@dimen/_8dp"
-                    android:contentDescription="@string/ic_fav_icon"
-                    android:paddingEnd="@dimen/_8dp"
-                    android:paddingStart="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/view1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_fav" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

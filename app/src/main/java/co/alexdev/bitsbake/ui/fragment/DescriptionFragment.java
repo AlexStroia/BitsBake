@@ -2,30 +2,24 @@ package co.alexdev.bitsbake.ui.fragment;
 
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+import co.alexdev.bitsbake.R;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import co.alexdev.bitsbake.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecipeFragment extends BaseFragment {
-
-
-    public RecipeFragment() {
-        // Required empty public constructor
-    }
-
+public class DescriptionFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipes, container, false);
+        return inflater.inflate(R.layout.fragment_recipe_description, container, false);
     }
-
 }

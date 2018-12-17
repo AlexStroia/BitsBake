@@ -18,4 +18,5 @@
     <color name="_transparent_black">#99000000</color>
     <color name="_white">#ffffff</color>
     <color name="_orange">#ffa500</color>
+    <color name="custom_red">#d6030c</color>
 </resources>
