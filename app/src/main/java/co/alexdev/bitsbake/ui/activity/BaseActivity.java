@@ -10,8 +10,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
+import co.alexdev.bitsbake.databinding.ActivityBaseBinding;
 import co.alexdev.bitsbake.events.NetworkConnectionEvent;
 import co.alexdev.bitsbake.receiver.NetworkReceiver;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
@@ -25,13 +27,13 @@ public class BaseActivity extends AppCompatActivity {
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
     private BaseViewModel vm;
+    private ActivityBaseBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         vm = ViewModelProviders.of(this).get(BaseViewModel.class);
-        //TODO FULLY SETUP VM
 
         setupBroadcastReceiver();
         toolbar = findViewById(R.id.toolbar);

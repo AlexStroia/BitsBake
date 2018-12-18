@@ -10,6 +10,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    dataBinding {
+        enabled = true
+    }
+    
     buildTypes {
         release {
             minifyEnabled false
@@ -20,7 +25,6 @@ android {
             applicationIdSuffix ".debug"
             debuggable true
         }
-
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
