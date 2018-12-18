@@ -26,19 +26,13 @@ public class RetrofitClient {
 
     private RetrofitClient() {
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Timber.d(message);
-            }
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(logginInterceptor -> {
+            Timber.d(logginInterceptor);
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         BitsBakeInterceptor bitsBakeInterceptor = new BitsBakeInterceptor();
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(bitsBakeInterceptor).build();
-
-
-        Timber.d(getEndpoint().toString());
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(getEndpoint().toString())

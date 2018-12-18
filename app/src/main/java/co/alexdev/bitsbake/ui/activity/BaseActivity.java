@@ -2,45 +2,81 @@ package co.alexdev.bitsbake.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.widget.Toast;
 
-import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
-import co.alexdev.bitsbake.model.response.Cake;
-import co.alexdev.bitsbake.networking.RetrofitClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import co.alexdev.bitsbake.events.NetworkConnectionEvent;
+import co.alexdev.bitsbake.receiver.NetworkReceiver;
+import co.alexdev.bitsbake.repo.BitsBakeRepository;
+import co.alexdev.bitsbake.viewmodel.BaseViewModel;
 import timber.log.Timber;
 
 public class BaseActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
+    public static final String INTENT_FILTER_STRING = "android.net.conn.CONNECTIVITY_CHANGE";
+    private Toolbar toolbar;
+    private NetworkReceiver mNetworkReceiver;
+    private IntentFilter mIntentFilter;
+    private BaseViewModel vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        vm = ViewModelProviders.of(this).get(BaseViewModel.class);
+        //TODO FULLY SETUP VM
 
+        setupBroadcastReceiver();
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
 
-        Call<List<Cake>> recipeData = RetrofitClient.getInstance().getBakeService().getRecipe();
-        recipeData.enqueue(new Callback<List<Cake>>() {
-            @Override
-            public void onResponse(Call<List<Cake>> call, Response<List<Cake>> response) {
-                Timber.d("Ingredients: " + response.body().get(0).getIngredients());
-                Timber.d("Steps: " + response.body().get(0).getSteps());
-            }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(mNetworkReceiver, mIntentFilter);
+    }
 
-            @Override
-            public void onFailure(Call<List<Cake>> call, Throwable t) {
-                Timber.d("onFailure: " + t.getMessage());
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mNetworkReceiver);
+    }
 
-            }
-        });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    private void setupBroadcastReceiver() {
+        mNetworkReceiver = new NetworkReceiver();
+        mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction(INTENT_FILTER_STRING);
+    }
+
+    @Subscribe
+    public void onNetworkStateChanged(NetworkConnectionEvent event) {
+        Timber.d("NetworkConnectionEvent: " + event.getNetworkState());
+        if (event.getNetworkState()) {
+            BitsBakeRepository.getInstance().fetchData();
+        } else {
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_LONG).show();
+        }
     }
 }
+

@@ -6,6 +6,7 @@
     <string name="measure">Measure</string>
     <string name="ingredient">Ingredient</string>
     <string name="shortDescription">Short Description</string>
+    <string name="no_internet">Network is not available</string>
 
     <string name="ic_fav_icon">Icon favorite button</string>
     <string name="tv_recipe_name">Recipe name</string>
