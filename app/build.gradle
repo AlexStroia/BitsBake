@@ -15,6 +15,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
+
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
@@ -41,5 +47,12 @@ dependencies {
     /*Retrofit*/
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    /*LogginInterceptor*/
+    implementation group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.12.0'
+
+    /*RxJava*/
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+
 
 }
