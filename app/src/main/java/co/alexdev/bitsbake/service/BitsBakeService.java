@@ -1,12 +1,14 @@
 package co.alexdev.bitsbake.service;
 
-import co.alexdev.bitsbake.model.response.BakeResponse;
+import java.util.List;
+
+import co.alexdev.bitsbake.model.response.Cake;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface BitsBakeService {
 
-    @GET("/59121517_baking/baking.json")
-    Call<BakeResponse> getResponse();
+    @GET("baking.json")
+    Call<List<Cake>> getRecipe();
 
 }

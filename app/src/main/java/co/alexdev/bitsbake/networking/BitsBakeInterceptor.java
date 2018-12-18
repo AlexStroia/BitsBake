@@ -1,6 +1,7 @@
 package co.alexdev.bitsbake.networking;
 
 import java.io.IOException;
+
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -16,6 +17,6 @@ public class BitsBakeInterceptor implements Interceptor {
 
         Timber.i(response.message());
 
-        return null;
+        return response;
     }
 }

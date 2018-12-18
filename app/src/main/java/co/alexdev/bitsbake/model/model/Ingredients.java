@@ -2,11 +2,11 @@ package co.alexdev.bitsbake.model.model;
 
 public class Ingredients {
 
-    private int quantity;
+    private double quantity;
     private String measure;
     private String ingredient;
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 

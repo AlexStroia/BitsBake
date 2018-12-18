@@ -7,7 +7,11 @@ import java.util.List;
 import co.alexdev.bitsbake.model.model.Ingredients;
 import co.alexdev.bitsbake.model.model.Steps;
 
-public class BakeResponse {
+/*Response Class */
+public class Cake {
+
+    private int id;
+    private String name;
 
     @SerializedName("ingredients")
     private List<Ingredients> ingredients;
@@ -15,8 +19,32 @@ public class BakeResponse {
     @SerializedName("steps")
     private List<Steps> steps;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIngredients(List<Ingredients> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setSteps(List<Steps> steps) {
+        this.steps = steps;
+    }
+
     public List<Ingredients> getIngredients() {
         return ingredients;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public List<Steps> getSteps() {
@@ -25,7 +53,7 @@ public class BakeResponse {
 
     @Override
     public String toString() {
-        return "BakeResponse{" +
+        return "Cake{" +
                 "ingredients=" + ingredients +
                 ", steps=" + steps +
                 '}';
