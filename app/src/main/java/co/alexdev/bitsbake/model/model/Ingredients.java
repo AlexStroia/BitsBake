@@ -1,16 +1,43 @@
 package co.alexdev.bitsbake.model.model;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+import co.alexdev.bitsbake.model.response.Recipe;
+
+@Entity(indices = {@Index(value = {"id"}, unique = true)})
 public class Ingredients {
 
-    private int quantity;
+    @PrimaryKey
+    @ForeignKey(entity = Recipe.class, parentColumns = "id", childColumns = "id")
+    private int id;
+    private String cake;
+    private double quantity;
     private String measure;
     private String ingredient;
 
-    public int getQuantity() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCake() {
+        return cake;
+    }
+
+    public void setCake(String cake) {
+        this.cake = cake;
+    }
+
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
@@ -33,7 +60,9 @@ public class Ingredients {
     @Override
     public String toString() {
         return "Ingredients{" +
-                "quantity=" + quantity +
+                "id=" + id +
+                ", cake='" + cake + '\'' +
+                ", quantity=" + quantity +
                 ", measure='" + measure + '\'' +
                 ", ingredient='" + ingredient + '\'' +
                 '}';

@@ -1,12 +1,23 @@
 package co.alexdev.bitsbake.model.model;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+import co.alexdev.bitsbake.model.response.Recipe;
+
+@Entity(indices = {@Index(value = {"id"}, unique = true)})
 public class Steps {
 
+    @PrimaryKey
+    @ForeignKey(entity = Recipe.class, parentColumns = "id", childColumns = "id")
     private int id;
+    private String cake;
     private String shortDescription;
     private String description;
     private String videoURL;
     private String thumbnailUrl;
+
 
     public int getId() {
         return id;
@@ -14,6 +25,14 @@ public class Steps {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCake() {
+        return cake;
+    }
+
+    public void setCake(String cake) {
+        this.cake = cake;
     }
 
     public String getShortDescription() {
@@ -52,6 +71,7 @@ public class Steps {
     public String toString() {
         return "Steps{" +
                 "id=" + id +
+                ", cake='" + cake + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
                 ", description='" + description + '\'' +
                 ", videoURL='" + videoURL + '\'' +

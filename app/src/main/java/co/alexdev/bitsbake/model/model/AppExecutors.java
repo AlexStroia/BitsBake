@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 
 public class AppExecutors {
 
-    private final Object LOCK = new Object();
+    private static final Object LOCK = new Object();
 
     private final Executor diskIO;
 
@@ -26,7 +26,7 @@ public class AppExecutors {
         this.mainThread = mainThread;
     }
 
-    public AppExecutors getInstance() {
+    public static AppExecutors getInstance() {
         if (sExecutor == null) {
             synchronized (LOCK) {
                 sExecutor = new AppExecutors(Executors.newSingleThreadExecutor(),
