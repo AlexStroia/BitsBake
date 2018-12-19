@@ -102,8 +102,8 @@ public class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onNetworkStateChanged(NetworkConnectionEvent event) {
-        Timber.d("NetworkConnectionEvent: " + event.getNetworkState());
         if (event.getNetworkState()) {
+            vm.loadData();
         } else {
             Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_LONG).show();
         }
