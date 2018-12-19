@@ -4,6 +4,7 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import co.alexdev.bitsbake.model.model.Ingredients;
@@ -32,4 +33,10 @@ public interface RecipeDao {
 
     @Insert(onConflict = REPLACE)
     void insertSteps(List<Steps> steps);
+
+    @Delete
+    void deleteFromFavorite(Recipe recipe);
+
+    @Insert(onConflict = REPLACE)
+    void markAsFavorie(Recipe recipe);
 }

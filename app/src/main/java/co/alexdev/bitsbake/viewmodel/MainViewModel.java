@@ -12,10 +12,11 @@ import co.alexdev.bitsbake.model.model.Steps;
 import co.alexdev.bitsbake.model.response.Recipe;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
 
-public class BaseViewModel extends AndroidViewModel {
+public class MainViewModel extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
-    public BaseViewModel(@NonNull Application application) {
+
+    public MainViewModel(@NonNull Application application) {
         super(application);
         mRepository = BitsBakeRepository.getInstance(this.getApplication());
     }
@@ -32,11 +33,13 @@ public class BaseViewModel extends AndroidViewModel {
         return mRepository.getSteps();
     }
 
-
-    private LiveData<Recipe> markAsFavorite() {
-        return null;
+    private void markAsFavorite(Recipe recipe) {
+        recipe.setFavorite(true);
+        mRepository.markAsFavorite(recipe);
     }
 
-    private void deleteFromFavorite() {
+    private void deleteFromFavorite(Recipe recipe) {
+        recipe.setFavorite(false);
+        mRepository.deleteFromFavorite(recipe);
     }
 }

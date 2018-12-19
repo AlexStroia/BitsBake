@@ -9,19 +9,15 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.List;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityBaseBinding;
 import co.alexdev.bitsbake.events.NetworkConnectionEvent;
-import co.alexdev.bitsbake.model.response.Recipe;
 import co.alexdev.bitsbake.receiver.NetworkReceiver;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
-import co.alexdev.bitsbake.viewmodel.BaseViewModel;
+import co.alexdev.bitsbake.viewmodel.MainViewModel;
 import timber.log.Timber;
 
 public class BaseActivity extends AppCompatActivity {
@@ -30,14 +26,14 @@ public class BaseActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
-    private BaseViewModel vm;
+    private MainViewModel vm;
     ActivityBaseBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
-        vm = ViewModelProviders.of(this).get(BaseViewModel.class);
+        vm = ViewModelProviders.of(this).get(MainViewModel.class);
 
         setupBroadcastReceiver();
         setupToolbar();

@@ -9,7 +9,8 @@ import co.alexdev.bitsbake.model.response.Recipe;
 import timber.log.Timber;
 
 public class BitsBakeUtils {
-
+    /*Ignore the id which comes from the API and use the main id from the Recipe
+     * This way we can assure that we can make a connection between the recipe and ingredients and steps */
     public static List<Recipe> formatRecipes(List<Recipe> recipes) {
         List<Recipe> recipeList = new ArrayList<>();
         for (Recipe recipe : recipes) {

@@ -14,6 +14,8 @@ import co.alexdev.bitsbake.networking.RetrofitClient;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -37,39 +39,34 @@ public class BitsBakeRepository {
 
     public void fetchData() {
 
-        final Observable<List<Recipe>> recipeList = RetrofitClient.getInstance().getBakeService().getRecipe();
+        final Single<List<Recipe>> recipeList = RetrofitClient.getInstance().getBakeService().getRecipe();
 
         recipeList.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Recipe>>() {
+                .subscribe(new SingleObserver<List<Recipe>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<Recipe> recipeResponse) {
-                        Timber.d("Recipes: " + recipeResponse.toString());
-                        List<Recipe> recipes = BitsBakeUtils.formatRecipes(recipeResponse);
+                    public void onSuccess(List<Recipe> recipes) {
+                        Timber.d("Recipes: " + recipes.toString());
+                        List<Recipe> formatedRecipes = BitsBakeUtils.formatRecipes(recipes);
 
-                        for (Recipe recipe : recipes) {
+                        for (Recipe recipe : formatedRecipes) {
                             List<Steps> steps = recipe.getSteps();
                             List<Ingredients> ingredients = recipe.getIngredients();
 
                             insertIngredientsToDatabase(ingredients);
                             insertStepsToDatabase(steps);
                         }
-                        insertRecipesToDatabase(recipes);
+                        insertRecipesToDatabase(formatedRecipes);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Timber.d("Error: " + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Timber.d("Observer will no longer emit");
                     }
                 });
     }
@@ -98,12 +95,12 @@ public class BitsBakeRepository {
         return mDatabase.recipeDao().getSteps();
     }
 
-    private void deleteFromDatabase() {
-        //TODO
+    public void deleteFromFavorite(Recipe recipe) {
+        mDatabase.recipeDao().deleteFromFavorite(recipe);
     }
 
-    private void markAsFavorite(Recipe recipe) {
+    public void markAsFavorite(Recipe recipe) {
         recipe.setFavorite(true);
-        //TODO
+        mDatabase.recipeDao().markAsFavorie(recipe);
     }
 }
