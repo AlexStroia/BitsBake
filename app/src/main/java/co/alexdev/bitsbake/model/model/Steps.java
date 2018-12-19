@@ -1,16 +1,30 @@
 package co.alexdev.bitsbake.model.model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+import co.alexdev.bitsbake.model.response.Cake;
 
 @Entity
 public class Steps {
 
+    @PrimaryKey
+    @ForeignKey(entity = Cake.class, parentColumns = "id", childColumns = "id")
     private int id;
     private String cake;
     private String shortDescription;
     private String description;
     private String videoURL;
     private String thumbnailUrl;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCake() {
         return cake;
@@ -52,17 +66,11 @@ public class Steps {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
     @Override
     public String toString() {
         return "Steps{" +
+                "id=" + id +
+                ", cake='" + cake + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
                 ", description='" + description + '\'' +
                 ", videoURL='" + videoURL + '\'' +

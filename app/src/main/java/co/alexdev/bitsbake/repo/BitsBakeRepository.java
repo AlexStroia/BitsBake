@@ -43,7 +43,7 @@ public class BitsBakeRepository {
                     public void onNext(List<Cake> cakeRespons) {
                         Timber.d("Recipes: " + cakeRespons.toString());
                         formatcakeForDb(cakeRespons);
-                        
+
                     }
 
                     @Override

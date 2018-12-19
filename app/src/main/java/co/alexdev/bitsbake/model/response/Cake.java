@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.model.model.Ingredients;
 import co.alexdev.bitsbake.model.model.Steps;
@@ -16,8 +17,10 @@ public class Cake {
     @PrimaryKey
     private int id;
     private String name;
+    @Ignore
     @SerializedName("ingredients")
     private List<Ingredients> ingredients;
+    @Ignore
     @SerializedName("steps")
     private List<Steps> steps;
     private boolean isFavorite;

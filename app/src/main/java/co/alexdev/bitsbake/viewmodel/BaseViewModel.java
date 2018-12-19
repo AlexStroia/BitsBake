@@ -28,6 +28,5 @@ public class BaseViewModel extends AndroidViewModel {
     }
 
     private void deleteFromFavorite() {
-
     }
 }
