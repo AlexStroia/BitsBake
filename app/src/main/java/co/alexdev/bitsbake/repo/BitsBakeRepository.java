@@ -64,12 +64,12 @@ public class BitsBakeRepository {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Timber.d("Error: " + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-
+                        Timber.d("Observer will no longer emit");
                     }
                 });
     }
