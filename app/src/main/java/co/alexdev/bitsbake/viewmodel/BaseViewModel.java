@@ -7,23 +7,33 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import co.alexdev.bitsbake.model.response.Cake;
+import co.alexdev.bitsbake.model.model.Ingredients;
+import co.alexdev.bitsbake.model.model.Steps;
+import co.alexdev.bitsbake.model.response.Recipe;
+import co.alexdev.bitsbake.repo.BitsBakeRepository;
 
 public class BaseViewModel extends AndroidViewModel {
 
+    private BitsBakeRepository mRepository;
     public BaseViewModel(@NonNull Application application) {
         super(application);
+        mRepository = BitsBakeRepository.getInstance(this.getApplication());
     }
 
-    private LiveData<List<Cake>> fetchDataFromDb() {
-        return null;
+    public LiveData<List<Recipe>> getRecipes() {
+        return mRepository.getRecipes();
     }
 
-    private LiveData<Cake> getCake() {
-        return null;
+    public LiveData<List<Ingredients>> getIngredients() {
+        return mRepository.getIngredients();
     }
 
-    private LiveData<Cake> markAsFavorite() {
+    public LiveData<List<Steps>> getSteps() {
+        return mRepository.getSteps();
+    }
+
+
+    private LiveData<Recipe> markAsFavorite() {
         return null;
     }
 

@@ -2,14 +2,15 @@ package co.alexdev.bitsbake.model.model;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
-import co.alexdev.bitsbake.model.response.Cake;
+import co.alexdev.bitsbake.model.response.Recipe;
 
-@Entity
+@Entity(indices = {@Index(value = {"id"}, unique = true)})
 public class Ingredients {
 
     @PrimaryKey
-    @ForeignKey(entity = Cake.class, parentColumns = "id", childColumns = "id")
+    @ForeignKey(entity = Recipe.class, parentColumns = "id", childColumns = "id")
     private int id;
     private String cake;
     private double quantity;

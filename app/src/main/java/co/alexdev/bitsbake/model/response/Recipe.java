@@ -12,7 +12,7 @@ import co.alexdev.bitsbake.model.model.Steps;
 
 /*Response Class */
 @Entity
-public class Cake {
+public class Recipe {
 
     @PrimaryKey
     private int id;
@@ -67,7 +67,7 @@ public class Cake {
 
     @Override
     public String toString() {
-        return "Cake{" +
+        return "Recipe{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", ingredients=" + ingredients +
