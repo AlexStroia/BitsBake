@@ -15,8 +15,10 @@ import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityBaseBinding;
 import co.alexdev.bitsbake.events.NetworkConnectionEvent;
+import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.receiver.NetworkReceiver;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
+import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 import timber.log.Timber;
 
@@ -35,10 +37,31 @@ public class BaseActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         vm = ViewModelProviders.of(this).get(MainViewModel.class);
 
+        initView();
+        vm.getNetworkResponse().observe(this, response -> processResponse(response));
+    }
+
+    private void initView() {
         setupBroadcastReceiver();
         setupToolbar();
+        vm.loadData();
+    }
 
-        vm.fetchData();
+    private void processResponse(NetworkResponse networkResponse) {
+        switch (networkResponse.status) {
+            case Constants.RESPONSE_ERROR:
+                Timber.d("Data error");
+                break;
+
+            case Constants.RESPONSE_LOADING:
+                Timber.d("Data loading");
+                break;
+
+            case Constants.RESPONSE_SUCCES:
+                vm.insertToDatabase(networkResponse.data);
+                Timber.d("Data received");
+                break;
+        }
     }
 
     @Override
@@ -81,7 +104,6 @@ public class BaseActivity extends AppCompatActivity {
     public void onNetworkStateChanged(NetworkConnectionEvent event) {
         Timber.d("NetworkConnectionEvent: " + event.getNetworkState());
         if (event.getNetworkState()) {
-            BitsBakeRepository.getInstance(this).fetchData();
         } else {
             Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_LONG).show();
         }

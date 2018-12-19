@@ -10,7 +10,7 @@ import co.alexdev.bitsbake.utils.Constants;
 public class NetworkResponse {
 
     @Constants.NetworkStatus
-    final int mNetworkStatus;
+    public final int status;
 
     @Nullable
     public List<Recipe> data;
@@ -18,21 +18,21 @@ public class NetworkResponse {
     @Nullable
     public final Throwable error;
 
-    public NetworkResponse(int mNetworkStatus, @Nullable List<Recipe> data, @Nullable Throwable error) {
-        this.mNetworkStatus = mNetworkStatus;
+    public NetworkResponse(int status, @Nullable List<Recipe> data, @Nullable Throwable error) {
+        this.status = status;
         this.data = data;
         this.error = error;
     }
 
     public static NetworkResponse loading() {
-        return new NetworkResponse(Constants.ERROR, null, null);
+        return new NetworkResponse(Constants.RESPONSE_LOADING, null, null);
     }
 
     public static NetworkResponse success(@NonNull List<Recipe> recipes) {
-        return new NetworkResponse(Constants.SUCCESS, recipes, null);
+        return new NetworkResponse(Constants.RESPONSE_SUCCES, recipes, null);
     }
 
     public static NetworkResponse error(@NonNull Throwable error) {
-        return new NetworkResponse(Constants.ERROR, null, error);
+        return new NetworkResponse(Constants.RESPONSE_ERROR, null, error);
     }
 }

@@ -37,53 +37,19 @@ public class BitsBakeRepository {
         return sInstance;
     }
 
-    public void fetchData() {
-
-        final Single<List<Recipe>> recipeList = RetrofitClient.getInstance().getBakeService().getRecipe();
-
-        recipeList.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<Recipe>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(List<Recipe> recipes) {
-                        Timber.d("Recipes: " + recipes.toString());
-                        List<Recipe> formatedRecipes = BitsBakeUtils.formatRecipes(recipes);
-
-                        for (Recipe recipe : formatedRecipes) {
-                            List<Steps> steps = recipe.getSteps();
-                            List<Ingredients> ingredients = recipe.getIngredients();
-
-                            insertIngredientsToDatabase(ingredients);
-                            insertStepsToDatabase(steps);
-                        }
-                        insertRecipesToDatabase(formatedRecipes);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.d("Error: " + e.getMessage());
-                    }
-                });
-    }
-
     public Single<List<Recipe>> fetchNetworkingData() {
         return RetrofitClient.getInstance().getBakeService().getRecipe();
     }
 
-    private void insertIngredientsToDatabase(List<Ingredients> ingredients) {
+    public void insertIngredientsToDatabase(List<Ingredients> ingredients) {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().insertIngredients(ingredients));
     }
 
-    private void insertRecipesToDatabase(List<Recipe> recipes) {
+    public void insertRecipesToDatabase(List<Recipe> recipes) {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().insertRecipes(recipes));
     }
 
-    private void insertStepsToDatabase(List<Steps> steps) {
+    public void insertStepsToDatabase(List<Steps> steps) {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().insertSteps(steps));
     }
 

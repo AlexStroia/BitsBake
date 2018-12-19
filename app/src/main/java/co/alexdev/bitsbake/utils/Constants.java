@@ -7,11 +7,12 @@ import androidx.annotation.IntDef;
 
 public class Constants {
 
-    public static final int LOADING = 0;
-    public static final int SUCCESS = 1;
-    public static final int ERROR = 2;
+    public static final int RESPONSE_LOADING = 0;
+    public static final int RESPONSE_SUCCES = 1;
+    public static final int RESPONSE_ERROR = 2;
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({LOADING,SUCCESS,ERROR})
-    public @interface NetworkStatus{}
+    @IntDef({RESPONSE_LOADING, RESPONSE_SUCCES, RESPONSE_ERROR})
+    public @interface NetworkStatus {
+    }
 }

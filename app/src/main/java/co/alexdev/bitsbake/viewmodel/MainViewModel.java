@@ -13,6 +13,7 @@ import co.alexdev.bitsbake.model.model.Steps;
 import co.alexdev.bitsbake.model.response.Recipe;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
+import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,6 +25,7 @@ public class MainViewModel extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
+    private List<Recipe> recipeList;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -46,7 +48,7 @@ public class MainViewModel extends AndroidViewModel {
         return mNetworkResponse;
     }
 
-    public void fetchData() {
+    public void loadData() {
         mRepository.fetchNetworkingData().
                 subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,21 +56,36 @@ public class MainViewModel extends AndroidViewModel {
                     @Override
                     public void onSubscribe(Disposable d) {
                         mNetworkResponse.setValue(NetworkResponse.loading());
-                        Timber.d("Data is loading");
                     }
 
                     @Override
                     public void onSuccess(List<Recipe> recipes) {
                         mNetworkResponse.setValue(NetworkResponse.success(recipes));
-                        Timber.d("Data received");
+                        recipeList = recipes;
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         mNetworkResponse.setValue(NetworkResponse.error(e));
-                        Timber.d("No data available");
                     }
                 });
+    }
+
+    public void insertToDatabase(List<Recipe> recipes) {
+        List<Recipe> formatedRecipes = BitsBakeUtils.formatRecipes(recipes);
+
+        for (Recipe recipe : formatedRecipes) {
+            List<Steps> steps = recipe.getSteps();
+            List<Ingredients> ingredients = recipe.getIngredients();
+
+            mRepository.insertIngredientsToDatabase(ingredients);
+            mRepository.insertStepsToDatabase(steps);
+        }
+        mRepository.insertRecipesToDatabase(formatedRecipes);
+    }
+
+    public List<Recipe> getRecipeList() {
+        return recipeList;
     }
 
     private void markAsFavorite(Recipe recipe) {
