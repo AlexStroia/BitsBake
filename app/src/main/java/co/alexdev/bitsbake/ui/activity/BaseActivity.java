@@ -38,10 +38,7 @@ public class BaseActivity extends AppCompatActivity {
         setupBroadcastReceiver();
         setupToolbar();
 
-
-        vm.getRecipes().observe(this, recipes -> Timber.d("Recipes from database: " + recipes.toString()));
-        BitsBakeRepository.getInstance(this).getIngredients().observe(this, ingredients -> Timber.d("Ingredients from database: " + ingredients.toString()));
-        BitsBakeRepository.getInstance(this).getSteps().observe(this, steps -> Timber.d("Steps from database: " + steps.toString()));
+        vm.fetchData();
     }
 
     @Override

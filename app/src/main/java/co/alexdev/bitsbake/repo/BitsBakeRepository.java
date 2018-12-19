@@ -71,6 +71,10 @@ public class BitsBakeRepository {
                 });
     }
 
+    public Single<List<Recipe>> fetchNetworkingData() {
+        return RetrofitClient.getInstance().getBakeService().getRecipe();
+    }
+
     private void insertIngredientsToDatabase(List<Ingredients> ingredients) {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().insertIngredients(ingredients));
     }
