@@ -1,9 +1,10 @@
-package co.alexdev.bitsbake;
+package co.alexdev.bitsbake.ui.fragment;
 
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import co.alexdev.bitsbake.R;
 
 import android.view.LayoutInflater;
 import android.view.View;
