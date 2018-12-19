@@ -1,19 +1,23 @@
 package co.alexdev.bitsbake.model.model;
 
+import androidx.room.Entity;
+
+@Entity
 public class Steps {
 
     private int id;
+    private String cake;
     private String shortDescription;
     private String description;
     private String videoURL;
     private String thumbnailUrl;
 
-    public int getId() {
-        return id;
+    public String getCake() {
+        return cake;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCake(String cake) {
+        this.cake = cake;
     }
 
     public String getShortDescription() {
@@ -48,10 +52,17 @@ public class Steps {
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Steps{" +
-                "id=" + id +
                 ", shortDescription='" + shortDescription + '\'' +
                 ", description='" + description + '\'' +
                 ", videoURL='" + videoURL + '\'' +

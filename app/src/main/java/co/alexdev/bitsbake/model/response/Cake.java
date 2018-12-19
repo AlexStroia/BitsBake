@@ -4,12 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.model.model.Ingredients;
 import co.alexdev.bitsbake.model.model.Steps;
 
 /*Response Class */
+@Entity
 public class Cake {
 
+    @PrimaryKey
     private int id;
     private String name;
     @SerializedName("ingredients")

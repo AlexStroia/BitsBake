@@ -1,14 +1,11 @@
 package co.alexdev.bitsbake.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -27,7 +24,7 @@ public class BaseActivity extends AppCompatActivity {
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
     private BaseViewModel vm;
-    private ActivityBaseBinding mBinding;
+    ActivityBaseBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +33,7 @@ public class BaseActivity extends AppCompatActivity {
         vm = ViewModelProviders.of(this).get(BaseViewModel.class);
 
         setupBroadcastReceiver();
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        setupToolbar();
     }
 
     @Override
@@ -63,6 +58,12 @@ public class BaseActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void setupToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     private void setupBroadcastReceiver() {

@@ -11,8 +11,6 @@ import co.alexdev.bitsbake.model.response.Cake;
 
 public class BaseViewModel extends AndroidViewModel {
 
-    private boolean isNetworkAvilable;
-
     public BaseViewModel(@NonNull Application application) {
         super(application);
     }

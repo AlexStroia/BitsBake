@@ -1,14 +1,9 @@
 package co.alexdev.bitsbake.networking;
 
 import android.net.Uri;
-import android.renderscript.RenderScript;
 
-import java.io.IOException;
-
-import co.alexdev.bitsbake.service.BitsBakeService;
-import okhttp3.Interceptor;
+import co.alexdev.bitsbake.networking.service.BitsBakeService;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
