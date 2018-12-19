@@ -48,9 +48,9 @@ public class BitsBakeRepository {
                     }
 
                     @Override
-                    public void onNext(List<Recipe> recipeRespons) {
-                        Timber.d("Recipes: " + recipeRespons.toString());
-                        List<Recipe> recipes = formatcakeForDb(recipeRespons);
+                    public void onNext(List<Recipe> recipeResponse) {
+                        Timber.d("Recipes: " + recipeResponse.toString());
+                        List<Recipe> recipes = BitsBakeUtils.formatRecipes(recipeResponse);
 
                         for (Recipe recipe : recipes) {
                             List<Steps> steps = recipe.getSteps();
@@ -105,9 +105,5 @@ public class BitsBakeRepository {
     private void markAsFavorite(Recipe recipe) {
         recipe.setFavorite(true);
         //TODO
-    }
-
-    private List<Recipe> formatcakeForDb(List<Recipe> recipes) {
-        return BitsBakeUtils.formatCakeForDb(recipes);
     }
 }

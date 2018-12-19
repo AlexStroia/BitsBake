@@ -10,7 +10,7 @@ import timber.log.Timber;
 
 public class BitsBakeUtils {
 
-    public static List<Recipe> formatCakeForDb(List<Recipe> recipes) {
+    public static List<Recipe> formatRecipes(List<Recipe> recipes) {
         List<Recipe> recipeList = new ArrayList<>();
         for (Recipe recipe : recipes) {
             Timber.d(recipe.getName());
