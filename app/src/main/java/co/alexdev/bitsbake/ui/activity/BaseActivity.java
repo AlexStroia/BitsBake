@@ -29,6 +29,7 @@ public class BaseActivity extends AppCompatActivity {
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
     private MainViewModel vm;
+    private boolean isFirstTimeLoading = true;
     ActivityBaseBinding mBinding;
 
     @Override
@@ -102,10 +103,12 @@ public class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onNetworkStateChanged(NetworkConnectionEvent event) {
+        Timber.d("Network: " + event.getNetworkState());
         if (event.getNetworkState()) {
-            vm.loadData();
-        } else {
-            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_LONG).show();
+            if (!isFirstTimeLoading) {
+                isFirstTimeLoading = false;
+                vm.loadData();
+            }
         }
     }
 }
