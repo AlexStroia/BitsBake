@@ -75,13 +75,11 @@
                         android:layout_marginTop="@dimen/_8dp"
                         android:layout_marginBottom="@dimen/_8dp"
                         android:fontFamily="@font/magicfont"
-                        android:text="@{vm.recipe.name}"
                         android:textColor="@color/_black"
                         android:textSize="@dimen/_30sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

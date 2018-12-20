@@ -1,14 +1,12 @@
 package co.alexdev.bitsbake.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ItemRecipeLayoutBinding;
 import co.alexdev.bitsbake.model.response.Recipe;
 
@@ -35,13 +33,18 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
 
     @Override
     public int getItemCount() {
-        if (recipes == null) return 0;
+        if(recipes == null) return 0;
         return recipes.size();
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
+        notifyDataSetChanged();
     }
 
     static class RecipeViewHolder extends RecyclerView.ViewHolder {
 
-        private final ItemRecipeLayoutBinding binding;
+        private ItemRecipeLayoutBinding binding;
 
         public RecipeViewHolder(ItemRecipeLayoutBinding itemRecipeLayoutBinding) {
             super(itemRecipeLayoutBinding.getRoot());
@@ -49,7 +52,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
         }
 
         public void bind(Recipe recipe) {
-            binding.tvRecipeName = recipe.getName();
+            binding.tvRecipeName.setText(recipe.getName());
             binding.executePendingBindings();
         }
     }

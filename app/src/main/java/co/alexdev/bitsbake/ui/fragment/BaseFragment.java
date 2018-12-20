@@ -2,20 +2,14 @@ package co.alexdev.bitsbake.ui.fragment;
 
 
 import android.os.Bundle;
-
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import androidx.lifecycle.ViewModelProviders;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
 import co.alexdev.bitsbake.events.NetworkConnectionEvent;
@@ -38,9 +32,10 @@ public class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        vm = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_base, container, false);
-        final View rootView = mBinding.getRoot();
 
+        final View rootView = mBinding.getRoot();
         initView();
 
         mBinding.srLayout.setOnRefreshListener(() -> vm.loadData());
