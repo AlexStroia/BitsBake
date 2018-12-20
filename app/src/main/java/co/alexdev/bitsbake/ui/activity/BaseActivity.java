@@ -38,7 +38,6 @@ public class BaseActivity extends AppCompatActivity {
         setupBroadcastReceiver();
         setupToolbar();
 
-
         vm.getRecipes().observe(this, recipes -> Timber.d("Recipes from database: " + recipes.toString()));
         BitsBakeRepository.getInstance(this).getIngredients().observe(this, ingredients -> Timber.d("Ingredients from database: " + ingredients.toString()));
         BitsBakeRepository.getInstance(this).getSteps().observe(this, steps -> Timber.d("Steps from database: " + steps.toString()));
@@ -84,7 +83,8 @@ public class BaseActivity extends AppCompatActivity {
     public void onNetworkStateChanged(NetworkConnectionEvent event) {
         Timber.d("NetworkConnectionEvent: " + event.getNetworkState());
         if (event.getNetworkState()) {
-            BitsBakeRepository.getInstance(this).fetchData();
+            //TODO - move tghis logic to VIEW MODEL AND CALL THE VM FROM THE BASE FRAGMENT
+            vm.fetchDataFromNetwork();
         } else {
             Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_LONG).show();
         }
