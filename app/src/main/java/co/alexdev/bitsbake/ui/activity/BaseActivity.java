@@ -15,8 +15,10 @@ import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityBaseBinding;
 import co.alexdev.bitsbake.events.NetworkConnectionEvent;
+import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.receiver.NetworkReceiver;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
+import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 import timber.log.Timber;
 
@@ -27,6 +29,7 @@ public class BaseActivity extends AppCompatActivity {
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
     private MainViewModel vm;
+    private boolean isFirstTimeLoading = true;
     ActivityBaseBinding mBinding;
 
     @Override
@@ -35,12 +38,31 @@ public class BaseActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         vm = ViewModelProviders.of(this).get(MainViewModel.class);
 
+        initView();
+        vm.getNetworkResponse().observe(this, response -> processResponse(response));
+    }
+
+    private void initView() {
         setupBroadcastReceiver();
         setupToolbar();
+        vm.loadData();
+    }
 
-        vm.getRecipes().observe(this, recipes -> Timber.d("Recipes from database: " + recipes.toString()));
-        BitsBakeRepository.getInstance(this).getIngredients().observe(this, ingredients -> Timber.d("Ingredients from database: " + ingredients.toString()));
-        BitsBakeRepository.getInstance(this).getSteps().observe(this, steps -> Timber.d("Steps from database: " + steps.toString()));
+    private void processResponse(NetworkResponse networkResponse) {
+        switch (networkResponse.status) {
+            case Constants.RESPONSE_ERROR:
+                Timber.d("Data error");
+                break;
+
+            case Constants.RESPONSE_LOADING:
+                Timber.d("Data loading");
+                break;
+
+            case Constants.RESPONSE_SUCCES:
+                vm.insertToDatabase(networkResponse.data);
+                Timber.d("Data received");
+                break;
+        }
     }
 
     @Override
@@ -81,12 +103,12 @@ public class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onNetworkStateChanged(NetworkConnectionEvent event) {
-        Timber.d("NetworkConnectionEvent: " + event.getNetworkState());
+        Timber.d("Network: " + event.getNetworkState());
         if (event.getNetworkState()) {
-            //TODO - move tghis logic to VIEW MODEL AND CALL THE VM FROM THE BASE FRAGMENT
-            vm.fetchDataFromNetwork();
-        } else {
-            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_LONG).show();
+            if (!isFirstTimeLoading) {
+                isFirstTimeLoading = false;
+                vm.loadData();
+            }
         }
     }
 }
