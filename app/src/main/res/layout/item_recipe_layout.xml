@@ -1,81 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_300dp"
-        android:layout_marginStart="@dimen/_8dp"
-        android:layout_marginTop="@dimen/_8dp"
-        android:layout_marginEnd="@dimen/_8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="co.alexdev.bitsbake.viewmodel.MainViewModel"/>
+    </data>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_recipe"
-                android:contentDescription="@string/ic_fav_icon"
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_300dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_250dp"
-                android:src="@drawable/nutella_img">
-            </ImageView>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50dp">
-
-                <View
-                    android:id="@+id/view1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/_0dp"
-                    android:layout_marginTop="@dimen/_0dp"
-                    android:layout_marginEnd="@dimen/_0dp"
-                    android:layout_marginBottom="@dimen/_0dp"
-                    android:background="@color/_transparent_black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></View>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_fav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_0dp"
-                    android:layout_marginTop="@dimen/_8dp"
-                    android:layout_marginEnd="@dimen/_8dp"
-                    android:layout_marginBottom="@dimen/_8dp"
+                    android:id="@+id/iv_recipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_250dp"
                     android:contentDescription="@string/ic_fav_icon"
-                    android:paddingStart="@dimen/_8dp"
-                    android:paddingEnd="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/view1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_fav" />
+                    android:src="@drawable/nutella_img"></ImageView>
 
-                <TextView
-                    android:id="@+id/tv_recipe_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8dp"
-                    android:layout_marginTop="@dimen/_8dp"
-                    android:layout_marginBottom="@dimen/_8dp"
-                    android:fontFamily="@font/magicfont"
-                    android:text="@string/tv_recipe_name"
-                    android:textColor="@color/_black"
-                    android:textSize="@dimen/_30sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50dp">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/_0dp"
+                        android:layout_marginTop="@dimen/_0dp"
+                        android:layout_marginEnd="@dimen/_0dp"
+                        android:layout_marginBottom="@dimen/_0dp"
+                        android:background="@color/_transparent_black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></View>
+
+                    <ImageView
+                        android:id="@+id/iv_fav"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_0dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginEnd="@dimen/_8dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:contentDescription="@string/ic_fav_icon"
+                        android:paddingStart="@dimen/_8dp"
+                        android:paddingEnd="@dimen/_8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/view1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_fav" />
+
+                    <TextView
+                        android:id="@+id/tv_recipe_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:layout_marginTop="@dimen/_8dp"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:fontFamily="@font/magicfont"
+                        android:text="@{vm.recipe.name}"
+                        android:textColor="@color/_black"
+                        android:textSize="@dimen/_30sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

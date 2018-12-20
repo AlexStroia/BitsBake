@@ -1,5 +1,8 @@
 package co.alexdev.bitsbake.model.model;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -7,7 +10,7 @@ import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.model.response.Recipe;
 
 @Entity(indices = {@Index(value = {"id"}, unique = true)})
-public class Ingredients {
+public class Ingredients extends BaseObservable {
 
     @PrimaryKey
     @ForeignKey(entity = Recipe.class, parentColumns = "id", childColumns = "id")
@@ -17,14 +20,17 @@ public class Ingredients {
     private String measure;
     private String ingredient;
 
+    @Bindable
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+        notifyPropertyChanged(BR.id);
     }
 
+    @Bindable
     public String getCake() {
         return cake;
     }
@@ -33,28 +39,34 @@ public class Ingredients {
         this.cake = cake;
     }
 
+    @Bindable
     public double getQuantity() {
         return quantity;
     }
 
     public void setQuantity(double quantity) {
         this.quantity = quantity;
+        notifyPropertyChanged(BR.quantity);
     }
 
+    @Bindable
     public String getMeasure() {
         return measure;
     }
 
     public void setMeasure(String measure) {
         this.measure = measure;
+        notifyPropertyChanged(BR.measure);
     }
 
+    @Bindable
     public String getIngredient() {
         return ingredient;
     }
 
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
+        notifyPropertyChanged(BR.ingredient);
     }
 
     @Override

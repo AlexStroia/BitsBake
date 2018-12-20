@@ -22,5 +22,4 @@ public class IngredientsFragment extends BaseFragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_recipe_ingredients, container, false);
     }
-
 }

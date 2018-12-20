@@ -82,6 +82,7 @@ public class BaseFragment extends Fragment {
                 if (isRefreshing()) mBinding.srLayout.setRefreshing(false);
                 mBinding.progressBar.setVisibility(View.GONE);
                 Timber.d("Data received");
+
                 break;
         }
     }

@@ -11,15 +11,7 @@ import co.alexdev.bitsbake.model.model.Ingredients;
 import co.alexdev.bitsbake.model.model.Steps;
 import co.alexdev.bitsbake.model.response.Recipe;
 import co.alexdev.bitsbake.networking.RetrofitClient;
-import co.alexdev.bitsbake.utils.BitsBakeUtils;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class BitsBakeRepository {
 
@@ -63,6 +55,18 @@ public class BitsBakeRepository {
 
     public LiveData<List<Steps>> getSteps() {
         return mDatabase.recipeDao().getSteps();
+    }
+
+    public LiveData<Ingredients> getIngredient(int id) {
+        return mDatabase.recipeDao().getIngredient(id);
+    }
+
+    public LiveData<Recipe> getRecipe(int id) {
+        return mDatabase.recipeDao().getRecipe(id);
+    }
+
+    public LiveData<Steps> getSteps(int id) {
+        return mDatabase.recipeDao().getStep(id);
     }
 
     public void deleteFromFavorite(Recipe recipe) {

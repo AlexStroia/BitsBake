@@ -1,9 +1,6 @@
 package co.alexdev.bitsbake.viewmodel;
 
 import android.app.Application;
-import android.widget.Toast;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -11,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import co.alexdev.bitsbake.model.model.Ingredients;
 import co.alexdev.bitsbake.model.model.Steps;
 import co.alexdev.bitsbake.model.response.Recipe;
@@ -26,7 +24,7 @@ public class MainViewModel extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
-    private List<Recipe> recipeList;
+    public Recipe recipe;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -62,7 +60,6 @@ public class MainViewModel extends AndroidViewModel {
                     @Override
                     public void onSuccess(List<Recipe> recipes) {
                         mNetworkResponse.setValue(NetworkResponse.success(recipes));
-                        recipeList = recipes;
                     }
 
                     @Override
@@ -83,10 +80,6 @@ public class MainViewModel extends AndroidViewModel {
             mRepository.insertStepsToDatabase(steps);
         }
         mRepository.insertRecipesToDatabase(formatedRecipes);
-    }
-
-    public List<Recipe> getRecipeList() {
-        return recipeList;
     }
 
     private void markAsFavorite(Recipe recipe) {
