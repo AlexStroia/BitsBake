@@ -14,18 +14,13 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IngredientsFragment extends Fragment {
-
-
-    public IngredientsFragment() {
-        // Required empty public constructor
-    }
-
+public class IngredientsFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ingredients, container, false);
+        return inflater.inflate(R.layout.fragment_recipe_ingredients, container, false);
     }
+
 }

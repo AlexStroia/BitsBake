@@ -28,41 +28,17 @@ public class BaseActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
-    private MainViewModel vm;
-    private boolean isFirstTimeLoading = true;
-    ActivityBaseBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
-        vm = ViewModelProviders.of(this).get(MainViewModel.class);
-
+        setContentView(R.layout.activity_base);
         initView();
-        vm.getNetworkResponse().observe(this, response -> processResponse(response));
     }
 
     private void initView() {
         setupBroadcastReceiver();
         setupToolbar();
-        vm.loadData();
-    }
-
-    private void processResponse(NetworkResponse networkResponse) {
-        switch (networkResponse.status) {
-            case Constants.RESPONSE_ERROR:
-                Timber.d("Data error");
-                break;
-
-            case Constants.RESPONSE_LOADING:
-                Timber.d("Data loading");
-                break;
-
-            case Constants.RESPONSE_SUCCES:
-                vm.insertToDatabase(networkResponse.data);
-                Timber.d("Data received");
-                break;
-        }
     }
 
     @Override
@@ -77,18 +53,6 @@ public class BaseActivity extends AppCompatActivity {
         unregisterReceiver(mNetworkReceiver);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
     private void setupToolbar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -99,17 +63,6 @@ public class BaseActivity extends AppCompatActivity {
         mNetworkReceiver = new NetworkReceiver();
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(INTENT_FILTER_STRING);
-    }
-
-    @Subscribe
-    public void onNetworkStateChanged(NetworkConnectionEvent event) {
-        Timber.d("Network: " + event.getNetworkState());
-        if (event.getNetworkState()) {
-            if (!isFirstTimeLoading) {
-                isFirstTimeLoading = false;
-                vm.loadData();
-            }
-        }
     }
 }
 

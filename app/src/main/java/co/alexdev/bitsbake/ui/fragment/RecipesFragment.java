@@ -2,7 +2,9 @@ package co.alexdev.bitsbake.ui.fragment;
 
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,10 @@ import co.alexdev.bitsbake.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecipeFragment extends BaseFragment {
+public class RecipesFragment extends BaseFragment {
 
 
-    public RecipeFragment() {
+    public RecipesFragment() {
         // Required empty public constructor
     }
 
@@ -27,5 +29,4 @@ public class RecipeFragment extends BaseFragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_recipes, container, false);
     }
-
 }

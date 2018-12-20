@@ -1,8 +1,12 @@
 package co.alexdev.bitsbake.utils;
 
+import android.app.AlertDialog;
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.model.model.Ingredients;
 import co.alexdev.bitsbake.model.model.Steps;
 import co.alexdev.bitsbake.model.response.Recipe;
@@ -28,5 +32,18 @@ public class BitsBakeUtils {
             recipeList.add(recipe);
         }
         return recipeList;
+    }
+
+    public static void showAlert(Context context, String message) {
+        final String ok_message = context.getResources().getString(R.string.ok);
+        final String error_title = context.getResources().getString(R.string.alert_title_error);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                .setTitle(error_title)
+                .setMessage(message)
+                .setPositiveButton(ok_message, null)
+                .setIcon(context.getResources().getDrawable(android.R.drawable.ic_dialog_alert));
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
