@@ -24,6 +24,8 @@ public class Recipe {
     @SerializedName("steps")
     private List<Steps> steps;
     private boolean isFavorite;
+    private int servings;
+    private String image;
 
     public int getId() {
         return id;
@@ -65,6 +67,22 @@ public class Recipe {
         isFavorite = favorite;
     }
 
+    public int getServings() {
+        return servings;
+    }
+
+    public void setServings(int servings) {
+        this.servings = servings;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -73,6 +91,8 @@ public class Recipe {
                 ", ingredients=" + ingredients +
                 ", steps=" + steps +
                 ", isFavorite=" + isFavorite +
+                ", servings=" + servings +
+                ", image='" + image + '\'' +
                 '}';
     }
 }
