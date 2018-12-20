@@ -66,12 +66,15 @@
 
                 <ImageView
                     android:id="@+id/iv_fav"
-                    android:layout_width="@dimen/_50dp"
-                    android:layout_height="@dimen/_50dp"
+                    android:layout_width="@dimen/_40dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginEnd="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_8dp"
                     android:contentDescription="@string/ic_fav_icon"
                     app:layout_constraintBottom_toBottomOf="@+id/view"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/view"
                     app:srcCompat="@drawable/ic_fav" />
 
                 <TextView
