@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="vm"
-            type="co.alexdev.bitsbake.viewmodel.MainViewModel"/>
+            type="co.alexdev.bitsbake.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent">
 
         <androidx.cardview.widget.CardView
@@ -34,52 +35,74 @@
 
                 <ImageView
                     android:id="@+id/iv_recipe"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/nutella_pie"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_0dp"
                     android:contentDescription="@string/ic_fav_icon"
-                    android:src="@drawable/nutella_pie"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
-                    android:id="@+id/view1"
-                    android:layout_width="0dp"
+                    android:id="@+id/view_overlay"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_0dp"
+                    android:alpha="0.3"
+                    android:background="@color/custom_red"
+                    app:layout_constraintBottom_toTopOf="@+id/view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="@dimen/_0dp"
                     android:layout_height="@dimen/_50dp"
-                    android:layout_marginStart="@dimen/_8dp"
-                    android:layout_marginEnd="@dimen/_8dp"
-                    android:layout_marginBottom="@dimen/_8dp"
-                    android:alpha="0.75"
+                    android:alpha="0.8"
+                    android:background="@color/custom_red"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_fav"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="@dimen/_50dp"
                     android:layout_marginEnd="@dimen/_8dp"
-                    android:layout_marginBottom="@dimen/_8dp"
                     android:contentDescription="@string/ic_fav_icon"
-                    android:paddingStart="@dimen/_8dp"
-                    android:paddingEnd="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/view1"
+                    app:layout_constraintBottom_toBottomOf="@+id/view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/ic_fav" />
 
                 <TextView
                     android:id="@+id/tv_recipe_name"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:fontFamily="@font/magicfont"
-                    android:textColor="@color/_black"
-                    android:textSize="@dimen/_30sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/iv_recipe" />
+                    android:text="@string/tv_recipe_name"
+                    android:textColor="@color/_white"
+                    android:textSize="@dimen/_20sp"
+                    app:layout_constraintBottom_toBottomOf="@id/view"
+                    app:layout_constraintStart_toStartOf="@id/iv_recipe"
+                    app:layout_constraintTop_toTopOf="@+id/view" />
+
+                <TextView
+                    android:id="@+id/tv_servings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginEnd="@dimen/_8dp"
+                    android:drawableEnd="@drawable/ic_fork"
+                    android:fontFamily="@font/grinchedregular"
+                    android:textColor="@color/_white"
+                    android:textSize="@dimen/_20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

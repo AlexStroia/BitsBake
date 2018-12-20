@@ -80,6 +80,7 @@ public class Recipe extends BaseObservable {
 
     public void setServings(int servings) {
         this.servings = servings;
+        notifyPropertyChanged(BR.servings);
     }
 
     public String getImage() {

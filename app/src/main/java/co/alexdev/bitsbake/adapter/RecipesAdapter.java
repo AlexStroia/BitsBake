@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.databinding.ItemRecipeLayoutBinding;
 import co.alexdev.bitsbake.model.response.Recipe;
+import timber.log.Timber;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder> {
 
@@ -53,6 +54,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
 
         public void bind(Recipe recipe) {
             binding.tvRecipeName.setText(recipe.getName());
+            binding.tvServings.setText(String.valueOf(recipe.getServings()));
             binding.executePendingBindings();
         }
     }

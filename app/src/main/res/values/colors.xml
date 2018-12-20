@@ -19,4 +19,5 @@
     <color name="_white">#ffffff</color>
     <color name="_orange">#ffa500</color>
     <color name="custom_red">#d6030c</color>
+    <color name="top_red">#ff3232</color>
 </resources>

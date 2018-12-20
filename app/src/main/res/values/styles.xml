@@ -10,7 +10,7 @@
 
     <style name="CustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
-        <item name="colorPrimaryDark">@color/primary</item>
+        <item name="colorPrimaryDark">@color/top_red</item>
     </style>
 
 </resources>
