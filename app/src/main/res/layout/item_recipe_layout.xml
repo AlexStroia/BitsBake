@@ -12,8 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -21,8 +20,8 @@
             android:layout_marginStart="@dimen/_8dp"
             android:layout_marginTop="@dimen/_8dp"
             android:layout_marginEnd="@dimen/_8dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="@dimen/_8dp"
+            app:cardCornerRadius="@dimen/_30dp"
+            android:elevation="@dimen/_30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +29,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"
                 android:orientation="vertical">
 
                 <ImageView
@@ -68,12 +66,15 @@
 
                 <ImageView
                     android:id="@+id/iv_fav"
-                    android:layout_width="@dimen/_50dp"
-                    android:layout_height="@dimen/_50dp"
+                    android:layout_width="@dimen/_40dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginEnd="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_8dp"
                     android:contentDescription="@string/ic_fav_icon"
                     app:layout_constraintBottom_toBottomOf="@+id/view"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/view"
                     app:srcCompat="@drawable/ic_fav" />
 
                 <TextView
@@ -84,9 +85,6 @@
                     android:layout_marginTop="@dimen/_8dp"
                     android:fontFamily="@font/magicfont"
                     android:shadowColor="@color/_white"
-                    android:shadowDx="@dimen/__0"
-                    android:shadowDy="@dimen/__0"
-                    android:shadowRadius="5"
                     android:text="@string/tv_recipe_name"
                     android:textColor="@color/_white"
                     android:textSize="@dimen/_20sp"
@@ -100,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginEnd="@dimen/_8dp"
-                    android:drawableEnd="@drawable/ic_fork"
+                    android:drawableEnd="@drawable/ic_fork_spoon"
                     android:fontFamily="@font/grinchedregular"
                     android:textColor="@color/_white"
                     android:textSize="@dimen/_20sp"

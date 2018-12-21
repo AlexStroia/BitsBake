@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">BitsBake</string>
+    <string name="app_name">BITS BAKE</string>
     <string name="ingredients">Ingredients</string>
     <string name="description" tools:ignore="ExtraTranslation">Description </string>
     <string name="quantity">Quantity</string>
