@@ -35,9 +35,9 @@
 
                 <ImageView
                     android:id="@+id/iv_recipe"
-                    android:background="@drawable/nutella_pie"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="@dimen/_0dp"
+                    android:background="@drawable/nutella_pie"
                     android:contentDescription="@string/ic_fav_icon"
                     app:layout_constraintBottom_toTopOf="@+id/view"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -83,13 +83,13 @@
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:fontFamily="@font/magicfont"
-                    android:text="@string/tv_recipe_name"
-                    android:textColor="@color/_white"
-                    android:textSize="@dimen/_20sp"
                     android:shadowColor="@color/_white"
                     android:shadowDx="@dimen/__0"
                     android:shadowDy="@dimen/__0"
                     android:shadowRadius="5"
+                    android:text="@string/tv_recipe_name"
+                    android:textColor="@color/_white"
+                    android:textSize="@dimen/_20sp"
                     app:layout_constraintBottom_toBottomOf="@id/view"
                     app:layout_constraintStart_toStartOf="@id/iv_recipe"
                     app:layout_constraintTop_toTopOf="@+id/view" />
