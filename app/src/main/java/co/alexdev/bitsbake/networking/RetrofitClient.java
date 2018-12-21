@@ -21,9 +21,7 @@ public class RetrofitClient {
 
     private RetrofitClient() {
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(logginInterceptor -> {
-            Timber.d(logginInterceptor);
-        });
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(logginInterceptor -> Timber.d(logginInterceptor));
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         BitsBakeInterceptor bitsBakeInterceptor = new BitsBakeInterceptor();

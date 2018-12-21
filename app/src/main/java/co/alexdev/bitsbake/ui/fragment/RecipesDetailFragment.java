@@ -16,11 +16,7 @@ import android.view.ViewGroup;
  */
 public class RecipesDetailFragment extends BaseFragment {
 
-
-    public RecipesDetailFragment() {
-        // Required empty public constructor
-    }
-
+    int recipeID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,4 +25,7 @@ public class RecipesDetailFragment extends BaseFragment {
         return inflater.inflate(R.layout.fragment_recipe_detail, container, false);
     }
 
+    public void setRecipeId(int id) {
+        recipeID = id;
+    }
 }

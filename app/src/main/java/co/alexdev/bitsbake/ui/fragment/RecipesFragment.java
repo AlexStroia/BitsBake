@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -16,7 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.RecipesAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipesBinding;
+import co.alexdev.bitsbake.events.OnRecipeClickEvent;
 import co.alexdev.bitsbake.model.response.Recipe;
+import co.alexdev.bitsbake.ui.activity.BaseActivity;
+import co.alexdev.bitsbake.utils.Listeners;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 import timber.log.Timber;
 
@@ -24,7 +30,7 @@ import timber.log.Timber;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecipesFragment extends BaseFragment {
+public class RecipesFragment extends BaseFragment implements Listeners.RecipeClickListener {
 
     private RecipesAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -43,7 +49,7 @@ public class RecipesFragment extends BaseFragment {
 
     private void initRecycler() {
         mLayoutManager = new LinearLayoutManager(this.getActivity());
-        mAdapter = new RecipesAdapter(new ArrayList<>());
+        mAdapter = new RecipesAdapter(new ArrayList<>(), this);
         mBinding.rvRecipes.setLayoutManager(mLayoutManager);
         mBinding.rvRecipes.setAdapter(mAdapter);
         vm.getRecipes().observe(this.getActivity(), recipes -> {
@@ -52,5 +58,11 @@ public class RecipesFragment extends BaseFragment {
                 Timber.d(recipe.getName());
             }
         });
+    }
+
+    @Override
+    public void onRecipeClick(int position) {
+        RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
+        EventBus.getDefault().postSticky(new OnRecipeClickEvent(position));
     }
 }
