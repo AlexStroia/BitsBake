@@ -8,56 +8,55 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/custom_toolbar"
-            android:layout_width="@dimen/_0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_0dp"
-            android:layout_marginTop="@dimen/_0dp"
-            android:layout_marginEnd="@dimen/_0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <include
+                android:id="@+id/include"
+                layout="@layout/custom_toolbar"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_0dp"
+                android:layout_marginTop="@dimen/_0dp"
+                android:layout_marginEnd="@dimen/_0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/sr_layout"
-            app:layout_constraintEnd_toEndOf="@+id/sr_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/sr_layout" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/sr_layout"
+                app:layout_constraintEnd_toEndOf="@+id/sr_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/sr_layout" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/sr_layout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include">
-
-            <FrameLayout
-                android:id="@+id/fragment_container"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/sr_layout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:layout_marginBottom="@dimen/_8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/include"
-                tools:context=".ui.fragment.BaseFragment" />
+                app:layout_constraintTop_toBottomOf="@+id/include">
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                <FrameLayout
+                    android:id="@+id/fragment_container"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/include"
+                    tools:context=".ui.fragment.BaseFragment" />
 
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

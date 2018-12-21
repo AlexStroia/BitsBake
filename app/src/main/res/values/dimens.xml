@@ -2,11 +2,13 @@
 <resources>
     <!--DP's-->
     <dimen name="_0dp">0dp</dimen>
+    <dimen name="_1dp">1dp</dimen>
     <dimen name="_8dp">8dp</dimen>
     <dimen name="_25dp">25dp</dimen>
     <dimen name="_30dp">30dp</dimen>
     <dimen name="_40dp">40dp</dimen>
     <dimen name="_50dp">50dp</dimen>
+    <dimen name="_100dp">120dp</dimen>
     <dimen name="_200dp">200dp</dimen>
     <dimen name="_250dp">250dp</dimen>
     <dimen name="_300dp">300dp</dimen>
@@ -20,6 +22,7 @@
     <!--Sisez-->
     <dimen name="__0">0</dimen>
     <dimen name="_03">0.3</dimen>
+    <dimen name="_05">0.5</dimen>
     <dimen name="_08">0.8</dimen>
     <dimen name="_radius_5">5</dimen>
 </resources>
