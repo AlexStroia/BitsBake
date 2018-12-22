@@ -2,15 +2,15 @@ package co.alexdev.bitsbake.model.model;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import co.alexdev.bitsbake.BR;
 import co.alexdev.bitsbake.model.response.Recipe;
 
 @Entity(indices = {@Index(value = {"id"}, unique = true)})
-public class Ingredients extends BaseObservable {
+public class Ingredient extends BaseObservable {
 
     @PrimaryKey
     @ForeignKey(entity = Recipe.class, parentColumns = "id", childColumns = "id")
@@ -71,7 +71,7 @@ public class Ingredients extends BaseObservable {
 
     @Override
     public String toString() {
-        return "Ingredients{" +
+        return "Ingredient{" +
                 "id=" + id +
                 ", cake='" + cake + '\'' +
                 ", quantity=" + quantity +

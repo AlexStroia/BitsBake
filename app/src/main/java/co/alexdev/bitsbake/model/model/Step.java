@@ -10,7 +10,7 @@ import co.alexdev.bitsbake.BR;
 import co.alexdev.bitsbake.model.response.Recipe;
 
 @Entity(indices = {@Index(value = {"id"}, unique = true)})
-public class Steps extends BaseObservable {
+public class Step extends BaseObservable {
 
     @PrimaryKey
     @ForeignKey(entity = Recipe.class, parentColumns = "id", childColumns = "id")
@@ -81,7 +81,7 @@ public class Steps extends BaseObservable {
 
     @Override
     public String toString() {
-        return "Steps{" +
+        return "Step{" +
                 "id=" + id +
                 ", cake='" + cake + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +

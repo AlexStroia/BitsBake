@@ -7,8 +7,8 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import co.alexdev.bitsbake.database.RecipeDatabase;
 import co.alexdev.bitsbake.model.model.AppExecutors;
-import co.alexdev.bitsbake.model.model.Ingredients;
-import co.alexdev.bitsbake.model.model.Steps;
+import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
 import co.alexdev.bitsbake.networking.RetrofitClient;
 import io.reactivex.Single;
@@ -33,7 +33,7 @@ public class BitsBakeRepository {
         return RetrofitClient.getInstance().getBakeService().getRecipe();
     }
 
-    public void insertIngredientsToDatabase(List<Ingredients> ingredients) {
+    public void insertIngredientsToDatabase(List<Ingredient> ingredients) {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().insertIngredients(ingredients));
     }
 
@@ -41,7 +41,7 @@ public class BitsBakeRepository {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().insertRecipes(recipes));
     }
 
-    public void insertStepsToDatabase(List<Steps> steps) {
+    public void insertStepsToDatabase(List<Step> steps) {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().insertSteps(steps));
     }
 
@@ -49,15 +49,15 @@ public class BitsBakeRepository {
         return mDatabase.recipeDao().getRecipes();
     }
 
-    public LiveData<List<Ingredients>> getIngredients() {
+    public LiveData<List<Ingredient>> getIngredients() {
         return mDatabase.recipeDao().getIngredients();
     }
 
-    public LiveData<List<Steps>> getSteps() {
+    public LiveData<List<Step>> getSteps() {
         return mDatabase.recipeDao().getSteps();
     }
 
-    public LiveData<Ingredients> getIngredient(int id) {
+    public LiveData<Ingredient> getIngredient(int id) {
         return mDatabase.recipeDao().getIngredient(id);
     }
 
@@ -65,7 +65,7 @@ public class BitsBakeRepository {
         return mDatabase.recipeDao().getRecipe(id);
     }
 
-    public LiveData<Steps> getSteps(int id) {
+    public LiveData<Step> getSteps(int id) {
         return mDatabase.recipeDao().getStep(id);
     }
 

@@ -10,8 +10,8 @@ import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import co.alexdev.bitsbake.model.model.Ingredients;
-import co.alexdev.bitsbake.model.model.Steps;
+import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.model.Step;
 
 /*Response Class */
 @Entity
@@ -22,10 +22,10 @@ public class Recipe extends BaseObservable {
     private String name;
     @Ignore
     @SerializedName("ingredients")
-    private List<Ingredients> ingredients;
+    private List<Ingredient> ingredients;
     @Ignore
     @SerializedName("steps")
-    private List<Steps> steps;
+    private List<Step> steps;
     private boolean isFavorite;
     private int servings;
     private String image;
@@ -48,19 +48,19 @@ public class Recipe extends BaseObservable {
         notifyPropertyChanged(BR.name);
     }
 
-    public List<Ingredients> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredients> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public List<Steps> getSteps() {
+    public List<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(List<Steps> steps) {
+    public void setSteps(List<Step> steps) {
         this.steps = steps;
     }
 
@@ -96,7 +96,7 @@ public class Recipe extends BaseObservable {
         return "Recipe{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", ingredients=" + ingredients +
+                ", ingredient=" + ingredients +
                 ", steps=" + steps +
                 ", isFavorite=" + isFavorite +
                 ", servings=" + servings +

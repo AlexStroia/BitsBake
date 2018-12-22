@@ -7,27 +7,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.alexdev.bitsbake.R;
-import co.alexdev.bitsbake.model.model.Ingredients;
-import co.alexdev.bitsbake.model.model.Steps;
+import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
 import timber.log.Timber;
 
 public class BitsBakeUtils {
     /*Ignore the id which comes from the API and use the main id from the Recipe
-     * This way we can assure that we can make a connection between the recipe and ingredients and steps */
+     * This way we can assure that we can make a connection between the recipe and ingredient and steps */
     public static List<Recipe> formatRecipes(List<Recipe> recipes) {
         List<Recipe> recipeList = new ArrayList<>();
         for (Recipe recipe : recipes) {
             Timber.d(recipe.getName());
-            /*Set the ingredients id same with the recipe id*/
-            for (Ingredients ingredients : recipe.getIngredients()) {
-                ingredients.setId(recipe.getId());
-                Timber.d(ingredients.getCake() + " | " + ingredients.getMeasure() + " | " + ingredients.getIngredient());
+            List<Ingredient> ingredients = recipe.getIngredients();
+            List<Step> steps = recipe.getSteps();
+            /*Set the ingredient id same with the recipe id*/
+            for (Ingredient ingredient : ingredients) {
+                if (ingredients.size() > 0) {
+                    ingredient.setId(recipe.getId());
+                    Timber.d(ingredient.getCake() + " | " + ingredient.getMeasure() + " | " + ingredient.getIngredient());
+                }
             }
             /*set steps id with recipe id */
-            for (Steps steps : recipe.getSteps()) {
-                steps.setId(recipe.getId());
-                Timber.d(steps.getDescription());
+            for (Step step : steps) {
+                if (steps.size() > 0) {
+                    step.setId(recipe.getId());
+                    Timber.d(step.getDescription());
+                }
             }
             recipeList.add(recipe);
         }

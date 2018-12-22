@@ -7,8 +7,8 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import co.alexdev.bitsbake.model.model.Ingredients;
-import co.alexdev.bitsbake.model.model.Steps;
+import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
@@ -16,11 +16,11 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 @Dao
 public interface RecipeDao {
 
-    @Query("SELECT * FROM ingredients")
-    LiveData<List<Ingredients>> getIngredients();
+    @Query("SELECT * FROM Ingredient")
+    LiveData<List<Ingredient>> getIngredients();
 
-    @Query("SELECT * FROM Steps")
-    LiveData<List<Steps>> getSteps();
+    @Query("SELECT * FROM Step")
+    LiveData<List<Step>> getSteps();
 
     @Query("SELECT * FROM Recipe")
     LiveData<List<Recipe>> getRecipes();
@@ -28,20 +28,20 @@ public interface RecipeDao {
     @Query("SELECT * FROM RECIPE where id = :id")
     LiveData<Recipe> getRecipe(int id);
 
-    @Query("SELECT * FROM INGREDIENTS where id = :id")
-    LiveData<Ingredients> getIngredient(int id);
+    @Query("SELECT * FROM Ingredient where id = :id")
+    LiveData<Ingredient> getIngredient(int id);
 
-    @Query("SELECT * FROM Steps where id = :id")
-    LiveData<Steps> getStep(int id);
+    @Query("SELECT * FROM Step where id = :id")
+    LiveData<Step> getStep(int id);
 
     @Insert(onConflict = REPLACE)
     void insertRecipes(List<Recipe> recipes);
 
     @Insert(onConflict = REPLACE)
-    void insertIngredients(List<Ingredients> ingredients);
+    void insertIngredients(List<Ingredient> ingredients);
 
     @Insert(onConflict = REPLACE)
-    void insertSteps(List<Steps> steps);
+    void insertSteps(List<Step> steps);
 
     @Delete
     void deleteFromFavorite(Recipe recipe);

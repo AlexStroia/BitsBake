@@ -5,11 +5,11 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import co.alexdev.bitsbake.model.model.Ingredients;
-import co.alexdev.bitsbake.model.model.Steps;
+import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
 
-@Database(entities = {Recipe.class, Ingredients.class, Steps.class}, version = 1, exportSchema = false)
+@Database(entities = {Recipe.class, Ingredient.class, Step.class}, version = 1, exportSchema = false)
 public abstract class RecipeDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "BITSBAKE_DATABASE";

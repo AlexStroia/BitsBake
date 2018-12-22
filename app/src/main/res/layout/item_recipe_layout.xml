@@ -74,12 +74,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginEnd="@dimen/_8dp"
                     android:fontFamily="@font/magicfont"
                     android:shadowColor="@color/_white"
                     android:text="@string/tv_recipe_name"
                     android:textColor="@color/_white"
-                    android:textSize="@dimen/_25sp"
+                    android:textSize="@dimen/_20sp"
                     app:layout_constraintBottom_toBottomOf="@id/view"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_fav"
                     app:layout_constraintStart_toStartOf="@id/iv_recipe"
                     app:layout_constraintTop_toTopOf="@+id/view" />
 

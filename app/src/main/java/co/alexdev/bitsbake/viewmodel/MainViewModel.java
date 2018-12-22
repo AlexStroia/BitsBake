@@ -8,8 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import co.alexdev.bitsbake.model.model.Ingredients;
-import co.alexdev.bitsbake.model.model.Steps;
+import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
@@ -18,12 +18,14 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class MainViewModel extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
     public Recipe recipe;
+    public Ingredient ingredient;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -34,11 +36,11 @@ public class MainViewModel extends AndroidViewModel {
         return mRepository.getRecipes();
     }
 
-    public LiveData<List<Ingredients>> getIngredients() {
+/*    public LiveData<List<Ingredient>> getIngredient() {
         return mRepository.getIngredients();
-    }
+    }*/
 
-    public LiveData<List<Steps>> getSteps() {
+    public LiveData<List<Step>> getSteps() {
         return mRepository.getSteps();
     }
 
@@ -69,11 +71,12 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void insertToDatabase(List<Recipe> recipes) {
+        Timber.d("Recipes: " + recipes.toString());
         List<Recipe> formatedRecipes = BitsBakeUtils.formatRecipes(recipes);
 
         for (Recipe recipe : formatedRecipes) {
-            List<Steps> steps = recipe.getSteps();
-            List<Ingredients> ingredients = recipe.getIngredients();
+            List<Step> steps = recipe.getSteps();
+            List<Ingredient> ingredients = recipe.getIngredients();
 
             mRepository.insertIngredientsToDatabase(ingredients);
             mRepository.insertStepsToDatabase(steps);
