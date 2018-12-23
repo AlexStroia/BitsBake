@@ -19,7 +19,6 @@ import co.alexdev.bitsbake.viewmodel.MainViewModel;
 import timber.log.Timber;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -44,11 +43,9 @@ public class RecipesDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         initView(container);
         initRecycler();
-        loadDataForRecycler();
         initBottomNavigationView();
 
         return rootView;
@@ -64,56 +61,48 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void initRecycler() {
-        mIngredientsAdapter = new IngredientsAdapter(new ArrayList<>());
-        mLayoutManager = new LinearLayoutManager(this.getActivity());
-        mBinding.rvDetails.setLayoutManager(mLayoutManager);
-        mBinding.rvDetails.setAdapter(mIngredientsAdapter);
-    }
-
-    private void loadDataForRecycler() {
         Bundle args = getArguments();
         String recipeName = getString(R.string.recipe_name);
         if (args != null && args.containsKey(recipeName)) {
             String name = args.getString(recipeName);
             switch (mRecyclerViewType) {
                 case Constants.RECYCLER_INGREDIENT_LAYOUT:
+                    configureIngredientsAdapter();
                     canScroll = false;
                     LiveData<List<Ingredient>> ingredientsObserver = vm.getIngredientsByName(name);
-                    ingredientsObserver.observe(this, ingredients -> {
-                        initRecycler();
-                        mIngredientsAdapter.setList(ingredients);
-                    });
+                    ingredientsObserver.observe(this, ingredients -> mIngredientsAdapter.setList(ingredients));
                     break;
 
                 case Constants.RECYCLER_STEPS_LAYOUT:
+                    configureStepsAdapter();
+                    canScroll = true;
                     LiveData<List<Step>> stepObserver = vm.getStepsByName(name);
-                    stepObserver.observe(this, steps -> {
-                        canScroll = true;
-                        mStepsAdapter = new StepsAdapter(new ArrayList<>());
-                        mBinding.rvDetails.setAdapter(mStepsAdapter);
-                        Timber.d("Steps: " + steps);
-                        mStepsAdapter.setList(steps);
-                    });
+                    stepObserver.observe(this, steps -> mStepsAdapter.setList(steps));
                     break;
             }
             mBinding.rvDetails.setOnTouchListener((view, motionEvent) -> canScroll);
         }
     }
 
+    private void configureIngredientsAdapter() {
+        mIngredientsAdapter = new IngredientsAdapter(new ArrayList<>());
+        mLayoutManager = new LinearLayoutManager(this.getActivity());
+        mBinding.rvDetails.setLayoutManager(mLayoutManager);
+        mBinding.rvDetails.setAdapter(mIngredientsAdapter);
+    }
+
+    private void configureStepsAdapter() {
+        mStepsAdapter = new StepsAdapter(new ArrayList<>());
+        mLayoutManager = new LinearLayoutManager(this.getActivity());
+        mBinding.rvDetails.setLayoutManager(mLayoutManager);
+        mBinding.rvDetails.setAdapter(mStepsAdapter);
+    }
+
     private void initBottomNavigationView() {
         mBinding.bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
             int menuID = menuItem.getItemId();
-            switch (menuID) {
-                case R.id.mnu_igredients:
-                    mRecyclerViewType = Constants.RECYCLER_INGREDIENT_LAYOUT;
-                    loadDataForRecycler();
-                    break;
-
-                case R.id.mnu_description:
-                    mRecyclerViewType = Constants.RECYCLER_STEPS_LAYOUT;
-                    loadDataForRecycler();
-                    break;
-            }
+            mRecyclerViewType = (menuID == R.id.mnu_igredients) ? Constants.RECYCLER_INGREDIENT_LAYOUT : Constants.RECYCLER_STEPS_LAYOUT;
+            initRecycler();
             return true;
         });
     }
