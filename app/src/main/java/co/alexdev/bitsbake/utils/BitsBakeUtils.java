@@ -5,8 +5,6 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
@@ -21,17 +19,20 @@ public class BitsBakeUtils {
             Timber.d(recipe.getName());
             List<Ingredient> ingredients = recipe.getIngredients();
             List<Step> steps = recipe.getSteps();
+            String cakeName = recipe.getName();
             /*Set the ingredient id same with the recipe id*/
             for (Ingredient ingredient : ingredients) {
                 if (ingredients.size() > 0) {
                     ingredient.setId(recipe.getId());
-                    Timber.d(ingredient.getCake() + " | " + ingredient.getMeasure() + " | " + ingredient.getIngredient());
+                    ingredient.setCake(cakeName);
+                    Timber.d(ingredient.getId() + " | " + ingredient.getMeasure() + " | " + ingredient.getIngredient());
                 }
             }
             /*set steps id with recipe id */
             for (Step step : steps) {
                 if (steps.size() > 0) {
                     step.setId(recipe.getId());
+                    step.setCake(cakeName);
                     Timber.d(step.getDescription());
                 }
             }
@@ -41,7 +42,7 @@ public class BitsBakeUtils {
     }
 
     public static void showAlert(Context context, String message) {
-        final String ok_message = context.getResources().getString(R.string.ok);
+/*        final String ok_message = context.getResources().getString(R.string.ok);
         final String error_title = context.getResources().getString(R.string.alert_title_error);
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setTitle(error_title)
@@ -50,6 +51,6 @@ public class BitsBakeUtils {
                 .setIcon(context.getResources().getDrawable(android.R.drawable.ic_dialog_alert));
 
         AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+      //  alertDialog.show();*/
     }
 }

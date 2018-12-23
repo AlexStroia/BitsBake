@@ -57,8 +57,8 @@ public class BitsBakeRepository {
         return mDatabase.recipeDao().getSteps();
     }
 
-    public LiveData<Ingredient> getIngredient(int id) {
-        return mDatabase.recipeDao().getIngredient(id);
+    public LiveData<List<Ingredient>> getIngredientsByCake(String cake) {
+        return mDatabase.recipeDao().getIngredientsByCakeName(cake);
     }
 
     public LiveData<Recipe> getRecipe(int id) {

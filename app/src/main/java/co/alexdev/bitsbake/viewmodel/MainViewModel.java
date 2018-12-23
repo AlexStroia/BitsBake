@@ -36,12 +36,16 @@ public class MainViewModel extends AndroidViewModel {
         return mRepository.getRecipes();
     }
 
-/*    public LiveData<List<Ingredient>> getIngredient() {
+    public LiveData<List<Ingredient>> getIngredient() {
         return mRepository.getIngredients();
-    }*/
+    }
 
     public LiveData<List<Step>> getSteps() {
         return mRepository.getSteps();
+    }
+
+    public LiveData<List<Ingredient>> getIngredientsByCake(String cake) {
+        return mRepository.getIngredientsByCake(cake);
     }
 
     public MutableLiveData<NetworkResponse> getNetworkResponse() {

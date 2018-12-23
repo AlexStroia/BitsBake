@@ -2,13 +2,13 @@ package co.alexdev.bitsbake.events;
 
 public class OnRecipeClickEvent {
 
-    int position;
+    private String recipeName;
 
-    public OnRecipeClickEvent(int position) {
-        this.position = position;
+    public OnRecipeClickEvent(String recipeName) {
+        this.recipeName = recipeName;
     }
 
-    public int getPosition() {
-        return position;
+    public String getRecipeName() {
+        return recipeName;
     }
 }

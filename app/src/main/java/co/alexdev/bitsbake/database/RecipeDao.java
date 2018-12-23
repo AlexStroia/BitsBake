@@ -28,8 +28,8 @@ public interface RecipeDao {
     @Query("SELECT * FROM RECIPE where id = :id")
     LiveData<Recipe> getRecipe(int id);
 
-    @Query("SELECT * FROM Ingredient where id = :id")
-    LiveData<Ingredient> getIngredient(int id);
+    @Query("SELECT * FROM Ingredient where cake = :name")
+    LiveData<List<Ingredient>> getIngredientsByCakeName(String name);
 
     @Query("SELECT * FROM Step where id = :id")
     LiveData<Step> getStep(int id);

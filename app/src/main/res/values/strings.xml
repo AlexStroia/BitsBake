@@ -18,7 +18,10 @@
     <string name="brownies">Brownies</string>
     <string name="yellow_cake">yellow_cake</string>
 
-
+    <!--Dialog-->
     <string name="ok">Ok</string>
     <string name="alert_title_error">ERROR</string>
+
+    <!--Keys-->
+    <string name="recipe_name">RECIPE_NAME</string>
 </resources>

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -20,7 +19,6 @@ import co.alexdev.bitsbake.events.NetworkConnectionEvent;
 import co.alexdev.bitsbake.events.OnRecipeClickEvent;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.receiver.NetworkReceiver;
-import co.alexdev.bitsbake.ui.fragment.BaseFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
@@ -102,9 +100,13 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void changeFragment(Fragment fragment) {
+
+
         getSupportFragmentManager().beginTransaction()
+                .addToBackStack(null)
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+        Timber.d("Backstack size: " + getSupportFragmentManager().getBackStackEntryCount());
     }
 
     private void setupBroadcastReceiver() {
@@ -119,7 +121,11 @@ public class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onRecipeClickEvent(OnRecipeClickEvent event) {
+        Bundle args = new Bundle();
+        String recipeName = event.getRecipeName();
+        args.putString(getString(R.string.recipe_name), recipeName);
         RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
+        recipesDetailFragment.setArguments(args);
         changeFragment(recipesDetailFragment);
     }
 

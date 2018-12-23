@@ -1,42 +1,48 @@
 package co.alexdev.bitsbake.model.model;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.BR;
-import co.alexdev.bitsbake.model.response.Recipe;
 
-@Entity(indices = {@Index(value = {"id"}, unique = true)})
+@Entity
 public class Ingredient extends BaseObservable {
 
-    @PrimaryKey
-    @ForeignKey(entity = Recipe.class, parentColumns = "id", childColumns = "id")
+    @PrimaryKey(autoGenerate = true)
+    private int room_id;
     private int id;
-    private String cake;
     private double quantity;
     private String measure;
+    @NonNull
+    private String cake;
     private String ingredient;
+
+    public int getRoom_id() {
+        return room_id;
+    }
+
+    public void setRoom_id(int room_id) {
+        this.room_id = room_id;
+    }
 
     @Bindable
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-        notifyPropertyChanged(BR.id);
-    }
-
-    @Bindable
     public String getCake() {
         return cake;
     }
 
     public void setCake(String cake) {
         this.cake = cake;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+        notifyPropertyChanged(BR.id);
     }
 
     @Bindable
@@ -73,9 +79,9 @@ public class Ingredient extends BaseObservable {
     public String toString() {
         return "Ingredient{" +
                 "id=" + id +
-                ", cake='" + cake + '\'' +
                 ", quantity=" + quantity +
                 ", measure='" + measure + '\'' +
+                ", cake='" + cake + '\'' +
                 ", ingredient='" + ingredient + '\'' +
                 '}';
     }

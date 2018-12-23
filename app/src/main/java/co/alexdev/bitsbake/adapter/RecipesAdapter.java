@@ -53,6 +53,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
         notifyDataSetChanged();
     }
 
+
     private void setImage(Recipe recipe, ItemRecipeLayoutBinding binding) {
         @Constants.RecipeCake String recipeName = recipe.getName();
         String imageUri = "";

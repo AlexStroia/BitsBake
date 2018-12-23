@@ -13,7 +13,6 @@ import co.alexdev.bitsbake.model.response.Recipe;
 public class Step extends BaseObservable {
 
     @PrimaryKey
-    @ForeignKey(entity = Recipe.class, parentColumns = "id", childColumns = "id")
     private int id;
     private String cake;
     private String shortDescription;

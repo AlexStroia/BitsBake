@@ -50,7 +50,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_8dp"
-                    android:text="@{Double.toString(vm.ingredient.quantity)}"
                     android:textColor="@color/_white"
                     android:textSize="@dimen/_20sp"
                     android:textStyle="bold" />
@@ -66,7 +65,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_8dp"
-                    android:text="@{vm.ingredient.measure}"
                     android:textColor="@color/_white"
                     android:textSize="@dimen/_20sp"
                     android:textStyle="bold" />
@@ -82,7 +80,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_8dp"
-                    android:text="@{vm.ingredient.ingredient}"
                     android:textColor="@color/_white"
                     android:textSize="@dimen/_20sp"
                     android:textStyle="bold" />

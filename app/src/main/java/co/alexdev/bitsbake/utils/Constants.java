@@ -28,4 +28,12 @@ public class Constants {
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({BROWNIES,NUTELLA_PIE,YELLOW_CAKE,CHEESECAKE})
     public @interface RecipeCake {}
+
+    /*RecyclerView Constants*/
+    public static final int RECYCLER_NOT_SET = 0;
+    public static final int RECYCLER_INGREDIENT_LAYOUT = 1;
+    public static final int RECYCLER_RECIPES_LAYOUT = 2;
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({RECYCLER_NOT_SET,RECYCLER_INGREDIENT_LAYOUT, RECYCLER_RECIPES_LAYOUT})
+    public @interface RecyclerType {}
 }
