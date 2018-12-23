@@ -4,10 +4,10 @@ package co.alexdev.bitsbake.ui.fragment;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.IngredientsAdapter;
 import co.alexdev.bitsbake.adapter.StepsAdapter;
@@ -16,19 +16,12 @@ import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
-import timber.log.Timber;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RecipesDetailFragment extends BaseFragment {
 
     private IngredientsAdapter mIngredientsAdapter;
@@ -48,10 +41,13 @@ public class RecipesDetailFragment extends BaseFragment {
         initRecycler();
         initBottomNavigationView();
 
+        mBinding.btnNext.setOnClickListener(view -> mLayoutManager.scrollToPosition(mLayoutManager.findLastVisibleItemPosition() + 1));
+
         return rootView;
     }
 
     private void initView(ViewGroup container) {
+
         mBinding = DataBindingUtil.inflate(
                 getLayoutInflater(),
                 R.layout.fragment_recipe_detail, container,
@@ -61,6 +57,7 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void initRecycler() {
+
         Bundle args = getArguments();
         String recipeName = getString(R.string.recipe_name);
         if (args != null && args.containsKey(recipeName)) {
@@ -92,8 +89,9 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void configureStepsAdapter() {
-        mStepsAdapter = new StepsAdapter(new ArrayList<>());
+        mStepsAdapter = new StepsAdapter(new ArrayList<>(), this.getActivity());
         mLayoutManager = new LinearLayoutManager(this.getActivity());
+        mLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
         mBinding.rvDetails.setAdapter(mStepsAdapter);
     }
@@ -105,5 +103,9 @@ public class RecipesDetailFragment extends BaseFragment {
             initRecycler();
             return true;
         });
+    }
+
+    private void releasePlayer() {
+        //TODO - release player
     }
 }

@@ -2,6 +2,7 @@ package co.alexdev.bitsbake.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
@@ -38,7 +39,6 @@ public class BaseActivity extends AppCompatActivity {
     private FragmentManager mFragmentManager;
     public MainViewModel vm;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +64,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void processResponse(NetworkResponse networkResponse) {
+
         switch (networkResponse.status) {
             case Constants.RESPONSE_ERROR:
                 BitsBakeUtils.showAlert(this, networkResponse.error.getMessage());
@@ -79,6 +80,7 @@ public class BaseActivity extends AppCompatActivity {
                 vm.insertToDatabase(networkResponse.data);
                 if (isRefreshing()) mBinding.srLayout.setRefreshing(false);
                 mBinding.progressBar.setVisibility(View.GONE);
+                Intent intent = new Intent(this, DetailRecipeActivity.class);
                 Timber.d("Data received");
                 break;
         }
