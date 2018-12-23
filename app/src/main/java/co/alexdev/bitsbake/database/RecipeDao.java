@@ -25,14 +25,11 @@ public interface RecipeDao {
     @Query("SELECT * FROM Recipe")
     LiveData<List<Recipe>> getRecipes();
 
-    @Query("SELECT * FROM RECIPE where id = :id")
-    LiveData<Recipe> getRecipe(int id);
-
     @Query("SELECT * FROM Ingredient where cake = :name")
-    LiveData<List<Ingredient>> getIngredientsByCakeName(String name);
+    LiveData<List<Ingredient>> getIngredientsByName(String name);
 
-    @Query("SELECT * FROM Step where id = :id")
-    LiveData<Step> getStep(int id);
+    @Query("SELECT * FROM STEP where cake = :name")
+    LiveData<List<Step>> getStepByName(String name);
 
     @Insert(onConflict = REPLACE)
     void insertRecipes(List<Recipe> recipes);

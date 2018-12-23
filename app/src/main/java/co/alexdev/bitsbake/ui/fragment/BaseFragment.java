@@ -14,7 +14,7 @@ public class BaseFragment extends Fragment {
     MainViewModel vm;
 
     public void changeFragment(Fragment fragment) {
-        ((BaseActivity) getActivity()).changeFragment(new DescriptionFragment());
+        ((BaseActivity) getActivity()).changeFragment(fragment);
     }
 }
 

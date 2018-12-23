@@ -64,7 +64,6 @@ public class RecipesFragment extends BaseFragment implements Listeners.RecipeCli
 
     @Override
     public void onRecipeClick(int position) {
-        RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
         String recipeName = mRecipes.get(position).getName();
         EventBus.getDefault().postSticky(new OnRecipeClickEvent(recipeName));
     }

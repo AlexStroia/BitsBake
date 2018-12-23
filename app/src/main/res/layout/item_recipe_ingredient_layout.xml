@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_100dp"
+        android:layout_height="@dimen/_125dp"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView

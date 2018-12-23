@@ -36,7 +36,6 @@ public class BaseActivity extends AppCompatActivity {
     private IntentFilter mIntentFilter;
     private ActivityBaseBinding mBinding;
     private FragmentManager mFragmentManager;
-    private FragmentTransaction mFragmentTransaction;
     public MainViewModel vm;
 
 
@@ -46,7 +45,6 @@ public class BaseActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         vm = ViewModelProviders.of(this).get(MainViewModel.class);
         mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
 
         mBinding.srLayout.setOnRefreshListener(() -> vm.loadData());
 

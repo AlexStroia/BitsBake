@@ -30,10 +30,9 @@ public class Constants {
     public @interface RecipeCake {}
 
     /*RecyclerView Constants*/
-    public static final int RECYCLER_NOT_SET = 0;
-    public static final int RECYCLER_INGREDIENT_LAYOUT = 1;
-    public static final int RECYCLER_RECIPES_LAYOUT = 2;
+    public static final int RECYCLER_INGREDIENT_LAYOUT = 0;
+    public static final int RECYCLER_STEPS_LAYOUT = 1;
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({RECYCLER_NOT_SET,RECYCLER_INGREDIENT_LAYOUT, RECYCLER_RECIPES_LAYOUT})
+    @IntDef({RECYCLER_INGREDIENT_LAYOUT, RECYCLER_STEPS_LAYOUT})
     public @interface RecyclerType {}
 }

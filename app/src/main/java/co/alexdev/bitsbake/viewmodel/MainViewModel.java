@@ -44,8 +44,12 @@ public class MainViewModel extends AndroidViewModel {
         return mRepository.getSteps();
     }
 
-    public LiveData<List<Ingredient>> getIngredientsByCake(String cake) {
-        return mRepository.getIngredientsByCake(cake);
+    public LiveData<List<Ingredient>> getIngredientsByName(String name) {
+        return mRepository.getIngredientsByName(name);
+    }
+
+    public LiveData<List<Step>> getStepsByName(String name) {
+        return mRepository.getStepsByName(name);
     }
 
     public MutableLiveData<NetworkResponse> getNetworkResponse() {

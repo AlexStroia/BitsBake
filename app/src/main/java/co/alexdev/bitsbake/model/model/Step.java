@@ -1,19 +1,19 @@
 package co.alexdev.bitsbake.model.model;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.BR;
-import co.alexdev.bitsbake.model.response.Recipe;
 
-@Entity(indices = {@Index(value = {"id"}, unique = true)})
+@Entity
 public class Step extends BaseObservable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int room_id;
     private int id;
+    @NonNull
     private String cake;
     private String shortDescription;
     private String description;
@@ -76,6 +76,14 @@ public class Step extends BaseObservable {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
         notifyPropertyChanged(BR.thumbnailUrl);
+    }
+
+    public int getRoom_id() {
+        return room_id;
+    }
+
+    public void setRoom_id(int room_id) {
+        this.room_id = room_id;
     }
 
     @Override
