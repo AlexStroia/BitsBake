@@ -77,7 +77,6 @@ public class RecipesDetailFragment extends BaseFragment {
 
                 case R.id.mnu_description:
                     changeFragment(new DescriptionFragment());
-
                     break;
             }
 

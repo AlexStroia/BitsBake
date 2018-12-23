@@ -12,6 +12,8 @@ import org.greenrobot.eventbus.Subscribe;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityBaseBinding;
@@ -33,6 +35,8 @@ public class BaseActivity extends AppCompatActivity {
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
     private ActivityBaseBinding mBinding;
+    private FragmentManager mFragmentManager;
+    private FragmentTransaction mFragmentTransaction;
     public MainViewModel vm;
 
 
@@ -41,6 +45,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         vm = ViewModelProviders.of(this).get(MainViewModel.class);
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
 
         mBinding.srLayout.setOnRefreshListener(() -> vm.loadData());
 
@@ -100,13 +106,16 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void changeFragment(Fragment fragment) {
-
-
-        getSupportFragmentManager().beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.fragment_container, fragment)
-                .commit();
-        Timber.d("Backstack size: " + getSupportFragmentManager().getBackStackEntryCount());
+        if (fragment instanceof RecipesFragment) {
+            mFragmentManager.beginTransaction().
+                    replace(R.id.fragment_container, fragment).
+                    commit();
+        } else {
+            mFragmentManager.beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+        }
     }
 
     private void setupBroadcastReceiver() {
