@@ -54,12 +54,11 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void initRecycler() {
-
         Bundle args = getArguments();
         String recipeName = getString(R.string.recipe_name);
         if (args != null && args.containsKey(recipeName)) {
             String name = args.getString(recipeName);
-            
+
             configureIngredientsAdapter();
             LiveData<List<Ingredient>> ingredientsObserver = vm.getIngredientsByName(name);
             ingredientsObserver.observe(this, ingredients -> mIngredientsAdapter.setList(ingredients));

@@ -22,6 +22,7 @@ import co.alexdev.bitsbake.events.NetworkConnectionEvent;
 import co.alexdev.bitsbake.events.OnRecipeClickEvent;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.receiver.NetworkReceiver;
+import co.alexdev.bitsbake.ui.fragment.BaseFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
@@ -80,7 +81,6 @@ public class BaseActivity extends AppCompatActivity {
                 vm.insertToDatabase(networkResponse.data);
                 if (isRefreshing()) mBinding.srLayout.setRefreshing(false);
                 mBinding.progressBar.setVisibility(View.GONE);
-                Intent intent = new Intent(this, DetailRecipeActivity.class);
                 Timber.d("Data received");
                 break;
         }
@@ -130,16 +130,12 @@ public class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onRecipeClickEvent(OnRecipeClickEvent event) {
-   /*     Bundle args = new Bundle();
+        Bundle args = new Bundle();
         String recipeName = event.getRecipeName();
         args.putString(getString(R.string.recipe_name), recipeName);
-        RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
-        recipesDetailFragment.setArguments(args);
-        changeFragment(recipesDetailFragment);*/
-        String recipeName = event.getRecipeName();
-        Intent intent = new Intent(this, DetailRecipeActivity.class);
-        intent.putExtra(getString(R.string.recipe_name), recipeName);
-        startActivity(intent);
+        BaseFragment baseFragment = new BaseFragment();
+        baseFragment.setArguments(args);
+        changeFragment(baseFragment);
     }
 
     @Subscribe

@@ -29,4 +29,8 @@ public class RecipeStepFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_recipe_step, container, false);
     }
 
+    public void loadData(String recipeName) {
+
+    }
+
 }
