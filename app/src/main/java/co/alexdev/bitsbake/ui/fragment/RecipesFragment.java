@@ -3,7 +3,6 @@ package co.alexdev.bitsbake.ui.fragment;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +25,6 @@ import co.alexdev.bitsbake.viewmodel.MainViewModel;
 import timber.log.Timber;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RecipesFragment extends BaseFragment implements Listeners.RecipeClickListener {
 
     private RecipesAdapter mAdapter;

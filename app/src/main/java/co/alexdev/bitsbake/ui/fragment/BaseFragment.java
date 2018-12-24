@@ -17,9 +17,6 @@ import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class BaseFragment extends Fragment {
 
     MainViewModel vm;
@@ -75,7 +72,7 @@ public class BaseFragment extends Fragment {
 
                 case R.id.mnu_description:
                     RecipeStepFragment recipeStepFragment = new RecipeStepFragment();
-                    recipeStepFragment.loadData(recipeName);
+                    recipeStepFragment.setArguments(args);
                     changeFragment(recipeStepFragment);
                     break;
             }

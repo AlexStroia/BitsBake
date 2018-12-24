@@ -7,20 +7,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.IngredientsAdapter;
-import co.alexdev.bitsbake.adapter.StepsAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipeDetailBinding;
 import co.alexdev.bitsbake.model.model.Ingredient;
-import co.alexdev.bitsbake.model.model.Step;
-import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +31,6 @@ public class RecipesDetailFragment extends BaseFragment {
 
         initView(container);
         initRecycler();
-
-        mBinding.btnNext.setOnClickListener(view -> mLayoutManager.scrollToPosition(mLayoutManager.findLastVisibleItemPosition() + 1));
 
         return rootView;
     }
@@ -71,9 +63,5 @@ public class RecipesDetailFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
         mBinding.rvDetails.setAdapter(mIngredientsAdapter);
-    }
-
-    private void releasePlayer() {
-        //TODO - release player
     }
 }
