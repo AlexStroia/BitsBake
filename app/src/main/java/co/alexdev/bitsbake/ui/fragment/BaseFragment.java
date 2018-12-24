@@ -2,7 +2,6 @@ package co.alexdev.bitsbake.ui.fragment;
 
 
 import androidx.fragment.app.Fragment;
-import co.alexdev.bitsbake.ui.activity.BaseActivity;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 
 

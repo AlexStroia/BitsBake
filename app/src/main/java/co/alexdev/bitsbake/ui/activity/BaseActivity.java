@@ -130,12 +130,16 @@ public class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onRecipeClickEvent(OnRecipeClickEvent event) {
-        Bundle args = new Bundle();
+   /*     Bundle args = new Bundle();
         String recipeName = event.getRecipeName();
         args.putString(getString(R.string.recipe_name), recipeName);
         RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
         recipesDetailFragment.setArguments(args);
-        changeFragment(recipesDetailFragment);
+        changeFragment(recipesDetailFragment);*/
+        String recipeName = event.getRecipeName();
+        Intent intent = new Intent(this, DetailRecipeActivity.class);
+        intent.putExtra(getString(R.string.recipe_name), recipeName);
+        startActivity(intent);
     }
 
     @Subscribe

@@ -16,21 +16,19 @@ import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipesDetailFragment extends BaseFragment {
 
     private IngredientsAdapter mIngredientsAdapter;
-    private StepsAdapter mStepsAdapter;
     private LinearLayoutManager mLayoutManager;
     private FragmentRecipeDetailBinding mBinding;
-    private @Constants.RecyclerType
-    int mRecyclerViewType = Constants.RECYCLER_INGREDIENT_LAYOUT;
-    private boolean canScroll = false;
     private View rootView;
 
     @Override
@@ -39,7 +37,6 @@ public class RecipesDetailFragment extends BaseFragment {
 
         initView(container);
         initRecycler();
-        initBottomNavigationView();
 
         mBinding.btnNext.setOnClickListener(view -> mLayoutManager.scrollToPosition(mLayoutManager.findLastVisibleItemPosition() + 1));
 
@@ -62,22 +59,11 @@ public class RecipesDetailFragment extends BaseFragment {
         String recipeName = getString(R.string.recipe_name);
         if (args != null && args.containsKey(recipeName)) {
             String name = args.getString(recipeName);
-            switch (mRecyclerViewType) {
-                case Constants.RECYCLER_INGREDIENT_LAYOUT:
-                    configureIngredientsAdapter();
-                    canScroll = false;
-                    LiveData<List<Ingredient>> ingredientsObserver = vm.getIngredientsByName(name);
-                    ingredientsObserver.observe(this, ingredients -> mIngredientsAdapter.setList(ingredients));
-                    break;
+            
+            configureIngredientsAdapter();
+            LiveData<List<Ingredient>> ingredientsObserver = vm.getIngredientsByName(name);
+            ingredientsObserver.observe(this, ingredients -> mIngredientsAdapter.setList(ingredients));
 
-                case Constants.RECYCLER_STEPS_LAYOUT:
-                    configureStepsAdapter();
-                    canScroll = true;
-                    LiveData<List<Step>> stepObserver = vm.getStepsByName(name);
-                    stepObserver.observe(this, steps -> mStepsAdapter.setList(steps));
-                    break;
-            }
-            mBinding.rvDetails.setOnTouchListener((view, motionEvent) -> canScroll);
         }
     }
 
@@ -86,23 +72,6 @@ public class RecipesDetailFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
         mBinding.rvDetails.setAdapter(mIngredientsAdapter);
-    }
-
-    private void configureStepsAdapter() {
-        mStepsAdapter = new StepsAdapter(new ArrayList<>(), this.getActivity());
-        mLayoutManager = new LinearLayoutManager(this.getActivity());
-        mLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        mBinding.rvDetails.setLayoutManager(mLayoutManager);
-        mBinding.rvDetails.setAdapter(mStepsAdapter);
-    }
-
-    private void initBottomNavigationView() {
-        mBinding.bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
-            int menuID = menuItem.getItemId();
-            mRecyclerViewType = (menuID == R.id.mnu_igredients) ? Constants.RECYCLER_INGREDIENT_LAYOUT : Constants.RECYCLER_STEPS_LAYOUT;
-            initRecycler();
-            return true;
-        });
     }
 
     private void releasePlayer() {

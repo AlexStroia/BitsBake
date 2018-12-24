@@ -26,13 +26,16 @@ public class Constants {
     public static final String CHEESECAKE = "Cheesecake";
 
     @Retention(RetentionPolicy.SOURCE)
-    @StringDef({BROWNIES,NUTELLA_PIE,YELLOW_CAKE,CHEESECAKE})
-    public @interface RecipeCake {}
+    @StringDef({BROWNIES, NUTELLA_PIE, YELLOW_CAKE, CHEESECAKE})
+    public @interface RecipeCake {
+    }
 
     /*RecyclerView Constants*/
-    public static final int RECYCLER_INGREDIENT_LAYOUT = 0;
-    public static final int RECYCLER_STEPS_LAYOUT = 1;
+    public static final int FRAGMENT_INGREDIENT_LAYOUT = 0;
+    public static final int FRAGMENT_STEPS_LAYOUT = 1;
+
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({RECYCLER_INGREDIENT_LAYOUT, RECYCLER_STEPS_LAYOUT})
-    public @interface RecyclerType {}
+    @IntDef({FRAGMENT_INGREDIENT_LAYOUT, FRAGMENT_STEPS_LAYOUT})
+    public @interface FragmentType {
+    }
 }
