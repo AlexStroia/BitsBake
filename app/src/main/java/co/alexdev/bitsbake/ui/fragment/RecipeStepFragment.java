@@ -105,7 +105,7 @@ public class RecipeStepFragment extends BaseFragment {
     }
 
     private void configureStepAdapter() {
-        mStepAdapter = new StepsAdapter(new ArrayList<>(), this.getActivity());
+        mStepAdapter = new StepsAdapter(new ArrayList<>());
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mBinding.rvDetails.setAdapter(mStepAdapter);

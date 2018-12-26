@@ -8,9 +8,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import co.alexdev.bitsbake.R;
-import co.alexdev.bitsbake.adapter.IngredientsAdapter;
+import co.alexdev.bitsbake.adapter.StepsAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipeDetailBinding;
-import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class RecipesDetailFragment extends BaseFragment {
 
-    private IngredientsAdapter mIngredientsAdapter;
+    private StepsAdapter mStepsAdapter;
     private LinearLayoutManager mLayoutManager;
     private FragmentRecipeDetailBinding mBinding;
     private View rootView;
@@ -52,16 +52,15 @@ public class RecipesDetailFragment extends BaseFragment {
             String name = args.getString(recipeName);
 
             configureIngredientsAdapter();
-            LiveData<List<Ingredient>> ingredientsObserver = vm.getIngredientsByName(name);
-            ingredientsObserver.observe(this, ingredients -> mIngredientsAdapter.setList(ingredients));
-
+            LiveData<List<Step>> stepsObserver = vm.getStepsByName(name);
+            stepsObserver.observe(this, steps -> mStepsAdapter.setList(steps));
         }
     }
 
     private void configureIngredientsAdapter() {
-        mIngredientsAdapter = new IngredientsAdapter(new ArrayList<>());
+        mStepsAdapter = new StepsAdapter(new ArrayList<>());
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
-        mBinding.rvDetails.setAdapter(mIngredientsAdapter);
+        mBinding.rvDetails.setAdapter(mStepsAdapter);
     }
 }
