@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -16,7 +15,6 @@ import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
 import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 
-
 public class BaseFragment extends Fragment {
 
     MainViewModel vm;
@@ -24,8 +22,6 @@ public class BaseFragment extends Fragment {
     private View rootView;
     private FragmentManager mFragmentManager;
     private FragmentBaseBinding mBinding;
-    @Constants.FragmentType
-    private int fragmentType = Constants.FRAGMENT_INGREDIENT_LAYOUT;
     private String recipeName;
     private String argsKey;
     private Bundle args;
@@ -80,7 +76,7 @@ public class BaseFragment extends Fragment {
         });
     }
 
-    private void changeFragment(Fragment fragment) {
+    public void changeFragment(Fragment fragment) {
         mFragmentManager.beginTransaction().
                 replace(R.id.fragment_container, fragment).
                 commit();

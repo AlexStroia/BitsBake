@@ -7,6 +7,11 @@
         android:layout_height="match_parent"
         tools:context="co.alexdev.bitsbake.ui.fragment.RecipeStepFragment">
 
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/exoplayer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_250dp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_details"
             android:layout_width="@dimen/_0dp"
@@ -18,7 +23,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btn_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/exoplayer" />
 
 
         <Button

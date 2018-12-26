@@ -32,6 +32,15 @@ public class MainViewModel extends AndroidViewModel {
         mRepository = BitsBakeRepository.getInstance(this.getApplication());
     }
 
+    public String getVideoUrl(List<Step> steps, int position) {
+        String url = "";
+        if (position == -1) position = 0;
+        if (steps != null && steps.size() > 0) {
+            url = steps.get(0).getVideoURL();
+        }
+        return url;
+    }
+
     public LiveData<List<Recipe>> getRecipes() {
         return mRepository.getRecipes();
     }

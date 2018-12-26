@@ -9,7 +9,8 @@
     <string name="number_of_servings">Number of servings</string>
     <string name="NEXT">NEXT</string>
     <string name="PREVIOUS">PREVIOUS</string>
-
+    <string name="step_number">Step number: </string>
+    <string name="step_details">Step details: </string>
     <string name="ic_fav_icon">Icon favorite button</string>
     <string name="tv_recipe_name">Recipe name</string>
     <string name="ic_cake">Toolbar recipe</string>

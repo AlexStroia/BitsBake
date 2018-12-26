@@ -26,7 +26,7 @@
             android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:background="@color/custom_red"
-            android:visibility="visible"
+            android:visibility="gone"
             app:itemTextColor="@color/_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

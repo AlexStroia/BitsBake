@@ -59,10 +59,14 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
         notifyDataSetChanged();
     }
 
-    static class StepsViewHolder extends RecyclerView.ViewHolder {
+    public static void releasePlayer() {
+        StepsViewHolder.releasePlayer();
+    }
+
+    public static class StepsViewHolder extends RecyclerView.ViewHolder {
 
         private ItemRecipeDescriptionLayoutBinding mBinding;
-        public SimpleExoPlayer mExoPlayer;
+        public static SimpleExoPlayer mExoPlayer;
 
         public StepsViewHolder(ItemRecipeDescriptionLayoutBinding binding) {
             super(binding.getRoot());
@@ -72,8 +76,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
         public void bind(Step step) {
             mBinding.tvDescription.setText(step.getDescription());
             mBinding.tvShortDesc.setText(step.getShortDescription());
-            initializePlayer(step);
-            //TODO EXOPLAYER
+        //    initializePlayer(step);
         }
 
         private void initializePlayer(Step step) {
@@ -82,7 +85,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
                 LoadControl loadControl = new DefaultLoadControl();
 
                 mExoPlayer = ExoPlayerFactory.newSimpleInstance(mContext, trackSelector, loadControl);
-                mBinding.exoplayer.setPlayer(mExoPlayer);
+               // mBinding.exoplayer.setPlayer(mExoPlayer);
 
                 //TODO CHECK DEPRECATED CODE
                 String userAgent = Util.getUserAgent(mContext.getApplicationContext(), mContext.getString(R.string.app_name));
@@ -91,6 +94,13 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
                         new DefaultExtractorsFactory(), null, null);
                 mExoPlayer.prepare(mediaSource);
                 mExoPlayer.setPlayWhenReady(true);
+            }
+        }
+
+        public static void releasePlayer() {
+            if (mExoPlayer != null) {
+                mExoPlayer.release();
+                mExoPlayer = null;
             }
         }
     }

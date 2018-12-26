@@ -11,8 +11,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_details"
-            android:layout_width="@dimen/_0dp"
-            android:layout_height="@dimen/_0dp"
+            android:layout_width="238dp"
+            android:layout_height="220dp"
             android:layout_marginStart="@dimen/_8dp"
             android:layout_marginTop="@dimen/_8dp"
             android:layout_marginEnd="@dimen/_8dp"
@@ -22,6 +22,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="@dimen/_0dp"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginBottom="@dimen/_8dp"
+            app:layout_constraintBottom_toTopOf="@+id/rv_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <TextView
+                android:id="@+id/tv_ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:text="@string/ingredient" />
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
