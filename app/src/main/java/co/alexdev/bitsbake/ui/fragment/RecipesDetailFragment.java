@@ -10,11 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.StepsAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipeDetailBinding;
+import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.Step;
+import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +57,9 @@ public class RecipesDetailFragment extends BaseFragment {
 
             configureIngredientsAdapter();
             LiveData<List<Step>> stepsObserver = vm.getStepsByName(name);
+            LiveData<List<Ingredient>> ingredientObserver = vm.getIngredientsByName(name);
             stepsObserver.observe(this, steps -> mStepsAdapter.setList(steps));
+            ingredientObserver.observe(this, ingredients -> mBinding.tvIngredients.setText(BitsBakeUtils.buildIngredientsTextView(ingredients)));
         }
     }
 

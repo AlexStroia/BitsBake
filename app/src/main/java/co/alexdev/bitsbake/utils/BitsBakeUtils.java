@@ -61,7 +61,7 @@ public class BitsBakeUtils {
 
         StringBuilder stringBuilder = new StringBuilder();
         for (Ingredient ingredient : ingredients) {
-            stringBuilder.append(ingredient.getIngredient());
+            stringBuilder.append(ingredient.getIngredient()).append("\n");
         }
         return stringBuilder.toString();
     }
