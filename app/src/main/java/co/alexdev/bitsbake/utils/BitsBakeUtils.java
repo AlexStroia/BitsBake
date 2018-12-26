@@ -5,6 +5,8 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
@@ -42,7 +44,8 @@ public class BitsBakeUtils {
     }
 
     public static void showAlert(Context context, String message) {
-/*        final String ok_message = context.getResources().getString(R.string.ok);
+
+        final String ok_message = context.getResources().getString(R.string.ok);
         final String error_title = context.getResources().getString(R.string.alert_title_error);
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setTitle(error_title)
@@ -51,6 +54,15 @@ public class BitsBakeUtils {
                 .setIcon(context.getResources().getDrawable(android.R.drawable.ic_dialog_alert));
 
         AlertDialog alertDialog = builder.create();
-      //  alertDialog.show();*/
+        alertDialog.show();
+    }
+
+    public static String buildIngredientsTextView(List<Ingredient> ingredients) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Ingredient ingredient : ingredients) {
+            stringBuilder.append(ingredient.getIngredient());
+        }
+        return stringBuilder.toString();
     }
 }
