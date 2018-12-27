@@ -31,9 +31,6 @@ public class BitsBakeUtils {
             }
             /*set steps id with recipe id */
             for (Step step : steps) {
-                if(step.getDescription().equalsIgnoreCase(step.getShortDescription())) {
-                    step.setShortDescription("");
-                }
                 step.setId(recipe.getId());
                 step.setCake(cakeName);
                 Timber.d(step.getDescription());

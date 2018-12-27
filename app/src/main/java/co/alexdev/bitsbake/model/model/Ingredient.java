@@ -1,24 +1,21 @@
 package co.alexdev.bitsbake.model.model;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.Entity;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.BR;
 
-@Entity(indices = {@Index(value =  {"ingredient"}, unique = true)})
+@Entity
 public class Ingredient extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
     private int room_id;
-    private int id;
     private double quantity;
     private String measure;
-    @NonNull
     private String cake;
     private String ingredient;
+    private int id;
 
     public int getRoom_id() {
         return room_id;

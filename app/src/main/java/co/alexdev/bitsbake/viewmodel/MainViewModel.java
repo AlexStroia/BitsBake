@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.model.RecipeWithIngredientsAndSteps;
 import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
 import co.alexdev.bitsbake.networking.NetworkResponse;
@@ -87,6 +88,14 @@ public class MainViewModel extends AndroidViewModel {
                 });
     }
 
+    public LiveData<RecipeWithIngredientsAndSteps> getRecipe(int id) {
+        return mRepository.getRecipe(id);
+    }
+
+    public LiveData<List<RecipeWithIngredientsAndSteps>> getRecipeList() {
+        return mRepository.getRecipesList();
+    }
+
     public void insertToDatabase(List<Recipe> recipes) {
         Timber.d("Recipes: " + recipes.toString());
         List<Recipe> formatedRecipes = BitsBakeUtils.formatRecipes(recipes);
@@ -100,6 +109,8 @@ public class MainViewModel extends AndroidViewModel {
             mRepository.insertIngredientsToDatabase(ingredients);
             mRepository.insertStepsToDatabase(steps);
         }
+
+        Timber.d("Formated recipes size: " + formatedRecipes.size());
         mRepository.insertRecipesToDatabase(formatedRecipes);
     }
 

@@ -8,7 +8,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.BR;
 
-@Entity(indices = {@Index(value = {"description"},unique = true)})
+@Entity
 public class Step extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)

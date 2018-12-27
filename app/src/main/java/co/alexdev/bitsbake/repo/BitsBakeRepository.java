@@ -5,9 +5,12 @@ import android.content.Context;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Query;
+import androidx.room.Transaction;
 import co.alexdev.bitsbake.database.RecipeDatabase;
 import co.alexdev.bitsbake.model.model.AppExecutors;
 import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.model.RecipeWithIngredientsAndSteps;
 import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
 import co.alexdev.bitsbake.networking.RetrofitClient;
@@ -63,6 +66,14 @@ public class BitsBakeRepository {
 
     public LiveData<List<Step>> getStepsByName(String name) {
         return mDatabase.recipeDao().getStepByName(name);
+    }
+
+    public LiveData<RecipeWithIngredientsAndSteps> getRecipe(int id) {
+        return mDatabase.recipeDao().getRecipe(id);
+    }
+
+    public LiveData<List<RecipeWithIngredientsAndSteps>> getRecipesList() {
+        return mDatabase.recipeDao().getRecipeList();
     }
 
     public void deleteFromFavorite(Recipe recipe) {
