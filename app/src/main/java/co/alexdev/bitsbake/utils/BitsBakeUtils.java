@@ -16,6 +16,7 @@ public class BitsBakeUtils {
     /*Ignore the id which comes from the API and use the main id from the Recipe
      * This way we can assure that we can make a connection between the recipe and ingredient and steps */
     public static List<Recipe> formatRecipes(List<Recipe> recipes) {
+
         List<Recipe> recipeList = new ArrayList<>();
         for (Recipe recipe : recipes) {
             Timber.d(recipe.getName());
@@ -24,19 +25,18 @@ public class BitsBakeUtils {
             String cakeName = recipe.getName();
             /*Set the ingredient id same with the recipe id*/
             for (Ingredient ingredient : ingredients) {
-                if (ingredients.size() > 0) {
-                    ingredient.setId(recipe.getId());
-                    ingredient.setCake(cakeName);
-                    Timber.d(ingredient.getId() + " | " + ingredient.getMeasure() + " | " + ingredient.getIngredient());
-                }
+                ingredient.setId(recipe.getId());
+                ingredient.setCake(cakeName);
+                Timber.d(ingredient.getId() + " | " + ingredient.getMeasure() + " | " + ingredient.getIngredient());
             }
             /*set steps id with recipe id */
             for (Step step : steps) {
-                if (steps.size() > 0) {
-                    step.setId(recipe.getId());
-                    step.setCake(cakeName);
-                    Timber.d(step.getDescription());
+                if(step.getDescription().equalsIgnoreCase(step.getShortDescription())) {
+                    step.setShortDescription("");
                 }
+                step.setId(recipe.getId());
+                step.setCake(cakeName);
+                Timber.d(step.getDescription());
             }
             recipeList.add(recipe);
         }

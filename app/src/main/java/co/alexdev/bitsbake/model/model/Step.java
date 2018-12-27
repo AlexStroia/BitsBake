@@ -4,10 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.BR;
 
-@Entity
+@Entity(indices = {@Index(value = {"description"},unique = true)})
 public class Step extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)

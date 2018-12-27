@@ -95,6 +95,8 @@ public class MainViewModel extends AndroidViewModel {
             List<Step> steps = recipe.getSteps();
             List<Ingredient> ingredients = recipe.getIngredients();
 
+            Timber.d("Recipe steps size: " + steps.size());
+
             mRepository.insertIngredientsToDatabase(ingredients);
             mRepository.insertStepsToDatabase(steps);
         }

@@ -4,11 +4,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.databinding.ItemRecipeStepLayoutBinding;
 import co.alexdev.bitsbake.model.model.Step;
+import timber.log.Timber;
 
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
 
@@ -29,9 +32,12 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
     @Override
     public void onBindViewHolder(@NonNull StepsViewHolder holder, int position) {
         Step step = steps.get(position);
+        Timber.d("Step: " + step.toString());
         holder.bind(step, position);
         if (TextUtils.isEmpty(steps.get(position).getVideoURL())) {
             holder.mBinding.ivVideo.setVisibility(View.GONE);
+        } else {
+            holder.mBinding.ivVideo.setVisibility(View.VISIBLE);
         }
     }
 

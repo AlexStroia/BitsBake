@@ -14,6 +14,7 @@ import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
+import timber.log.Timber;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,11 @@ public class RecipesDetailFragment extends BaseFragment {
             configureIngredientsAdapter();
             LiveData<List<Step>> stepsObserver = vm.getStepsByName(name);
             LiveData<List<Ingredient>> ingredientObserver = vm.getIngredientsByName(name);
-            stepsObserver.observe(this, steps -> mStepsAdapter.setList(steps));
+            stepsObserver.observe(this, steps -> {
+                Timber.d(steps.toString());
+                Timber.d("Steps size: " + steps.size());
+                mStepsAdapter.setList(steps);
+            });
             ingredientObserver.observe(this, ingredients -> mBinding.tvIngredients.setText(BitsBakeUtils.buildIngredientsTextView(ingredients)));
         }
     }

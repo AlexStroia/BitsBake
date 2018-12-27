@@ -11,6 +11,7 @@ import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.Step;
 import co.alexdev.bitsbake.model.response.Recipe;
 
+import static androidx.room.ForeignKey.CASCADE;
 import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
@@ -31,18 +32,18 @@ public interface RecipeDao {
     @Query("SELECT * FROM STEP where cake = :name")
     LiveData<List<Step>> getStepByName(String name);
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = CASCADE)
     void insertRecipes(List<Recipe> recipes);
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = CASCADE)
     void insertIngredients(List<Ingredient> ingredients);
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = CASCADE)
     void insertSteps(List<Step> steps);
 
     @Delete
     void deleteFromFavorite(Recipe recipe);
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = CASCADE)
     void markAsFavorie(Recipe recipe);
 }

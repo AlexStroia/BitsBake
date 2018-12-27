@@ -47,8 +47,6 @@ public class BaseActivity extends AppCompatActivity {
         vm = ViewModelProviders.of(this).get(MainViewModel.class);
         mFragmentManager = getSupportFragmentManager();
 
-        mBinding.srLayout.setOnRefreshListener(() -> vm.loadData());
-
         initView();
     }
 
@@ -69,7 +67,6 @@ public class BaseActivity extends AppCompatActivity {
         switch (networkResponse.status) {
             case Constants.RESPONSE_ERROR:
                 BitsBakeUtils.showAlert(this, networkResponse.error.getMessage());
-                if (isRefreshing()) mBinding.srLayout.setRefreshing(false);
                 break;
 
             case Constants.RESPONSE_LOADING:
@@ -79,7 +76,6 @@ public class BaseActivity extends AppCompatActivity {
 
             case Constants.RESPONSE_SUCCES:
                 vm.insertToDatabase(networkResponse.data);
-                if (isRefreshing()) mBinding.srLayout.setRefreshing(false);
                 mBinding.progressBar.setVisibility(View.GONE);
                 Timber.d("Data received");
                 break;
@@ -124,10 +120,6 @@ public class BaseActivity extends AppCompatActivity {
         mNetworkReceiver = new NetworkReceiver();
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(INTENT_FILTER_STRING);
-    }
-
-    private boolean isRefreshing() {
-        return mBinding.srLayout.isRefreshing();
     }
 
     @Subscribe
