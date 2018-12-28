@@ -2,6 +2,8 @@ package co.alexdev.bitsbake.networking;
 
 import android.net.Uri;
 
+import java.util.concurrent.TimeUnit;
+
 import co.alexdev.bitsbake.networking.service.BitsBakeService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -15,7 +17,7 @@ public class RetrofitClient {
     public static final String SCHEME = "https";
     public static final String AUTHORITY = "d17h27t6h515a5.cloudfront.net";
     public static final String PATH = "/topher/2017/May/59121517_baking/";
-
+    private final int TIMEOUT_MILISECONDS = 5000;
     private Retrofit mRetrofit;
     private static RetrofitClient sRetrofitClient;
 
@@ -25,7 +27,9 @@ public class RetrofitClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         BitsBakeInterceptor bitsBakeInterceptor = new BitsBakeInterceptor();
-        OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(bitsBakeInterceptor).build();
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .callTimeout(TIMEOUT_MILISECONDS, TimeUnit.MILLISECONDS)
+                .addInterceptor(bitsBakeInterceptor).build();
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(getEndpoint().toString())

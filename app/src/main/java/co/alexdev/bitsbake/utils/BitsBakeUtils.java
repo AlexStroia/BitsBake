@@ -9,7 +9,7 @@ import java.util.List;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.Step;
-import co.alexdev.bitsbake.model.response.Recipe;
+import co.alexdev.bitsbake.model.model.Recipe;
 import timber.log.Timber;
 
 public class BitsBakeUtils {

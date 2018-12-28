@@ -1,9 +1,7 @@
 package co.alexdev.bitsbake.viewmodel;
 
 import android.app.Application;
-
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -11,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.RecipeWithIngredientsAndSteps;
 import co.alexdev.bitsbake.model.model.Step;
-import co.alexdev.bitsbake.model.response.Recipe;
+import co.alexdev.bitsbake.model.model.Recipe;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
@@ -31,15 +29,7 @@ public class MainViewModel extends AndroidViewModel {
     public MainViewModel(@NonNull Application application) {
         super(application);
         mRepository = BitsBakeRepository.getInstance(this.getApplication());
-    }
 
-    public String getVideoUrl(List<Step> steps, int position) {
-        String url = "";
-        if (position == -1) position = 0;
-        if (steps != null && steps.size() > 0) {
-            url = steps.get(0).getVideoURL();
-        }
-        return url;
     }
 
     public LiveData<List<Recipe>> getRecipes() {
@@ -48,18 +38,6 @@ public class MainViewModel extends AndroidViewModel {
 
     public LiveData<List<Ingredient>> getIngredient() {
         return mRepository.getIngredients();
-    }
-
-    public LiveData<List<Step>> getSteps() {
-        return mRepository.getSteps();
-    }
-
-    public LiveData<List<Ingredient>> getIngredientsByName(String name) {
-        return mRepository.getIngredientsByName(name);
-    }
-
-    public LiveData<List<Step>> getStepsByName(String name) {
-        return mRepository.getStepsByName(name);
     }
 
     public MutableLiveData<NetworkResponse> getNetworkResponse() {
@@ -100,27 +78,25 @@ public class MainViewModel extends AndroidViewModel {
         Timber.d("Recipes: " + recipes.toString());
         List<Recipe> formatedRecipes = BitsBakeUtils.formatRecipes(recipes);
 
+        wipeAll();
+
         for (Recipe recipe : formatedRecipes) {
             List<Step> steps = recipe.getSteps();
             List<Ingredient> ingredients = recipe.getIngredients();
 
-            Timber.d("Recipe steps size: " + steps.size());
-
             mRepository.insertIngredientsToDatabase(ingredients);
             mRepository.insertStepsToDatabase(steps);
+
+            recipe.setIngredients(ingredients);
+            recipe.setSteps(steps);
         }
 
-        Timber.d("Formated recipes size: " + formatedRecipes.size());
         mRepository.insertRecipesToDatabase(formatedRecipes);
     }
 
-    private void markAsFavorite(Recipe recipe) {
-        recipe.setFavorite(true);
-        mRepository.markAsFavorite(recipe);
-    }
-
-    private void deleteFromFavorite(Recipe recipe) {
-        recipe.setFavorite(false);
-        mRepository.deleteFromFavorite(recipe);
+    private void wipeAll() {
+        mRepository.deleteIngredients();
+        mRepository.deleteSteps();
+        mRepository.deleteIngredients();
     }
 }

@@ -75,7 +75,6 @@ public class RecipeStepFragment extends BaseFragment {
         mBinding.btnNext.setOnClickListener(view -> {
             recipePosition = mLayoutManager.findLastVisibleItemPosition() + 1;
             mLayoutManager.scrollToPosition(mLayoutManager.findLastVisibleItemPosition() + 1);
-            initializePlayer(vm.getVideoUrl(steps, recipePosition));
         });
     }
 
@@ -87,17 +86,6 @@ public class RecipeStepFragment extends BaseFragment {
             String name = args.getString(recipeName);
 
             configureStepAdapter();
-            LiveData<List<Step>> stepsObserver = vm.getStepsByName(name);
-            stepsObserver.observe(this, steps -> {
-                this.steps = steps;
-                int position = mLayoutManager.findFirstVisibleItemPosition();
-                if (position == -1) {
-                    position = 0;
-                }
-                String videoURL = steps.get(position).getVideoURL();
-                initializePlayer(videoURL);
-                mStepAdapter.setList(steps);
-            });
         }
 
         /*Block the clicks on the recycler view*/

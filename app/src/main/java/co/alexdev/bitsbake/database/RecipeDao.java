@@ -11,28 +11,28 @@ import androidx.room.Transaction;
 import co.alexdev.bitsbake.model.model.Ingredient;
 import co.alexdev.bitsbake.model.model.RecipeWithIngredientsAndSteps;
 import co.alexdev.bitsbake.model.model.Step;
-import co.alexdev.bitsbake.model.response.Recipe;
+import co.alexdev.bitsbake.model.model.Recipe;
 
-import static androidx.room.OnConflictStrategy.IGNORE;
+import static androidx.room.ForeignKey.CASCADE;
 import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface RecipeDao {
 
+    /*Ingredients*/
     @Query("SELECT * FROM Ingredient")
     LiveData<List<Ingredient>> getIngredients();
 
-    @Query("SELECT * FROM Step")
-    LiveData<List<Step>> getSteps();
+    @Query("DELETE FROM INGREDIENT")
+    void deleteIngredients();
 
+    @Insert(onConflict = CASCADE)
+    void insertIngredients(List<Ingredient> ingredients);
+
+
+    /*Recipe */
     @Query("SELECT * FROM Recipe")
     LiveData<List<Recipe>> getRecipes();
-
-    @Query("SELECT * FROM Ingredient where cake = :name")
-    LiveData<List<Ingredient>> getIngredientsByName(String name);
-
-    @Query("SELECT * FROM STEP where cake = :name")
-    LiveData<List<Step>> getStepByName(String name);
 
     @Transaction
     @Query("SELECT * FROM Recipe WHERE id = :id")
@@ -42,18 +42,22 @@ public interface RecipeDao {
     @Query("SELECT * FROM Recipe")
     LiveData<List<RecipeWithIngredientsAndSteps>> getRecipeList();
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = CASCADE)
     void insertRecipes(List<Recipe> recipes);
 
-    @Insert(onConflict = REPLACE)
-    void insertIngredients(List<Ingredient> ingredients);
+    @Query("DELETE FROM RECIPE")
+    void deleteRecipes();
 
-    @Insert
+
+    /*STEP*/
+
+    @Query("DELETE FROM STEP")
+    void deleteSteps();
+
+    @Insert(onConflict = CASCADE)
     void insertSteps(List<Step> steps);
 
-    @Delete
-    void deleteFromFavorite(Recipe recipe);
 
-    @Insert
-    void markAsFavorie(Recipe recipe);
+    @Query("SELECT * FROM Step")
+    LiveData<List<Step>> getSteps();
 }

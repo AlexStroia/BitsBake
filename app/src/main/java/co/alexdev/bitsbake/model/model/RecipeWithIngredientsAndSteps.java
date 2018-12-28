@@ -4,7 +4,6 @@ import java.util.List;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
-import co.alexdev.bitsbake.model.response.Recipe;
 
 public class RecipeWithIngredientsAndSteps {
 

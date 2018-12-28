@@ -5,5 +5,4 @@ public class Listeners {
     public interface RecipeClickListener {
         void onRecipeClick(int position);
     }
-
 }

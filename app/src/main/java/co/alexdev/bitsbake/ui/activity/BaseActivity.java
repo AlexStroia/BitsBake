@@ -67,6 +67,7 @@ public class BaseActivity extends AppCompatActivity {
         switch (networkResponse.status) {
             case Constants.RESPONSE_ERROR:
                 BitsBakeUtils.showAlert(this, networkResponse.error.getMessage());
+                Timber.d(" Data Error" + networkResponse.status);
                 break;
 
             case Constants.RESPONSE_LOADING:
@@ -77,7 +78,6 @@ public class BaseActivity extends AppCompatActivity {
             case Constants.RESPONSE_SUCCES:
                 vm.insertToDatabase(networkResponse.data);
                 mBinding.progressBar.setVisibility(View.GONE);
-                Timber.d("Data received");
                 break;
         }
     }
@@ -135,7 +135,9 @@ public class BaseActivity extends AppCompatActivity {
     @Subscribe
     public void onNetworkStateChanged(NetworkConnectionEvent event) {
         if (vm != null) {
-            vm.loadData();
+            if (event.getNetworkState()) {
+                vm.loadData();
+            }
         }
     }
 }

@@ -13,15 +13,13 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.RecipesAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipesBinding;
 import co.alexdev.bitsbake.events.OnRecipeClickEvent;
-import co.alexdev.bitsbake.model.model.RecipeWithIngredientsAndSteps;
-import co.alexdev.bitsbake.model.response.Recipe;
+import co.alexdev.bitsbake.model.model.Recipe;
 import co.alexdev.bitsbake.utils.Listeners;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 import timber.log.Timber;
@@ -55,22 +53,9 @@ public class RecipesFragment extends BaseFragment implements Listeners.RecipeCli
                     mRecipes = recipes;
                     mAdapter.setRecipes(mRecipes);
                     for (Recipe recipe : recipes) {
-
-
-                        Timber.d(recipe.getName());
+                        Timber.d("Recipe: " + recipe.toString());
                     }
                 });
-
-        vm.getRecipeList().observe(this.getActivity(), new Observer<List<RecipeWithIngredientsAndSteps>>() {
-            @Override
-            public void onChanged(List<RecipeWithIngredientsAndSteps> recipeWithIngredientsAndSteps) {
-                if (recipeWithIngredientsAndSteps.size() > 0) {
-                    Timber.d(recipeWithIngredientsAndSteps.get(0).ingredients.toString());
-                    Timber.d("Ingredients size: " + recipeWithIngredientsAndSteps.get(0).ingredients.size());
-                    Timber.d("Steps size: " + recipeWithIngredientsAndSteps.get(0).steps.size());
-                }
-            }
-        });
     }
 
     @Override

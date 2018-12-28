@@ -1,4 +1,4 @@
-package co.alexdev.bitsbake.model.response;
+package co.alexdev.bitsbake.model.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -73,6 +73,14 @@ public class Recipe extends BaseObservable {
     public void setServings(int servings) {
         this.servings = servings;
         notifyPropertyChanged(BR.servings);
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
     }
 
     public String getImage() {
