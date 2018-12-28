@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.StepsAdapter;
@@ -48,7 +49,7 @@ public class RecipesDetailFragment extends BaseFragment {
         Bundle args = getArguments();
         String recipeKey = getString(R.string.recipe_id);
         if (args != null && args.containsKey(recipeKey)) {
-            configureIngredientsAdapter();
+            configureStepsAdapter();
             int id = args.getInt(recipeKey);
             vm.setId(id);
             vm.getIngredientById().observe(this,
@@ -59,10 +60,13 @@ public class RecipesDetailFragment extends BaseFragment {
         }
     }
 
-    private void configureIngredientsAdapter() {
+    private void configureStepsAdapter() {
         mStepsAdapter = new StepsAdapter(new ArrayList<>());
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mBinding.rvDetails.getContext(), mLayoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(getActivity().getDrawable(R.color._black));
+        mBinding.rvDetails.addItemDecoration(dividerItemDecoration);
         mBinding.rvDetails.setAdapter(mStepsAdapter);
     }
 }

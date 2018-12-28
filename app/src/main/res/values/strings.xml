@@ -3,7 +3,7 @@
     <string name="description" tools:ignore="ExtraTranslation">Description </string>
     <string name="quantity">Quantity</string>
     <string name="measure">Measure</string>
-    <string name="ingredient">Ingredient</string>
+    <string name="ingredient">Ingredients: </string>
     <string name="shortDescription">Short Description</string>
     <string name="no_internet">Network is not available</string>
     <string name="number_of_servings">Number of servings</string>
@@ -27,7 +27,4 @@
 
     <!--Keys-->
     <string name="recipe_id">RECIPE_ID</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

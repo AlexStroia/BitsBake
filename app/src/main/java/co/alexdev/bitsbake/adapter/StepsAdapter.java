@@ -2,7 +2,6 @@ package co.alexdev.bitsbake.adapter;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
@@ -27,6 +26,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
     @NonNull
     @Override
     public StepsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ItemRecipeStepLayoutBinding binding = ItemRecipeStepLayoutBinding.inflate(inflater, parent, false);
         return new StepsViewHolder(binding);
@@ -34,6 +34,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
 
     @Override
     public void onBindViewHolder(@NonNull StepsViewHolder holder, int position) {
+
         Step step = steps.get(position);
         Timber.d("Step: " + step.toString());
         holder.bind(step, position);

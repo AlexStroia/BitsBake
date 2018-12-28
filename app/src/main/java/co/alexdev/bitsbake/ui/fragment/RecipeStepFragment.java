@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.R;
@@ -86,6 +87,9 @@ public class RecipeStepFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mBinding.rvDetails.setAdapter(mStepAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mBinding.rvDetails.getContext(), mLayoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(getActivity().getDrawable(R.color._black));
+        mBinding.rvDetails.addItemDecoration(dividerItemDecoration);
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
     }
 }
