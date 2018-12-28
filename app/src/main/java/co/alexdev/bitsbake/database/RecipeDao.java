@@ -45,10 +45,10 @@ public interface RecipeDao {
     @Insert(onConflict = REPLACE)
     void insertRecipes(List<Recipe> recipes);
 
-    @Insert(onConflict = IGNORE)
+    @Insert(onConflict = REPLACE)
     void insertIngredients(List<Ingredient> ingredients);
 
-    @Insert(onConflict = IGNORE)
+    @Insert(onConflict = REPLACE)
     void insertSteps(List<Step> steps);
 
     @Delete
