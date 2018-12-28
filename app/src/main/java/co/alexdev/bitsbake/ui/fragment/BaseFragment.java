@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
-import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 
 public class BaseFragment extends Fragment {
@@ -22,7 +21,7 @@ public class BaseFragment extends Fragment {
     private View rootView;
     private FragmentManager mFragmentManager;
     private FragmentBaseBinding mBinding;
-    private String recipeName;
+    private int recipeId;
     private String argsKey;
     private Bundle args;
 
@@ -37,9 +36,9 @@ public class BaseFragment extends Fragment {
     private void initView(ViewGroup container) {
 
         args = getArguments();
-        argsKey = getString(R.string.recipe_name);
+        argsKey = getString(R.string.recipe_id);
         if (args != null && args.containsKey(argsKey)) {
-            recipeName = args.getString(argsKey);
+            recipeId = args.getInt(argsKey);
         }
 
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_base, container, false);
@@ -49,31 +48,6 @@ public class BaseFragment extends Fragment {
         RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
         recipesDetailFragment.setArguments(args);
         changeFragment(recipesDetailFragment);
-
-        initBottomNavigationView();
-    }
-
-    private void initBottomNavigationView() {
-        mBinding.bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
-            int menuID = menuItem.getItemId();
-            args.putString(getString(R.string.recipe_name), recipeName);
-            menuItem.setChecked(true);
-
-            switch (menuID) {
-                case R.id.mnu_igredients:
-                    RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
-                    recipesDetailFragment.setArguments(args);
-                    changeFragment(recipesDetailFragment);
-                    return false;
-
-                case R.id.mnu_description:
-                    RecipeStepFragment recipeStepFragment = new RecipeStepFragment();
-                    recipeStepFragment.setArguments(args);
-                    changeFragment(recipeStepFragment);
-                    break;
-            }
-            return true;
-        });
     }
 
     public void changeFragment(Fragment fragment) {

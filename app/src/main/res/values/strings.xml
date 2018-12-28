@@ -26,7 +26,7 @@
     <string name="alert_title_error">ERROR</string>
 
     <!--Keys-->
-    <string name="recipe_name">RECIPE_NAME</string>
+    <string name="recipe_id">RECIPE_ID</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -8,11 +8,12 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
-import co.alexdev.bitsbake.model.model.Ingredient;
-import co.alexdev.bitsbake.model.model.RecipeWithIngredientsAndSteps;
-import co.alexdev.bitsbake.model.model.Step;
-import co.alexdev.bitsbake.model.model.Recipe;
+import androidx.lifecycle.Transformations;
+import co.alexdev.bitsbake.model.Ingredient;
+import co.alexdev.bitsbake.model.Step;
+import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
@@ -26,6 +27,7 @@ public class MainViewModel extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
+    private final MediatorLiveData<Integer> mBaseRecipeId = new MediatorLiveData<>();
     private static final int TIMEOUT = 5000;
     public Recipe recipe;
     public Ingredient ingredient;
@@ -33,7 +35,6 @@ public class MainViewModel extends AndroidViewModel {
     public MainViewModel(@NonNull Application application) {
         super(application);
         mRepository = BitsBakeRepository.getInstance(this.getApplication());
-
     }
 
     public LiveData<List<Recipe>> getRecipes() {
@@ -42,6 +43,14 @@ public class MainViewModel extends AndroidViewModel {
 
     public LiveData<List<Ingredient>> getIngredient() {
         return mRepository.getIngredients();
+    }
+
+    public LiveData<List<Ingredient>> getIngredientById() {
+         return Transformations.switchMap(mBaseRecipeId, ingredientID -> mRepository.getIngredientById(ingredientID));
+    }
+
+    public LiveData<List<Step>> getStepsById() {
+        return Transformations.switchMap(mBaseRecipeId, stepsID -> mRepository.getStepsById(stepsID));
     }
 
     public MutableLiveData<NetworkResponse> getNetworkResponse() {
@@ -71,14 +80,6 @@ public class MainViewModel extends AndroidViewModel {
                 });
     }
 
-    public LiveData<RecipeWithIngredientsAndSteps> getRecipe(int id) {
-        return mRepository.getRecipe(id);
-    }
-
-    public LiveData<List<RecipeWithIngredientsAndSteps>> getRecipeList() {
-        return mRepository.getRecipesList();
-    }
-
     public void insertToDatabase(List<Recipe> recipes) {
         Timber.d("Recipes: " + recipes.toString());
         List<Recipe> formatedRecipes = BitsBakeUtils.formatRecipes(recipes);
@@ -97,6 +98,10 @@ public class MainViewModel extends AndroidViewModel {
         }
 
         mRepository.insertRecipesToDatabase(formatedRecipes);
+    }
+
+    public void setId(int id) {
+        mBaseRecipeId.setValue(id);
     }
 
     private void wipeAll() {

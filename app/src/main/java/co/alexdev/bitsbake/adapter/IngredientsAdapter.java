@@ -8,7 +8,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.databinding.ItemRecipeIngredientLayoutBinding;
-import co.alexdev.bitsbake.model.model.Ingredient;
+import co.alexdev.bitsbake.model.Ingredient;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder> {
 

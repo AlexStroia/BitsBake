@@ -2,19 +2,24 @@ package co.alexdev.bitsbake.ui.fragment;
 
 
 import android.os.Bundle;
+
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.StepsAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipeDetailBinding;
+import co.alexdev.bitsbake.model.Step;
+import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
-import timber.log.Timber;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipesDetailFragment extends BaseFragment {
 
@@ -40,14 +45,22 @@ public class RecipesDetailFragment extends BaseFragment {
                 false);
         rootView = mBinding.getRoot();
         vm = ViewModelProviders.of(this.getActivity()).get(MainViewModel.class);
-        vm.getRecipeList().observe(this, recipeWithIngredientsAndSteps -> Timber.d("Size: " +recipeWithIngredientsAndSteps.get(0).ingredients.size()));
+
+
     }
 
     private void initRecycler() {
         Bundle args = getArguments();
-        String recipeName = getString(R.string.recipe_name);
-        if (args != null && args.containsKey(recipeName)) {
+        String recipeKey = getString(R.string.recipe_id);
+        if (args != null && args.containsKey(recipeKey)) {
             configureIngredientsAdapter();
+            int id = args.getInt(recipeKey);
+            vm.setId(id);
+            vm.getIngredientById().observe(this,
+                    ingredients -> mBinding.tvIngredients.setText(
+                            BitsBakeUtils.buildIngredientsTextView(ingredients)
+                    ));
+            vm.getStepsById().observe(this, steps -> mStepsAdapter.setList(steps));
         }
     }
 

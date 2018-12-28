@@ -4,7 +4,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import co.alexdev.bitsbake.model.model.Recipe;
+import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.utils.Constants;
 
 public class NetworkResponse {

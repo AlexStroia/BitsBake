@@ -19,7 +19,7 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.RecipesAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipesBinding;
 import co.alexdev.bitsbake.events.OnRecipeClickEvent;
-import co.alexdev.bitsbake.model.model.Recipe;
+import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.utils.Listeners;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 import timber.log.Timber;
@@ -60,7 +60,7 @@ public class RecipesFragment extends BaseFragment implements Listeners.RecipeCli
 
     @Override
     public void onRecipeClick(int position) {
-        String recipeName = mRecipes.get(position).getName();
-        EventBus.getDefault().postSticky(new OnRecipeClickEvent(recipeName));
+        int recipeId = mRecipes.get(position).getId();
+        EventBus.getDefault().postSticky(new OnRecipeClickEvent(recipeId));
     }
 }

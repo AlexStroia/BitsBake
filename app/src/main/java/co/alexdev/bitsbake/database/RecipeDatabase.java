@@ -5,9 +5,9 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import co.alexdev.bitsbake.model.model.Ingredient;
-import co.alexdev.bitsbake.model.model.Step;
-import co.alexdev.bitsbake.model.model.Recipe;
+import co.alexdev.bitsbake.model.Ingredient;
+import co.alexdev.bitsbake.model.Step;
+import co.alexdev.bitsbake.model.Recipe;
 
 @Database(entities = {Recipe.class, Ingredient.class, Step.class}, version = 1, exportSchema = false)
 public abstract class RecipeDatabase extends RoomDatabase {

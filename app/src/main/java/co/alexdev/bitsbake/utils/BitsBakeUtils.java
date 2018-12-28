@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.alexdev.bitsbake.R;
-import co.alexdev.bitsbake.model.model.Ingredient;
-import co.alexdev.bitsbake.model.model.Step;
-import co.alexdev.bitsbake.model.model.Recipe;
+import co.alexdev.bitsbake.model.Ingredient;
+import co.alexdev.bitsbake.model.Step;
+import co.alexdev.bitsbake.model.Recipe;
 import timber.log.Timber;
 
 public class BitsBakeUtils {

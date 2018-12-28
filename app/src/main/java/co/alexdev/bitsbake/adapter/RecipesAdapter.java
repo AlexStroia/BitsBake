@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ItemRecipeLayoutBinding;
-import co.alexdev.bitsbake.model.model.Recipe;
+import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.utils.Listeners;
 import timber.log.Timber;

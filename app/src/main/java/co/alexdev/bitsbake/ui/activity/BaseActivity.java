@@ -2,7 +2,6 @@ package co.alexdev.bitsbake.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityBaseBinding;
@@ -23,7 +21,6 @@ import co.alexdev.bitsbake.events.OnRecipeClickEvent;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.receiver.NetworkReceiver;
 import co.alexdev.bitsbake.ui.fragment.BaseFragment;
-import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.Constants;
@@ -125,8 +122,8 @@ public class BaseActivity extends AppCompatActivity {
     @Subscribe
     public void onRecipeClickEvent(OnRecipeClickEvent event) {
         Bundle args = new Bundle();
-        String recipeName = event.getRecipeName();
-        args.putString(getString(R.string.recipe_name), recipeName);
+        int recipeId = event.getRecipeId();
+        args.putInt(getString(R.string.recipe_id), recipeId);
         BaseFragment baseFragment = new BaseFragment();
         baseFragment.setArguments(args);
         changeFragment(baseFragment);

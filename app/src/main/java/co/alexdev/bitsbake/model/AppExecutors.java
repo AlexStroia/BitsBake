@@ -1,4 +1,4 @@
-package co.alexdev.bitsbake.model.model;
+package co.alexdev.bitsbake.model;
 
 import android.os.Handler;
 import android.os.Looper;

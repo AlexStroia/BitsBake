@@ -1,4 +1,4 @@
-package co.alexdev.bitsbake.model.model;
+package co.alexdev.bitsbake.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,8 +10,6 @@ import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import co.alexdev.bitsbake.model.model.Ingredient;
-import co.alexdev.bitsbake.model.model.Step;
 
 /*Response Class */
 @Entity

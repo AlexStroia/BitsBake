@@ -6,11 +6,10 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import co.alexdev.bitsbake.database.RecipeDatabase;
-import co.alexdev.bitsbake.model.model.AppExecutors;
-import co.alexdev.bitsbake.model.model.Ingredient;
-import co.alexdev.bitsbake.model.model.RecipeWithIngredientsAndSteps;
-import co.alexdev.bitsbake.model.model.Step;
-import co.alexdev.bitsbake.model.model.Recipe;
+import co.alexdev.bitsbake.model.AppExecutors;
+import co.alexdev.bitsbake.model.Ingredient;
+import co.alexdev.bitsbake.model.Step;
+import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.networking.RetrofitClient;
 import io.reactivex.Single;
 
@@ -50,12 +49,20 @@ public class BitsBakeRepository {
         return mDatabase.recipeDao().getRecipes();
     }
 
+    public LiveData<List<Ingredient>> getIngredientById(int id) {
+        return mDatabase.recipeDao().getIngredientById(id);
+    }
+
+    public LiveData<Recipe> getRecipeById(int id) {
+        return mDatabase.recipeDao().getRecipeById(id);
+    }
+
     public LiveData<List<Ingredient>> getIngredients() {
         return mDatabase.recipeDao().getIngredients();
     }
 
-    public LiveData<List<Step>> getSteps() {
-        return mDatabase.recipeDao().getSteps();
+    public LiveData<List<Step>> getStepsById(int id) {
+        return mDatabase.recipeDao().getStepById(id);
     }
 
     public void deleteRecipes() {
@@ -68,13 +75,5 @@ public class BitsBakeRepository {
 
     public void deleteSteps() {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().deleteSteps());
-    }
-
-    public LiveData<RecipeWithIngredientsAndSteps> getRecipe(int id) {
-        return mDatabase.recipeDao().getRecipe(id);
-    }
-
-    public LiveData<List<RecipeWithIngredientsAndSteps>> getRecipesList() {
-        return mDatabase.recipeDao().getRecipeList();
     }
 }

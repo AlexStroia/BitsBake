@@ -1,4 +1,4 @@
-package co.alexdev.bitsbake.model.model;
+package co.alexdev.bitsbake.model;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;

@@ -10,7 +10,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.databinding.ItemRecipeStepLayoutBinding;
-import co.alexdev.bitsbake.model.model.Step;
+import co.alexdev.bitsbake.model.Step;
 import timber.log.Timber;
 
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {

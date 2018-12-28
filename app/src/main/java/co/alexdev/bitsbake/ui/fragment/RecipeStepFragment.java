@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,14 +26,13 @@ import com.google.android.exoplayer2.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.StepsAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipeStepBinding;
-import co.alexdev.bitsbake.model.model.Step;
+import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 
 /**
@@ -81,7 +79,7 @@ public class RecipeStepFragment extends BaseFragment {
     private void initRecycler() {
 
         Bundle args = getArguments();
-        String recipeName = getString(R.string.recipe_name);
+        String recipeName = getString(R.string.recipe_id);
         if (args != null && args.containsKey(recipeName)) {
             String name = args.getString(recipeName);
 
