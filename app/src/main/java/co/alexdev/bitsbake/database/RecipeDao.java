@@ -20,6 +20,7 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 public interface RecipeDao {
 
     /*Ingredients*/
+
     @Query("SELECT * FROM Ingredient")
     LiveData<List<Ingredient>> getIngredients();
 
@@ -31,6 +32,7 @@ public interface RecipeDao {
 
 
     /*Recipe */
+
     @Query("SELECT * FROM Recipe")
     LiveData<List<Recipe>> getRecipes();
 
