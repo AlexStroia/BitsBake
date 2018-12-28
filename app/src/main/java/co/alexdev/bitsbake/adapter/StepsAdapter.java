@@ -13,6 +13,9 @@ import co.alexdev.bitsbake.databinding.ItemRecipeStepLayoutBinding;
 import co.alexdev.bitsbake.model.Step;
 import timber.log.Timber;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
 
     private List<Step> steps;
@@ -34,11 +37,8 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
         Step step = steps.get(position);
         Timber.d("Step: " + step.toString());
         holder.bind(step, position);
-        if (TextUtils.isEmpty(steps.get(position).getVideoURL())) {
-            holder.mBinding.ivVideo.setVisibility(View.GONE);
-        } else {
-            holder.mBinding.ivVideo.setVisibility(View.VISIBLE);
-        }
+
+        holder.mBinding.ivVideo.setVisibility(TextUtils.isEmpty(step.getVideoURL()) ? TextUtils.isEmpty(step.getThumbnailUrl()) ? GONE : VISIBLE : VISIBLE);
     }
 
     @Override

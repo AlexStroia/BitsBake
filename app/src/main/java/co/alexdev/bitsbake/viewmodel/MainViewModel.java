@@ -41,10 +41,6 @@ public class MainViewModel extends AndroidViewModel {
         return mRepository.getRecipes();
     }
 
-    public LiveData<List<Ingredient>> getIngredient() {
-        return mRepository.getIngredients();
-    }
-
     public LiveData<List<Ingredient>> getIngredientById() {
          return Transformations.switchMap(mBaseRecipeId, ingredientID -> mRepository.getIngredientById(ingredientID));
     }

@@ -45,8 +45,6 @@ public class RecipeStepFragment extends BaseFragment {
     private StepsAdapter mStepAdapter;
     private LinearLayoutManager mLayoutManager;
     private SimpleExoPlayer mExoPlayer;
-    private List<Step> steps = new ArrayList<>();
-    private int recipePosition = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,11 +67,6 @@ public class RecipeStepFragment extends BaseFragment {
         initRecycler();
 
         rootView = mBinding.getRoot();
-
-        mBinding.btnNext.setOnClickListener(view -> {
-            recipePosition = mLayoutManager.findLastVisibleItemPosition() + 1;
-            mLayoutManager.scrollToPosition(mLayoutManager.findLastVisibleItemPosition() + 1);
-        });
     }
 
     private void initRecycler() {
@@ -81,8 +74,6 @@ public class RecipeStepFragment extends BaseFragment {
         Bundle args = getArguments();
         String recipeName = getString(R.string.recipe_id);
         if (args != null && args.containsKey(recipeName)) {
-            String name = args.getString(recipeName);
-
             configureStepAdapter();
         }
 
@@ -96,23 +87,5 @@ public class RecipeStepFragment extends BaseFragment {
         mLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mBinding.rvDetails.setAdapter(mStepAdapter);
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
-    }
-
-    private void initializePlayer(String videoURL) {
-        if (mExoPlayer == null) {
-            TrackSelector trackSelector = new DefaultTrackSelector();
-            LoadControl loadControl = new DefaultLoadControl();
-
-            mExoPlayer = ExoPlayerFactory.newSimpleInstance(this.getActivity(), trackSelector, loadControl);
-            mBinding.exoplayer.setPlayer(mExoPlayer);
-
-            //TODO CHECK DEPRECATED CODE
-            String userAgent = Util.getUserAgent(this.getActivity().getApplicationContext(), getString(R.string.app_name));
-            MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(videoURL),
-                    new DefaultDataSourceFactory(this.getActivity(), userAgent),
-                    new DefaultExtractorsFactory(), null, null);
-            mExoPlayer.prepare(mediaSource);
-            mExoPlayer.setPlayWhenReady(true);
-        }
     }
 }

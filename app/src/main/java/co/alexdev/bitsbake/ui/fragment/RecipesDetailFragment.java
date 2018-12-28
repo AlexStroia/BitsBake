@@ -4,13 +4,11 @@ package co.alexdev.bitsbake.ui.fragment;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.StepsAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipeDetailBinding;
-import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 
@@ -19,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecipesDetailFragment extends BaseFragment {
 
@@ -45,8 +42,6 @@ public class RecipesDetailFragment extends BaseFragment {
                 false);
         rootView = mBinding.getRoot();
         vm = ViewModelProviders.of(this.getActivity()).get(MainViewModel.class);
-
-
     }
 
     private void initRecycler() {

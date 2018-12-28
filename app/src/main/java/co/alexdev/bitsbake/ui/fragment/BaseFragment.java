@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -35,19 +36,19 @@ public class BaseFragment extends Fragment {
 
     private void initView(ViewGroup container) {
 
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_base, container, false);
         args = getArguments();
         argsKey = getString(R.string.recipe_id);
         if (args != null && args.containsKey(argsKey)) {
             recipeId = args.getInt(argsKey);
+
+            mFragmentManager = getChildFragmentManager();
+            rootView = mBinding.getRoot();
+
+            RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
+            recipesDetailFragment.setArguments(args);
+            changeFragment(recipesDetailFragment);
         }
-
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_base, container, false);
-        mFragmentManager = getChildFragmentManager();
-        rootView = mBinding.getRoot();
-
-        RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
-        recipesDetailFragment.setArguments(args);
-        changeFragment(recipesDetailFragment);
     }
 
     public void changeFragment(Fragment fragment) {

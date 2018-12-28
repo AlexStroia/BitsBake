@@ -52,9 +52,6 @@ public class RecipesFragment extends BaseFragment implements Listeners.RecipeCli
                 recipes -> {
                     mRecipes = recipes;
                     mAdapter.setRecipes(mRecipes);
-                    for (Recipe recipe : recipes) {
-                        Timber.d("Recipe: " + recipe.toString());
-                    }
                 });
     }
 
