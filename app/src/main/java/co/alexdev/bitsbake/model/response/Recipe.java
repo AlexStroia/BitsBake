@@ -17,7 +17,7 @@ import co.alexdev.bitsbake.model.model.Step;
 @Entity
 public class Recipe extends BaseObservable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
     @Ignore

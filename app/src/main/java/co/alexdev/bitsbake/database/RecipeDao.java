@@ -48,12 +48,12 @@ public interface RecipeDao {
     @Insert(onConflict = REPLACE)
     void insertIngredients(List<Ingredient> ingredients);
 
-    @Insert(onConflict = REPLACE)
+    @Insert
     void insertSteps(List<Step> steps);
 
     @Delete
     void deleteFromFavorite(Recipe recipe);
 
-    @Insert(onConflict = IGNORE)
+    @Insert
     void markAsFavorie(Recipe recipe);
 }
