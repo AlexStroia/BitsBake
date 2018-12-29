@@ -27,7 +27,6 @@ public class BaseFragment extends Fragment {
     private View rootView;
     private FragmentManager mFragmentManager;
     private FragmentBaseBinding mBinding;
-    private int recipeId;
     private String argsKey;
     private Bundle args;
 
@@ -45,8 +44,6 @@ public class BaseFragment extends Fragment {
         args = getArguments();
         argsKey = getString(R.string.recipe_id);
         if (args != null && args.containsKey(argsKey)) {
-            recipeId = args.getInt(argsKey);
-
             mFragmentManager = getChildFragmentManager();
             rootView = mBinding.getRoot();
 
@@ -70,13 +67,19 @@ public class BaseFragment extends Fragment {
     }
 
     public void changeFragment(Fragment fragment) {
-        mFragmentManager.beginTransaction().
-                replace(R.id.fragment_container, fragment).
-                commit();
+        if (fragment instanceof RecipeVideoDialogFragment) {
+            ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
+        } else {
+            mFragmentManager.beginTransaction().
+                    replace(R.id.fragment_container, fragment).
+                    commit();
+        }
     }
 
     @Subscribe
     public void onRecipeStepClickEvent(OnRecipeStepClickEvent event) {
+        RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
+        changeFragment(recipeVideoDialogFragment);
         Toast.makeText(this.getActivity(), "Pos: " + event.getPosition(), Toast.LENGTH_LONG).show();
     }
 }

@@ -4,8 +4,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="co.alexdev.bitsbake.ui.fragment.RecipeStepFragment">
+        android:layout_height="wrap_content"
+        tools:context="co.alexdev.bitsbake.ui.fragment.RecipeVideoDialogFragment">
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/exoplayer"
