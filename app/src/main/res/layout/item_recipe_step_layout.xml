@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clStep"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50dp"
         android:orientation="vertical">

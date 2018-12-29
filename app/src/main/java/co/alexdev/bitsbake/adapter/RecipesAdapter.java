@@ -6,25 +6,25 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ItemRecipeLayoutBinding;
+import co.alexdev.bitsbake.events.OnRecipeClickEvent;
 import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.utils.Constants;
-import co.alexdev.bitsbake.utils.Listeners;
 import timber.log.Timber;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder> {
 
-    private List<Recipe> recipes;
-    private static Listeners.RecipeClickListener mRecipeClickListener;
+    private static List<Recipe> recipes;
 
-    public RecipesAdapter(List<Recipe> recipes, Listeners.RecipeClickListener mRecipeClickListener) {
+    public RecipesAdapter(List<Recipe> recipes) {
         this.recipes = recipes;
-        this.mRecipeClickListener = mRecipeClickListener;
     }
 
     @NonNull
@@ -104,8 +104,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            mRecipeClickListener.onRecipeClick(position);
+            EventBus.getDefault().postSticky(new OnRecipeClickEvent(recipes.get(getAdapterPosition()).getId()));
         }
     }
 }

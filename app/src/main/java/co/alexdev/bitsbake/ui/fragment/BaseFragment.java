@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
+import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.viewmodel.MainViewModel;
 
 public class BaseFragment extends Fragment {
@@ -51,10 +56,28 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        EventBus.getDefault().register(this);
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+
+    }
+
     public void changeFragment(Fragment fragment) {
         mFragmentManager.beginTransaction().
                 replace(R.id.fragment_container, fragment).
                 commit();
+    }
+
+    @Subscribe
+    public void onRecipeStepClickEvent(OnRecipeStepClickEvent event) {
+        Toast.makeText(this.getActivity(), "Pos: " + event.getPosition(), Toast.LENGTH_LONG).show();
     }
 }
 

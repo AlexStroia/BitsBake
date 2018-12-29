@@ -2,13 +2,17 @@ package co.alexdev.bitsbake.adapter;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.databinding.ItemRecipeStepLayoutBinding;
+import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.model.Step;
 import timber.log.Timber;
 
@@ -53,18 +57,26 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
         notifyDataSetChanged();
     }
 
-    public static class StepsViewHolder extends RecyclerView.ViewHolder {
+    public static class StepsViewHolder extends RecyclerView.ViewHolder implements View
+
+            .OnClickListener {
 
         private ItemRecipeStepLayoutBinding mBinding;
 
         public StepsViewHolder(ItemRecipeStepLayoutBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
+            mBinding.clStep.setOnClickListener(this);
         }
 
         public void bind(Step step, int position) {
             mBinding.tvStepDetail.setText(step.getShortDescription());
             mBinding.tvStepNumber.setText(String.valueOf(position));
+        }
+
+        @Override
+        public void onClick(View view) {
+            EventBus.getDefault().postSticky(new OnRecipeStepClickEvent(getAdapterPosition()));
         }
     }
 }
