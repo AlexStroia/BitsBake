@@ -51,12 +51,7 @@ public class RecipesDetailFragment extends BaseFragment {
         if (args != null && args.containsKey(recipeKey)) {
             configureStepsAdapter();
             int id = args.getInt(recipeKey);
-            vm.setId(id);
-            vm.getIngredientById().observe(this,
-                    ingredients -> mBinding.tvIngredients.setText(
-                            BitsBakeUtils.buildIngredientsTextView(ingredients)
-                    ));
-            vm.getStepsById().observe(this, steps -> mStepsAdapter.setList(steps));
+            configureIngredientsTextView(id);
         }
     }
 
@@ -68,5 +63,14 @@ public class RecipesDetailFragment extends BaseFragment {
         dividerItemDecoration.setDrawable(getActivity().getDrawable(R.color._black));
         mBinding.rvDetails.addItemDecoration(dividerItemDecoration);
         mBinding.rvDetails.setAdapter(mStepsAdapter);
+    }
+
+    private void configureIngredientsTextView(int id){
+        vm.setId(id);
+        vm.getIngredientById().observe(this,
+                ingredients -> mBinding.tvIngredients.setText(
+                        BitsBakeUtils.buildIngredientsTextView(ingredients)
+                ));
+        vm.getStepsById().observe(this, steps -> mStepsAdapter.setList(steps));
     }
 }
