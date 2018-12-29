@@ -1,14 +1,16 @@
 package co.alexdev.bitsbake.events;
 
+import co.alexdev.bitsbake.model.Step;
+
 public class OnRecipeStepClickEvent {
 
-    int position;
+    Step step;
 
-    public OnRecipeStepClickEvent(int position) {
-        this.position = position;
+    public OnRecipeStepClickEvent(Step step) {
+        this.step = step;
     }
 
-    public int getPosition() {
-        return position;
+    public Step getStep() {
+        return step;
     }
 }

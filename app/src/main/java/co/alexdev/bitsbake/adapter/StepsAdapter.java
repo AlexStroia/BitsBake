@@ -21,7 +21,7 @@ import static android.view.View.VISIBLE;
 
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
 
-    private List<Step> steps;
+    private static List<Step> steps;
 
     public StepsAdapter(List<Step> steps) {
         this.steps = steps;
@@ -76,7 +76,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
 
         @Override
         public void onClick(View view) {
-            EventBus.getDefault().postSticky(new OnRecipeStepClickEvent(getAdapterPosition()));
+            EventBus.getDefault().postSticky(new OnRecipeStepClickEvent(steps.get(getAdapterPosition())));
         }
     }
 }

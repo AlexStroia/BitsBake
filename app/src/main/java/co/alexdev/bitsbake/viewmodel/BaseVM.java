@@ -1,6 +1,7 @@
 package co.alexdev.bitsbake.viewmodel;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -23,16 +24,17 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class MainViewModel extends AndroidViewModel {
+public class BaseVM extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
     private final MediatorLiveData<Integer> mBaseRecipeId = new MediatorLiveData<>();
+    private String videoURL;
     private static final int TIMEOUT = 5000;
     public Recipe recipe;
     public Ingredient ingredient;
 
-    public MainViewModel(@NonNull Application application) {
+    public BaseVM(@NonNull Application application) {
         super(application);
         mRepository = BitsBakeRepository.getInstance(this.getApplication());
     }
@@ -42,7 +44,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Ingredient>> getIngredientById() {
-         return Transformations.switchMap(mBaseRecipeId, ingredientID -> mRepository.getIngredientById(ingredientID));
+        return Transformations.switchMap(mBaseRecipeId, ingredientID -> mRepository.getIngredientById(ingredientID));
     }
 
     public LiveData<List<Step>> getStepsById() {
@@ -94,6 +96,26 @@ public class MainViewModel extends AndroidViewModel {
         }
 
         mRepository.insertRecipesToDatabase(formatedRecipes);
+    }
+
+    public boolean shouldDisplayVideo(Step step) {
+        return (!isVideoUrlEmpty(step) || (isThumbnailUrlEmpty(step) ? true: false));
+    }
+
+    private boolean isVideoUrlEmpty(Step step) {
+        Boolean isEmpty = TextUtils.isEmpty(step.getVideoURL());
+        if(!isEmpty) {
+            videoURL = step.getVideoURL();
+        }
+        return isEmpty;
+    }
+
+    private boolean isThumbnailUrlEmpty(Step step) {
+        boolean isEmpty = TextUtils.isEmpty(step.getThumbnailUrl());
+        if(!isEmpty) {
+            videoURL = step.getThumbnailUrl();
+        }
+        return isEmpty;
     }
 
     public void setId(int id) {

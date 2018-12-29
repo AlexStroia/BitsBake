@@ -6,22 +6,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
 import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
-import co.alexdev.bitsbake.viewmodel.MainViewModel;
+import co.alexdev.bitsbake.model.Step;
+import co.alexdev.bitsbake.viewmodel.BaseVM;
 
 public class BaseFragment extends Fragment {
 
-    MainViewModel vm;
-
+    BaseVM vm;
     private View rootView;
     private FragmentManager mFragmentManager;
     private FragmentBaseBinding mBinding;
@@ -53,7 +57,9 @@ public class BaseFragment extends Fragment {
 
     @Override
     public void onStart() {
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         super.onStart();
     }
 
@@ -66,6 +72,7 @@ public class BaseFragment extends Fragment {
 
     public void changeFragment(Fragment fragment) {
         if (fragment instanceof RecipeVideoDialogFragment) {
+            if (mFragmentManager == null) mFragmentManager = getChildFragmentManager();
             ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
         } else {
             mFragmentManager.beginTransaction().
@@ -76,9 +83,17 @@ public class BaseFragment extends Fragment {
 
     @Subscribe
     public void onRecipeStepClickEvent(OnRecipeStepClickEvent event) {
-        RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
-        changeFragment(recipeVideoDialogFragment);
-        Toast.makeText(this.getActivity(), "Pos: " + event.getPosition(), Toast.LENGTH_LONG).show();
+
+        Step step = event.getStep();
+        if (step != null) {
+            if (vm == null) vm = ViewModelProviders.of(this.getActivity()).get(BaseVM.class);
+            RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
+            args.putInt(argsKey, step.getId());
+            changeFragment(recipeVideoDialogFragment);
+        } else {
+            Toast.makeText(this.getActivity(), "Video Not", Toast.LENGTH_LONG).show();
+        }
     }
 }
+
 

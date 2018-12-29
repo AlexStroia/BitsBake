@@ -24,7 +24,7 @@ import co.alexdev.bitsbake.ui.fragment.BaseFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.Constants;
-import co.alexdev.bitsbake.viewmodel.MainViewModel;
+import co.alexdev.bitsbake.viewmodel.BaseVM;
 import timber.log.Timber;
 
 public class BaseActivity extends AppCompatActivity {
@@ -35,13 +35,13 @@ public class BaseActivity extends AppCompatActivity {
     private IntentFilter mIntentFilter;
     private ActivityBaseBinding mBinding;
     private FragmentManager mFragmentManager;
-    public MainViewModel vm;
+    public BaseVM vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
-        vm = ViewModelProviders.of(this).get(MainViewModel.class);
+        vm = ViewModelProviders.of(this).get(BaseVM.class);
         mFragmentManager = getSupportFragmentManager();
 
         initView();

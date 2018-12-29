@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="co.alexdev.bitsbake.viewmodel.MainViewModel" />
+            type="co.alexdev.bitsbake.viewmodel.BaseVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
