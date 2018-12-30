@@ -18,19 +18,20 @@ public class RecipeVideoDialogFragmentVM extends ViewModel {
     private MediatorLiveData<Integer> mBaseRecipeId = new MediatorLiveData<>();
     @Nullable
     private MediatorLiveData<Integer> mStepsId = new MediatorLiveData<>();
+    private String videoUrl;
 
     public RecipeVideoDialogFragmentVM(BitsBakeRepository mRepository) {
         this.mRepository = mRepository;
     }
 
     public LiveData<List<Step>> loadStepsById() {
-        if(mBaseRecipeId.getValue() == null) throw new IllegalArgumentException();
+        if (mBaseRecipeId.getValue() == null) throw new IllegalArgumentException();
         return Transformations.switchMap(mBaseRecipeId, id -> mRepository.getStepsById(id));
     }
 
-    public LiveData<String> loadByVideoUrl() {
-        if(mStepsId.getValue() == null) throw new IllegalArgumentException();
-        return Transformations.map(loadStepsById(), steps -> steps.get(mStepsId.getValue()).getVideoURL());
+    public LiveData<Step> loadStep() {
+        if (mStepsId.getValue() == null) throw new IllegalArgumentException();
+        return Transformations.map(loadStepsById(), steps -> steps.get(mStepsId.getValue()));
     }
 
     public LiveData<String> loadByThumbnailUrl() {
@@ -38,15 +39,23 @@ public class RecipeVideoDialogFragmentVM extends ViewModel {
     }
 
     public boolean shouldDisplayVideo(Step step) {
-        return (!isVideoUrlEmpty(step) || (isThumbnailUrlEmpty(step) ? true : false));
+        return (!isVideoUrlEmpty(step) || (!isThumbnailUrlEmpty(step) ? true : false));
     }
 
     private boolean isVideoUrlEmpty(Step step) {
-        return TextUtils.isEmpty(step.getVideoURL());
+        String url = step.getVideoURL();
+        Boolean isEmpty = TextUtils.isEmpty(url);
+
+        if (!isEmpty) videoUrl = url;
+        return isEmpty;
     }
 
     private boolean isThumbnailUrlEmpty(Step step) {
-        return TextUtils.isEmpty(step.getThumbnailUrl());
+        String url = step.getThumbnailUrl();
+        Boolean isEmpty = TextUtils.isEmpty(url);
+
+        if (!isEmpty) videoUrl = url;
+        return isEmpty;
     }
 
     public void setRecipeId(int id) {
@@ -55,5 +64,9 @@ public class RecipeVideoDialogFragmentVM extends ViewModel {
 
     public void setStepId(int id) {
         mStepsId.setValue(id);
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
     }
 }
