@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
-import co.alexdev.bitsbake.viewmodel.DialogVM;
+import co.alexdev.bitsbake.viewmodel.RecipeVideoDialogFragmentVM;
 
 public class DialogViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
@@ -17,6 +17,6 @@ public class DialogViewModelFactory extends ViewModelProvider.NewInstanceFactory
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new DialogVM(mRepository);
+        return (T) new RecipeVideoDialogFragmentVM(mRepository);
     }
 }

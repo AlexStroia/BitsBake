@@ -21,12 +21,16 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.List;
+
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentVideoDialogBinding;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
-import co.alexdev.bitsbake.viewmodel.DialogVM;
+import co.alexdev.bitsbake.viewmodel.RecipeVideoDialogFragmentVM;
 import co.alexdev.bitsbake.viewmodel.factory.DialogViewModelFactory;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +43,10 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     private FragmentVideoDialogBinding mBinding;
     private BitsBakeRepository mRepository;
     private DialogViewModelFactory factory;
-    private DialogVM vm;
+    private RecipeVideoDialogFragmentVM vm;
+    private Bundle arguments;
+    private String recipe_key;
+    private String step_key;
 
 
     @Override
@@ -70,16 +77,17 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        initView(container);
 
-        Bundle arguments = getArguments();
-        String argsKey = getString(R.string.recipe_id);
-        if(arguments != null && arguments.containsKey(argsKey)) {
-            int recipeID = arguments.getInt(argsKey);
+        if(arguments != null && arguments.containsKey(recipe_key) && arguments.containsKey(step_key)) {
+            int recipeID = arguments.getInt(recipe_key);
+            int stepPos = arguments.getInt(step_key);
             vm.setRecipeId(recipeID);
-            //TODO
+            vm.setStepId(stepPos);
+            if(vm.shouldDisplayVideo())
+            vm.loadByVideoUrl().observe(this, s -> Timber.d("URL: " + s));
         }
 
-        initView(container);
         return rootView;
     }
 
@@ -118,7 +126,11 @@ public class RecipeVideoDialogFragment extends DialogFragment {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_video_dialog, container, false);
         mRepository = BitsBakeRepository.getInstance(this.getActivity());
         factory = new DialogViewModelFactory(mRepository);
-        vm = ViewModelProviders.of(this.getActivity(),factory).get(DialogVM.class);
+        vm = ViewModelProviders.of(this.getActivity(),factory).get(RecipeVideoDialogFragmentVM.class);
         rootView = mBinding.getRoot();
+
+        arguments = getArguments();
+        recipe_key = getString(R.string.recipe_id);
+        step_key = getString(R.string.step_id);
     }
 }

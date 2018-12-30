@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
@@ -29,7 +28,8 @@ public class BaseFragment extends Fragment {
     private View rootView;
     private FragmentManager mFragmentManager;
     private FragmentBaseBinding mBinding;
-    private String argsKey;
+    private String recipe_key;
+    private String step_key;
     private Bundle args;
 
     @Nullable
@@ -44,8 +44,8 @@ public class BaseFragment extends Fragment {
 
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_base, container, false);
         args = getArguments();
-        argsKey = getString(R.string.recipe_id);
-        if (args != null && args.containsKey(argsKey)) {
+        recipe_key = getString(R.string.recipe_id);
+        if (args != null && args.containsKey(recipe_key)) {
             mFragmentManager = getChildFragmentManager();
             rootView = mBinding.getRoot();
 
@@ -67,7 +67,13 @@ public class BaseFragment extends Fragment {
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
+    }
 
+    private void reinitData() {
+        recipe_key = getString(R.string.recipe_id);
+        step_key = getString(R.string.step_id);
+        vm = ViewModelProviders.of(this.getActivity()).get(BaseVM.class);
+        args = new Bundle();
     }
 
     public void changeFragment(Fragment fragment) {
@@ -84,11 +90,14 @@ public class BaseFragment extends Fragment {
     @Subscribe
     public void onRecipeStepClickEvent(OnRecipeStepClickEvent event) {
 
+        reinitData();
+
         Step step = event.getStep();
         if (step != null) {
-            if (vm == null) vm = ViewModelProviders.of(this.getActivity()).get(BaseVM.class);
+            args.putInt(recipe_key, step.getId());
+            args.putInt(step_key, event.getPosition());
             RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
-            args.putInt(argsKey, step.getId());
+            recipeVideoDialogFragment.setArguments(args);
             changeFragment(recipeVideoDialogFragment);
         } else {
             Toast.makeText(this.getActivity(), "Video Not", Toast.LENGTH_LONG).show();

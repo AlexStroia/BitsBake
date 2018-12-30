@@ -1,7 +1,6 @@
 package co.alexdev.bitsbake.viewmodel;
 
 import android.app.Application;
-import android.text.TextUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -96,26 +95,6 @@ public class BaseVM extends AndroidViewModel {
         }
 
         mRepository.insertRecipesToDatabase(formatedRecipes);
-    }
-
-    public boolean shouldDisplayVideo(Step step) {
-        return (!isVideoUrlEmpty(step) || (isThumbnailUrlEmpty(step) ? true: false));
-    }
-
-    private boolean isVideoUrlEmpty(Step step) {
-        Boolean isEmpty = TextUtils.isEmpty(step.getVideoURL());
-        if(!isEmpty) {
-            videoURL = step.getVideoURL();
-        }
-        return isEmpty;
-    }
-
-    private boolean isThumbnailUrlEmpty(Step step) {
-        boolean isEmpty = TextUtils.isEmpty(step.getThumbnailUrl());
-        if(!isEmpty) {
-            videoURL = step.getThumbnailUrl();
-        }
-        return isEmpty;
     }
 
     public void setId(int id) {

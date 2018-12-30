@@ -27,4 +27,5 @@
 
     <!--Keys-->
     <string name="recipe_id">RECIPE_ID</string>
+    <string name="step_id">STEP_ID</string>
 </resources>

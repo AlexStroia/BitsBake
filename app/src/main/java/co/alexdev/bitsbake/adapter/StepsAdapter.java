@@ -76,7 +76,8 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
 
         @Override
         public void onClick(View view) {
-            EventBus.getDefault().postSticky(new OnRecipeStepClickEvent(steps.get(getAdapterPosition())));
+            int position = getAdapterPosition();
+            EventBus.getDefault().postSticky(new OnRecipeStepClickEvent(steps.get(position), position));
         }
     }
 }

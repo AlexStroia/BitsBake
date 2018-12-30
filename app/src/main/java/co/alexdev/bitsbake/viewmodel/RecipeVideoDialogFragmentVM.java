@@ -12,22 +12,24 @@ import androidx.lifecycle.ViewModel;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
 
-public class DialogVM extends ViewModel {
+public class RecipeVideoDialogFragmentVM extends ViewModel {
 
     private BitsBakeRepository mRepository;
     private MediatorLiveData<Integer> mBaseRecipeId = new MediatorLiveData<>();
     @Nullable
     private MediatorLiveData<Integer> mStepsId = new MediatorLiveData<>();
 
-    public DialogVM(BitsBakeRepository mRepository) {
+    public RecipeVideoDialogFragmentVM(BitsBakeRepository mRepository) {
         this.mRepository = mRepository;
     }
 
-    private LiveData<List<Step>> loadStepsById() {
+    public LiveData<List<Step>> loadStepsById() {
+        if(mBaseRecipeId.getValue() == null) throw new IllegalArgumentException();
         return Transformations.switchMap(mBaseRecipeId, id -> mRepository.getStepsById(id));
     }
 
     public LiveData<String> loadByVideoUrl() {
+        if(mStepsId.getValue() == null) throw new IllegalArgumentException();
         return Transformations.map(loadStepsById(), steps -> steps.get(mStepsId.getValue()).getVideoURL());
     }
 
@@ -49,5 +51,9 @@ public class DialogVM extends ViewModel {
 
     public void setRecipeId(int id) {
         mBaseRecipeId.setValue(id);
+    }
+
+    public void setStepId(int id) {
+        mStepsId.setValue(id);
     }
 }
