@@ -31,7 +31,6 @@ public class RecipesDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         initView(container);
         initRecycler();
         return rootView;
@@ -39,12 +38,14 @@ public class RecipesDetailFragment extends BaseFragment {
 
     @Override
     public void onStart() {
+
         EventBus.getDefault().register(this);
         super.onStart();
     }
 
     @Override
     public void onStop() {
+
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
@@ -60,6 +61,7 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void initRecycler() {
+
         Bundle args = getArguments();
         String recipeKey = getString(R.string.recipe_id);
         if (args != null && args.containsKey(recipeKey)) {
@@ -70,8 +72,13 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void configureStepsAdapter() {
+
         mStepsAdapter = new StepsAdapter(new ArrayList<>());
         mLayoutManager = new LinearLayoutManager(this.getActivity());
+        configureRecyclerView();
+    }
+
+    private void configureRecyclerView() {
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mBinding.rvDetails.getContext(), mLayoutManager.getOrientation());
         dividerItemDecoration.setDrawable(getActivity().getDrawable(R.color._black));
@@ -80,6 +87,7 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void configureIngredientsTextView(int id) {
+
         vm.setId(id);
         vm.getIngredientById().observe(this,
                 ingredients -> mBinding.tvIngredients.setText(

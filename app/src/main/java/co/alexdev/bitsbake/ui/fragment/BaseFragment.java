@@ -5,11 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -22,6 +18,7 @@ import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.viewmodel.BaseVM;
 
+/*Base Fragment class which other fragments will extend*/
 public class BaseFragment extends Fragment {
 
     BaseVM vm;
@@ -35,11 +32,11 @@ public class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         initView(container);
         return rootView;
     }
 
+    /*When this fragment is loaded, load RecipesDetailFragment with the specific args*/
     private void initView(ViewGroup container) {
 
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_base, container, false);
@@ -56,6 +53,7 @@ public class BaseFragment extends Fragment {
     }
 
     private void reinitData() {
+
         recipe_key = getString(R.string.recipe_id);
         step_key = getString(R.string.step_id);
         vm = ViewModelProviders.of(this.getActivity()).get(BaseVM.class);
@@ -63,6 +61,7 @@ public class BaseFragment extends Fragment {
     }
 
     public void changeFragment(Fragment fragment) {
+
         if (fragment instanceof RecipeVideoDialogFragment) {
             if (mFragmentManager == null) mFragmentManager = getChildFragmentManager();
             ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
@@ -73,8 +72,11 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    /*When this fragment is not anymore present and this EventBus is triggered and the fragment is not shown,
+    * reinitialize the data */
     @Subscribe
     public void onRecipeStepClickEvent(OnRecipeStepClickEvent event) {
+
         reinitData();
         Step step = event.getStep();
         if (step != null) {
@@ -83,8 +85,6 @@ public class BaseFragment extends Fragment {
             RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
             recipeVideoDialogFragment.setArguments(args);
             changeFragment(recipeVideoDialogFragment);
-        } else {
-            Toast.makeText(this.getActivity(), "Video Not", Toast.LENGTH_LONG).show();
         }
     }
 }

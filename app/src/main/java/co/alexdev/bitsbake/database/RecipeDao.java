@@ -18,9 +18,6 @@ public interface RecipeDao {
 
     /*Ingredients*/
 
-    @Query("SELECT * FROM Ingredient")
-    LiveData<List<Ingredient>> getIngredients();
-
     @Query("SELECT * FROM Ingredient where id = :id")
     LiveData<List<Ingredient>> getIngredientById(int id);
 
@@ -36,15 +33,8 @@ public interface RecipeDao {
     @Query("SELECT * FROM Recipe")
     LiveData<List<Recipe>> getRecipes();
 
-    @Query("SELECT * FROM Recipe WHERE id = :id")
-    LiveData<Recipe> getRecipeById(int id);
-
     @Insert(onConflict = CASCADE)
     void insertRecipes(List<Recipe> recipes);
-
-    @Query("DELETE FROM RECIPE")
-    void deleteRecipes();
-
 
     /*STEP*/
 
@@ -56,9 +46,5 @@ public interface RecipeDao {
 
     @Query("SELECT * FROM Step where id = :id")
     LiveData<List<Step>> getStepById(int id);
-
-
-    @Query("SELECT * FROM Step")
-    LiveData<List<Step>> getSteps();
 
 }

@@ -18,7 +18,6 @@ public class Constants {
     public @interface NetworkStatus {
     }
 
-
     /*Recipes Constants*/
     public static final String BROWNIES = "Brownies";
     public static final String NUTELLA_PIE = "Nutella Pie";
@@ -28,14 +27,5 @@ public class Constants {
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({BROWNIES, NUTELLA_PIE, YELLOW_CAKE, CHEESECAKE})
     public @interface RecipeCake {
-    }
-
-    /*RecyclerView Constants*/
-    public static final int FRAGMENT_INGREDIENT_LAYOUT = 0;
-    public static final int FRAGMENT_STEPS_LAYOUT = 1;
-
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({FRAGMENT_INGREDIENT_LAYOUT, FRAGMENT_STEPS_LAYOUT})
-    public @interface FragmentType {
     }
 }

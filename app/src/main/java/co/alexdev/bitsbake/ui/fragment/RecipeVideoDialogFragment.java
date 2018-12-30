@@ -6,9 +6,11 @@ import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -41,29 +43,18 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     private String recipe_key;
     private String step_key;
 
-
-    @Override
-    public void onStart() {
-      //  initPlayer(Uri.parse(vm.getVideoUrl()));
-        super.onStart();
-    }
-
     @Override
     public void onStop() {
+
         releasePlayer();
         super.onStop();
     }
 
     @Override
     public void onPause() {
+
         releasePlayer();
         super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-   //     initPlayer(Uri.parse(vm.getVideoUrl()));
-        super.onResume();
     }
 
     @Override
@@ -86,7 +77,6 @@ public class RecipeVideoDialogFragment extends DialogFragment {
                     new DefaultTrackSelector(),
                     new DefaultLoadControl());
             mBinding.exoplayer.setPlayer(mPlayer);
-
             mPlayer.prepare(buildMediaSource(mediaUri));
             mPlayer.setPlayWhenReady(true);
         }
@@ -125,14 +115,13 @@ public class RecipeVideoDialogFragment extends DialogFragment {
 
         int recipeID = arguments.getInt(recipe_key);
         int stepPos = arguments.getInt(step_key);
-        vm.setRecipeId(recipeID);
-        vm.setStepId(stepPos);
+        vm.prepareData(recipeID, stepPos);
         vm.loadStep().observe(this, step -> {
-            if (vm.shouldDisplayVideo(step)) {
-                initPlayer(Uri.parse(vm.getVideoUrl()));
-            } else {
+            if (!vm.shouldDisplayVideo(step)) {
                 dismiss();
+                return;
             }
+            initPlayer(Uri.parse(vm.getVideoUrl()));
         });
     }
 }

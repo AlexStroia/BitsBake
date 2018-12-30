@@ -1,14 +1,11 @@
 package co.alexdev.bitsbake.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -40,6 +37,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         vm = ViewModelProviders.of(this).get(BaseVM.class);
         mFragmentManager = getSupportFragmentManager();
@@ -48,6 +46,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
         setupBroadcastReceiver();
         setupToolbar();
         loadRecipesFragment();
@@ -55,6 +54,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void loadRecipesFragment() {
+
         Fragment fragment = new RecipesFragment();
         changeFragment(fragment);
     }
@@ -81,26 +81,28 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         registerReceiver(mNetworkReceiver, mIntentFilter);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        super.onResume();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
         unregisterReceiver(mNetworkReceiver);
+        super.onPause();
     }
 
     private void setupToolbar() {
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     public void changeFragment(Fragment fragment) {
+
         if (fragment instanceof RecipesFragment) {
             mFragmentManager.beginTransaction().
                     replace(R.id.fragment_container, fragment).
@@ -114,6 +116,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setupBroadcastReceiver() {
+
         mNetworkReceiver = new NetworkReceiver();
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(INTENT_FILTER_STRING);
@@ -121,6 +124,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onRecipeClickEvent(OnRecipeClickEvent event) {
+
         Bundle args = new Bundle();
         int recipeId = event.getRecipeId();
         args.putInt(getString(R.string.recipe_id), recipeId);
@@ -129,8 +133,10 @@ public class BaseActivity extends AppCompatActivity {
         changeFragment(baseFragment);
     }
 
+    /*Monitor for network connectivity changes*/
     @Subscribe
     public void onNetworkStateChanged(NetworkConnectionEvent event) {
+
         if (vm != null) {
             if (event.getNetworkState()) {
                 vm.loadData();

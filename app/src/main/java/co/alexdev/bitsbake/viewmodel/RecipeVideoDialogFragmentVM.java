@@ -34,16 +34,11 @@ public class RecipeVideoDialogFragmentVM extends ViewModel {
         return Transformations.map(loadStepsById(), steps -> steps.get(mStepsId.getValue()));
     }
 
-    public LiveData<String> loadByThumbnailUrl() {
-        return Transformations.map(loadStepsById(), steps -> steps.get(mStepsId.getValue()).getVideoURL());
-    }
-
     public boolean shouldDisplayVideo(Step step) {
         return (!isVideoUrlEmpty(step) || (!isThumbnailUrlEmpty(step) ? true : false));
     }
 
     private boolean isVideoUrlEmpty(Step step) {
-
         String url = step.getVideoURL();
         Boolean isEmpty = TextUtils.isEmpty(url);
 
@@ -59,12 +54,9 @@ public class RecipeVideoDialogFragmentVM extends ViewModel {
         return isEmpty;
     }
 
-    public void setRecipeId(int id) {
-        mBaseRecipeId.setValue(id);
-    }
-
-    public void setStepId(int id) {
-        mStepsId.setValue(id);
+    public void prepareData(int recipeId, int stepsId) {
+        this.mBaseRecipeId.setValue(recipeId);
+        this.mStepsId.setValue((stepsId));
     }
 
     public String getVideoUrl() {

@@ -21,17 +21,13 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class BaseVM extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
     private final MediatorLiveData<Integer> mBaseRecipeId = new MediatorLiveData<>();
-    private String videoURL;
     private static final int TIMEOUT = 5000;
-    public Recipe recipe;
-    public Ingredient ingredient;
 
     public BaseVM(@NonNull Application application) {
         super(application);
@@ -78,7 +74,6 @@ public class BaseVM extends AndroidViewModel {
     }
 
     public void insertToDatabase(List<Recipe> recipes) {
-        Timber.d("Recipes: " + recipes.toString());
         List<Recipe> formatedRecipes = BitsBakeUtils.formatRecipes(recipes);
 
         wipeAll();

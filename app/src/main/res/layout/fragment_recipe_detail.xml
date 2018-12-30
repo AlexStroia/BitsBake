@@ -30,6 +30,8 @@
             android:layout_marginStart="@dimen/_8dp"
             android:layout_marginTop="@dimen/_8dp"
             android:layout_marginEnd="@dimen/_8dp"
+            android:elevation="@dimen/_50dp"
+            app:cardCornerRadius="@dimen/_25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -41,13 +43,13 @@
 
                 <TextView
                     android:id="@+id/tv_ingredientsName"
-                    android:textStyle="bold"
-                    android:textColor="@color/_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="@dimen/_8dp"
-                    android:text="@string/ingredient" />
+                    android:text="@string/ingredient"
+                    android:textColor="@color/_black"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_ingredients"

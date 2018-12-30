@@ -14,7 +14,6 @@ public class BitsBakeUtils {
     /*Ignore the id which comes from the API and use the main id from the Recipe
      * This way we can assure that we can make a connection between the recipe and ingredient and steps */
     public static List<Recipe> formatRecipes(List<Recipe> recipes) {
-
         List<Recipe> recipeList = new ArrayList<>();
         for (Recipe recipe : recipes) {
             Timber.d(recipe.getName());
@@ -52,7 +51,6 @@ public class BitsBakeUtils {
     }
 
     public static String buildIngredientsTextView(List<Ingredient> ingredients) {
-
         StringBuilder stringBuilder = new StringBuilder();
         for (Ingredient ingredient : ingredients) {
             stringBuilder.append(ingredient.getIngredient()).append("\n");
