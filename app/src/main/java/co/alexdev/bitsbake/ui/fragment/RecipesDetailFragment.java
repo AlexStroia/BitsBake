@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 public class RecipesDetailFragment extends BaseFragment {
@@ -33,6 +35,18 @@ public class RecipesDetailFragment extends BaseFragment {
         initView(container);
         initRecycler();
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        EventBus.getDefault().register(this);
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     private void initView(ViewGroup container) {
@@ -65,7 +79,7 @@ public class RecipesDetailFragment extends BaseFragment {
         mBinding.rvDetails.setAdapter(mStepsAdapter);
     }
 
-    private void configureIngredientsTextView(int id){
+    private void configureIngredientsTextView(int id) {
         vm.setId(id);
         vm.getIngredientById().observe(this,
                 ingredients -> mBinding.tvIngredients.setText(

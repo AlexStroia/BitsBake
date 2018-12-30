@@ -55,20 +55,6 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onStart() {
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-
     private void reinitData() {
         recipe_key = getString(R.string.recipe_id);
         step_key = getString(R.string.step_id);
@@ -89,9 +75,7 @@ public class BaseFragment extends Fragment {
 
     @Subscribe
     public void onRecipeStepClickEvent(OnRecipeStepClickEvent event) {
-
         reinitData();
-
         Step step = event.getStep();
         if (step != null) {
             args.putInt(recipe_key, step.getId());

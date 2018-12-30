@@ -43,6 +43,7 @@ public class RecipeVideoDialogFragmentVM extends ViewModel {
     }
 
     private boolean isVideoUrlEmpty(Step step) {
+
         String url = step.getVideoURL();
         Boolean isEmpty = TextUtils.isEmpty(url);
 
