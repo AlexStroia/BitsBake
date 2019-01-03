@@ -94,11 +94,14 @@ public class RecipesDetailFragment extends BaseFragment {
     private void configureIngredientsTextView(int id) {
 
         vm.setId(id);
-        vm.setSharedPrefIngredientId(id);
         vm.getIngredientById().observe(this,
-                ingredients -> mBinding.tvIngredients.setText(
-                        BitsBakeUtils.buildIngredientsTextView(ingredients)
-                ));
+                ingredients -> {
+                    String formattedIngredients = BitsBakeUtils.buildIngredientsTextView(ingredients);
+                    mBinding.tvIngredients.setText(formattedIngredients);
+                    vm.setRecipeName(ingredients.get(0).getCake());
+                    vm.setSharedPrefIngredientId(formattedIngredients);
+                });
+
         vm.getStepsById().observe(this, steps -> mStepsAdapter.setList(steps));
     }
 

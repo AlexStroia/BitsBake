@@ -1,17 +1,13 @@
 package co.alexdev.bitsbake.model.intentservice;
 
 import android.app.IntentService;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
-import java.util.List;
-
 import androidx.annotation.Nullable;
-import androidx.annotation.WorkerThread;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import co.alexdev.bitsbake.model.Ingredient;
-import co.alexdev.bitsbake.repo.BitsBakeRepository;
+import co.alexdev.bitsbake.ui.widget.RecipeIngredientsWidgetProvider;
 import co.alexdev.bitsbake.utils.SharedPrefManager;
 import timber.log.Timber;
 
@@ -39,21 +35,15 @@ public class RecipeIngredientsService extends IntentService {
 
     /*Handle the query to observe the ingredients list*/
     private void handleActionGetIngredient(Context context) {
-        int ingredientRecipeId = SharedPrefManager.getRecipeId(context);
-      //  if (ingredientRecipeId == 0) {
-            //set the text of the recipe to recipe text not defined
-    //    } else {
-            LiveData<List<Ingredient>> ingredientList = BitsBakeRepository.getInstance(context).
-                    getIngredientById(ingredientRecipeId);
-            ingredientList.observeForever(new Observer<List<Ingredient>>() {
-                @Override
-                public void onChanged(List<Ingredient> ingredients) {
-                    ingredientList.removeObserver(this);
-                    Timber.d("Ingredients: " + ingredients.toString());
-                }
-            });
-        }
-  //  }
+        String ingredients = SharedPrefManager.getWidgetRecipeIngredients(context);
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int[] appWidgetsIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, RecipeIngredientsWidgetProvider.class));
+
+        RecipeIngredientsWidgetProvider.updateWidgetIngredients(this, appWidgetManager,ingredients,appWidgetsIds);
+
+        Timber.d("Ingredients: " + ingredients);
+    }
 
     /*Start the service*/
     public static void startActionGetIngredient(Context context) {

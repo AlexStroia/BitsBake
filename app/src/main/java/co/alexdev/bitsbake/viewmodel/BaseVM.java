@@ -1,6 +1,9 @@
 package co.alexdev.bitsbake.viewmodel;
 
 import android.app.Application;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -11,6 +14,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
+import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.model.Ingredient;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.model.Recipe;
@@ -29,6 +33,8 @@ public class BaseVM extends AndroidViewModel {
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
     private final MediatorLiveData<Integer> mBaseRecipeId = new MediatorLiveData<>();
+    private final MediatorLiveData<String> mRecipeName = new MediatorLiveData<>();
+    private Toast mToast;
     private static final int TIMEOUT = 5000;
 
     public BaseVM(@NonNull Application application) {
@@ -37,11 +43,19 @@ public class BaseVM extends AndroidViewModel {
     }
 
     public void onWidgetUpdateClick() {
-        RecipeIngredientsService.startActionGetIngredient(this.getApplication());
+        Boolean isWidgetPresent = SharedPrefManager.getWidgetState(this.getApplication());
+        if (mToast != null) mToast.cancel();
+        if (isWidgetPresent) {
+            String widgetMessage = String.format(this.getApplication().getString(R.string.widget_data_updated), mRecipeName.getValue());
+            RecipeIngredientsService.startActionGetIngredient(this.getApplication());
+            mToast.makeText(this.getApplication(), widgetMessage, Toast.LENGTH_LONG).show();
+        } else {
+            mToast.makeText(this.getApplication(), this.getApplication().getString(R.string.widget_not_present), Toast.LENGTH_LONG).show();
+        }
     }
 
-    public void setSharedPrefIngredientId(int id) {
-        SharedPrefManager.setRecipeId(id, this.getApplication());
+    public void setSharedPrefIngredientId(String recipeIngredients) {
+        SharedPrefManager.setWidgetIngredients(recipeIngredients, this.getApplication());
     }
 
     public LiveData<List<Recipe>> getRecipes() {
@@ -104,6 +118,10 @@ public class BaseVM extends AndroidViewModel {
 
     public void setId(int id) {
         mBaseRecipeId.setValue(id);
+    }
+
+    public void setRecipeName(String name) {
+        mRecipeName.setValue(name);
     }
 
     private void wipeAll() {
