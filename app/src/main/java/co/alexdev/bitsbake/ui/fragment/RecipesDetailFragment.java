@@ -11,8 +11,10 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.StepsAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipeDetailBinding;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
+import co.alexdev.bitsbake.utils.SharedPrefManager;
 import co.alexdev.bitsbake.viewmodel.BaseVM;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +60,8 @@ public class RecipesDetailFragment extends BaseFragment {
                 false);
         rootView = mBinding.getRoot();
         vm = ViewModelProviders.of(this.getActivity()).get(BaseVM.class);
+
+        mBinding.btnUpdateWidget.setOnClickListener(view -> vm.onWidgetUpdateClick());
     }
 
     private void initRecycler() {
@@ -79,6 +83,7 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void configureRecyclerView() {
+
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mBinding.rvDetails.getContext(), mLayoutManager.getOrientation());
         dividerItemDecoration.setDrawable(getActivity().getDrawable(R.color._black));
@@ -89,10 +94,13 @@ public class RecipesDetailFragment extends BaseFragment {
     private void configureIngredientsTextView(int id) {
 
         vm.setId(id);
+        vm.setSharedPrefIngredientId(id);
         vm.getIngredientById().observe(this,
                 ingredients -> mBinding.tvIngredients.setText(
                         BitsBakeUtils.buildIngredientsTextView(ingredients)
                 ));
         vm.getStepsById().observe(this, steps -> mStepsAdapter.setList(steps));
     }
+
+
 }

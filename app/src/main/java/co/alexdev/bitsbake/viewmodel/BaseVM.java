@@ -14,9 +14,11 @@ import androidx.lifecycle.Transformations;
 import co.alexdev.bitsbake.model.Ingredient;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.model.Recipe;
+import co.alexdev.bitsbake.model.intentservice.RecipeIngredientsService;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
+import co.alexdev.bitsbake.utils.SharedPrefManager;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -32,6 +34,14 @@ public class BaseVM extends AndroidViewModel {
     public BaseVM(@NonNull Application application) {
         super(application);
         mRepository = BitsBakeRepository.getInstance(this.getApplication());
+    }
+
+    public void onWidgetUpdateClick() {
+        RecipeIngredientsService.startActionGetIngredient(this.getApplication());
+    }
+
+    public void setSharedPrefIngredientId(int id) {
+        SharedPrefManager.setRecipeId(id, this.getApplication());
     }
 
     public LiveData<List<Recipe>> getRecipes() {

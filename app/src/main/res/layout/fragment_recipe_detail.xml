@@ -3,6 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="co.alexdev.bitsbake.viewmodel.BaseVM"/>
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -58,6 +64,14 @@
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="@dimen/_8dp"
                     android:text="@string/ingredient" />
+
+                <Button
+                    android:id="@+id/btn_update_widget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:text="@string/update_widget_data" />
 
             </LinearLayout>
 
