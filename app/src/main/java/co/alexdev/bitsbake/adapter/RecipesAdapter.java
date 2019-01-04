@@ -19,6 +19,7 @@ import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.utils.Constants;
 import timber.log.Timber;
 
+/*Recipes Adapter class which populates main page recycler view*/
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder> {
 
     private static List<Recipe> recipes;

@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.BR;
 
+/** Ingredient model class */
 @Entity
 public class Ingredient extends BaseObservable {
 

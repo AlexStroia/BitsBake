@@ -19,6 +19,7 @@ import timber.log.Timber;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+/*Steps Adapter which populates the steps for a specific recipe*/
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
 
     private static List<Step> steps;

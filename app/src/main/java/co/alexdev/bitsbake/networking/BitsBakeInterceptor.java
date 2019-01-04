@@ -7,6 +7,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import timber.log.Timber;
 
+/** Interceptor class used to intercept the requests */
 public class BitsBakeInterceptor implements Interceptor {
 
     @Override
