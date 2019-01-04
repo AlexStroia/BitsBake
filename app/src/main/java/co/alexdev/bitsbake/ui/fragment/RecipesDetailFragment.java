@@ -99,7 +99,7 @@ public class RecipesDetailFragment extends BaseFragment {
                     String formattedIngredients = BitsBakeUtils.buildIngredientsTextView(ingredients);
                     mBinding.tvIngredients.setText(formattedIngredients);
                     vm.setRecipeName(ingredients.get(0).getCake());
-                    vm.setSharedPrefIngredientId(formattedIngredients);
+                    vm.setSharedPrefIngredientId(ingredients.get(0).getId());
                 });
 
         vm.getStepsById().observe(this, steps -> mStepsAdapter.setList(steps));

@@ -6,8 +6,14 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.List;
+
 import androidx.annotation.Nullable;
+import co.alexdev.bitsbake.R;
+import co.alexdev.bitsbake.model.Ingredient;
+import co.alexdev.bitsbake.repo.BitsBakeRepository;
 import co.alexdev.bitsbake.ui.widget.RecipeIngredientsWidgetProvider;
+import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.SharedPrefManager;
 import timber.log.Timber;
 
@@ -35,14 +41,19 @@ public class RecipeIngredientsService extends IntentService {
 
     /*Handle the query to observe the ingredients list*/
     private void handleActionGetIngredient(Context context) {
-        String ingredients = SharedPrefManager.getWidgetRecipeIngredients(context);
+        int ingredientId = SharedPrefManager.getWidgetIngredientId(context);
+
+        if (ingredientId == 0) {
+            throw new IllegalArgumentException(context.getString(R.string.invalid_query_id));
+        }
+        List<Ingredient> ingredients = BitsBakeRepository.getInstance(context).getIngredientByIdQuery(ingredientId);
+        String widgetIngredients = BitsBakeUtils.buildIngredientsTextView(ingredients);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetsIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, RecipeIngredientsWidgetProvider.class));
 
-        RecipeIngredientsWidgetProvider.updateWidgetIngredients(this, appWidgetManager,ingredients,appWidgetsIds);
-
-        Timber.d("Ingredients: " + ingredients);
+        RecipeIngredientsWidgetProvider.updateWidgetIngredients(this, appWidgetManager, widgetIngredients, appWidgetsIds);
+        Timber.d("Ingredients: " + widgetIngredients);
     }
 
     /*Start the service*/

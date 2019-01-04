@@ -35,4 +35,7 @@
     <string name="update_widget_data">Update widget data</string>
     <string name="widget_data_updated">%1$s widget has been updated!</string>
     <string name="widget_not_present">Widget is not present on the home screen</string>
+
+    <!--Errors-->
+    <string name="invalid_query_id">Query id is invalid</string>
 </resources>

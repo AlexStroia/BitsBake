@@ -4,21 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import co.alexdev.bitsbake.R;
-
 public class SharedPrefManager {
 
-    public static final String RECIPE_WIDGET_INGREDIENTS = "recipe_widget_ingredient";
+    public static final String RECIPE_WIDGET_INGREDIENT_ID = "recipe_widget_ingredient_id";
     public static final String RECIPE_WIDGET_STATE = "recipe_widget_state";
 
-    public static void setWidgetIngredients(String recipeIngredients, Context context) {
+    public static void setWidgetIngredientId(int recipeIngredientId, Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        sharedPref.edit().putString(RECIPE_WIDGET_INGREDIENTS, recipeIngredients).commit();
+        sharedPref.edit().putInt(RECIPE_WIDGET_INGREDIENT_ID, recipeIngredientId).commit();
     }
 
-    public static String getWidgetRecipeIngredients(Context context) {
+    public static int getWidgetIngredientId(Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPref.getString(RECIPE_WIDGET_INGREDIENTS, context.getString(R.string.no_recipe_selected));
+        return sharedPref.getInt(RECIPE_WIDGET_INGREDIENT_ID, 0);
     }
 
     public static void setWidgetState(Boolean widgetValue, Context context) {

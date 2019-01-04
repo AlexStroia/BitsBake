@@ -3,8 +3,6 @@ package co.alexdev.bitsbake.viewmodel;
 import android.app.Application;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -54,8 +52,8 @@ public class BaseVM extends AndroidViewModel {
         }
     }
 
-    public void setSharedPrefIngredientId(String recipeIngredients) {
-        SharedPrefManager.setWidgetIngredients(recipeIngredients, this.getApplication());
+    public void setSharedPrefIngredientId(int recipeIngredientId) {
+        SharedPrefManager.setWidgetIngredientId(recipeIngredientId, this.getApplication());
     }
 
     public LiveData<List<Recipe>> getRecipes() {

@@ -21,6 +21,10 @@ public interface RecipeDao {
     @Query("SELECT * FROM Ingredient where id = :id")
     LiveData<List<Ingredient>> getIngredientById(int id);
 
+    /*Used to query a non live data object in the widget*/
+    @Query("SELECT * FROM Ingredient where id = :id")
+    List<Ingredient> ingredientById(int id);
+
     @Query("DELETE FROM INGREDIENT")
     void deleteIngredients();
 
