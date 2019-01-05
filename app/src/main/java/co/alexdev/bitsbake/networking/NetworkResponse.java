@@ -7,6 +7,10 @@ import androidx.annotation.Nullable;
 import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.utils.Constants;
 
+/**Network Response class used to catch the connection status
+ * @param  status current status for the network
+ * @param data data that we need to receive
+ * @param error error thrown */
 public class NetworkResponse {
 
     @Constants.NetworkStatus

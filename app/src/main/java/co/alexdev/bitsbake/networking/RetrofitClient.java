@@ -12,6 +12,12 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
+/**Retrofit Client class
+ * @param SCHEME defines the url scheme
+ * @param AUTHORITY defines the authority for the url
+ * @param TIMEOUT MILISECONDS defines the timeout
+ * @param mRetrofit defines the retrofit instance
+ * @param sRetrofitClient static variable used for the singleton instance*/
 public class RetrofitClient {
 
     public static final String SCHEME = "https";

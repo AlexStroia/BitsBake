@@ -2,8 +2,12 @@ package co.alexdev.bitsbake.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.model.Ingredient;
 import co.alexdev.bitsbake.model.Step;
@@ -13,6 +17,9 @@ import timber.log.Timber;
 public class BitsBakeUtils {
     /*Ignore the id which comes from the API and use the main id from the Recipe
      * This way we can assure that we can make a connection between the recipe and ingredient and steps */
+
+    private static final int COLOR_VALUE = 255;
+
     public static List<Recipe> formatRecipes(List<Recipe> recipes) {
         List<Recipe> recipeList = new ArrayList<>();
         for (Recipe recipe : recipes) {
@@ -56,5 +63,13 @@ public class BitsBakeUtils {
             stringBuilder.append(ingredient.getIngredient()).append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public static int generateRandomColor() {
+        Random random = new Random();
+        return Color.argb(COLOR_VALUE,
+                random.nextInt(COLOR_VALUE + 1),
+                random.nextInt(COLOR_VALUE + 1),
+                random.nextInt(COLOR_VALUE + 1));
     }
 }

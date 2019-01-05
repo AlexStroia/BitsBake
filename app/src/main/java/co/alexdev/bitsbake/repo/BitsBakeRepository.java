@@ -13,6 +13,7 @@ import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.networking.RetrofitClient;
 import io.reactivex.Single;
 
+/**BitsBakeRepository - source of truth for the application */
 public class BitsBakeRepository {
 
     private static BitsBakeRepository sInstance;
