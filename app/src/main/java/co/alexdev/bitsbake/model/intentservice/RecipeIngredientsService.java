@@ -14,7 +14,7 @@ import co.alexdev.bitsbake.model.Ingredient;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
 import co.alexdev.bitsbake.ui.widget.RecipeIngredientsWidgetProvider;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
-import co.alexdev.bitsbake.utils.SharedPrefManager;
+import co.alexdev.bitsbake.utils.PrefManager;
 import timber.log.Timber;
 
 /**
@@ -48,7 +48,7 @@ public class RecipeIngredientsService extends IntentService {
 
     /*Handle the query to observe the ingredients list*/
     private void handleActionGetIngredient(Context context) {
-        int ingredientId = SharedPrefManager.getWidgetIngredientId(context);
+        int ingredientId = PrefManager.getWidgetIngredientId(context);
 
         if (ingredientId == 0) {
             throw new IllegalArgumentException(context.getString(R.string.invalid_query_id));

@@ -13,6 +13,8 @@ import co.alexdev.bitsbake.model.Ingredient;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.model.Recipe;
 import timber.log.Timber;
+/**Utils class used to help the application for certain functionalities*/
+
 
 public class BitsBakeUtils {
     /*Ignore the id which comes from the API and use the main id from the Recipe

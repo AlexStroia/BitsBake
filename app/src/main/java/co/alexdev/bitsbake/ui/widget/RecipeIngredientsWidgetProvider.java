@@ -6,7 +6,7 @@ import android.content.Context;
 import android.widget.RemoteViews;
 
 import co.alexdev.bitsbake.R;
-import co.alexdev.bitsbake.utils.SharedPrefManager;
+import co.alexdev.bitsbake.utils.PrefManager;
 import timber.log.Timber;
 
 /**
@@ -42,13 +42,13 @@ public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        SharedPrefManager.setWidgetState(true, context);
+        PrefManager.setWidgetState(true, context);
         Timber.d("Widget enabled");
     }
 
     @Override
     public void onDisabled(Context context) {
-        SharedPrefManager.setWidgetState(false, context);
+        PrefManager.setWidgetState(false, context);
         Timber.d("Widget disabled");
     }
 }

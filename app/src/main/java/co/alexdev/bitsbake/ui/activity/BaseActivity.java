@@ -68,13 +68,11 @@ public class BaseActivity extends AppCompatActivity {
                 break;
 
             case Constants.RESPONSE_LOADING:
-                mBinding.progressBar.setVisibility(View.VISIBLE);
                 Timber.d("Data loading");
                 break;
 
             case Constants.RESPONSE_SUCCES:
                 vm.insertToDatabase(networkResponse.data);
-                mBinding.progressBar.setVisibility(View.GONE);
                 break;
         }
     }

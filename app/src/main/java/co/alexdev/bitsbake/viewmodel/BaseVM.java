@@ -20,7 +20,7 @@ import co.alexdev.bitsbake.model.intentservice.RecipeIngredientsService;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
-import co.alexdev.bitsbake.utils.SharedPrefManager;
+import co.alexdev.bitsbake.utils.PrefManager;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -41,7 +41,7 @@ public class BaseVM extends AndroidViewModel {
     }
 
     public void onWidgetUpdateClick() {
-        Boolean isWidgetPresent = SharedPrefManager.getWidgetState(this.getApplication());
+        Boolean isWidgetPresent = PrefManager.getWidgetState(this.getApplication());
         if (mToast != null) mToast.cancel();
         if (isWidgetPresent) {
             String widgetMessage = String.format(this.getApplication().getString(R.string.widget_data_updated), mRecipeName.getValue());
@@ -53,7 +53,7 @@ public class BaseVM extends AndroidViewModel {
     }
 
     public void setSharedPrefIngredientId(int recipeIngredientId) {
-        SharedPrefManager.setWidgetIngredientId(recipeIngredientId, this.getApplication());
+        PrefManager.setWidgetIngredientId(recipeIngredientId, this.getApplication());
     }
 
     public LiveData<List<Recipe>> getRecipes() {

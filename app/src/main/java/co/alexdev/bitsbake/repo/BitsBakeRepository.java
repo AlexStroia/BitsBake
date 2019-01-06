@@ -13,7 +13,10 @@ import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.networking.RetrofitClient;
 import io.reactivex.Single;
 
-/**BitsBakeRepository - source of truth for the application */
+/**BitsBakeRepository - source of truth for the application
+ * @param sInstance static instance of the repository class. Used to create the singleton instance
+ * @param mExecutor variable of mExecutor class used when a query is made to move it to another thread
+ * @param mDatabase variable is used to have acces to the database DAO*/
 public class BitsBakeRepository {
 
     private static BitsBakeRepository sInstance;

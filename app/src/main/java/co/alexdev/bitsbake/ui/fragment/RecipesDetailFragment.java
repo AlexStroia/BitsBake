@@ -11,10 +11,8 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.StepsAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipeDetailBinding;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
-import co.alexdev.bitsbake.utils.SharedPrefManager;
 import co.alexdev.bitsbake.viewmodel.BaseVM;
 
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
