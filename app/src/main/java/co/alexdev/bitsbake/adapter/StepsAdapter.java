@@ -72,7 +72,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
 
         public void bind(Step step, int position) {
             mBinding.tvStepDetail.setText(step.getShortDescription());
-            mBinding.tvStepNumber.setText(String.valueOf(position));
+            mBinding.tvStepNumber.setText(String.valueOf(position) + ".") ;
         }
 
         @Override

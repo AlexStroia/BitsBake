@@ -2,6 +2,8 @@ package co.alexdev.bitsbake.ui.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
 import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
@@ -28,6 +31,10 @@ public class BaseFragment extends Fragment {
     private String recipe_key;
     private String step_key;
     private Bundle args;
+
+    /*Used to restore recyclerView position when configuration changes occurs */
+    static final String RECYCLER_VIEW_POS = "RECYCLER_VIEW_POSITION";
+    Parcelable recyclerViewState;
 
     @Nullable
     @Override
@@ -68,7 +75,19 @@ public class BaseFragment extends Fragment {
         } else {
             mFragmentManager.beginTransaction().
                     replace(R.id.fragment_container, fragment).
-                    commit();
+                    commitAllowingStateLoss();
+        }
+    }
+
+    /*When configuration changes are happening */
+    protected void saveRecyclerViewState(@NonNull Bundle outState, RecyclerView.LayoutManager layoutManager) {
+        recyclerViewState = layoutManager.onSaveInstanceState();
+        outState.putParcelable(RECYCLER_VIEW_POS, recyclerViewState);
+    }
+
+    protected void checkRecyclerViewState(Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(RECYCLER_VIEW_POS)) {
+            recyclerViewState = savedInstanceState.getParcelable(RECYCLER_VIEW_POS);
         }
     }
 

@@ -1,12 +1,18 @@
 package co.alexdev.bitsbake.ui.fragment;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import co.alexdev.bitsbake.R;
@@ -16,7 +22,7 @@ import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.viewmodel.BaseVM;
 
 
-public class RecipesFragment extends BaseFragment{
+public class RecipesFragment extends BaseFragment {
 
     private RecipesAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -34,6 +40,24 @@ public class RecipesFragment extends BaseFragment{
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        saveRecyclerViewState(outState, mLayoutManager);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        checkRecyclerViewState(savedInstanceState);
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        if (recyclerViewState != null) mLayoutManager.onRestoreInstanceState(recyclerViewState);
+        super.onResume();
+    }
+
     private void initRecycler() {
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mAdapter = new RecipesAdapter(new ArrayList<>());
@@ -45,4 +69,15 @@ public class RecipesFragment extends BaseFragment{
                     mAdapter.setRecipes(mRecipes);
                 });
     }
+
+/*    private void saveRecyclerViewState(Bundle outState) {
+        recyclerViewState = mLayoutManager.onSaveInstanceState();
+        outState.putParcelable(RECYCLER_VIEW_POS, recyclerViewState);
+    }
+
+    private void checkRecyclerViewState(Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(RECYCLER_VIEW_POS)) {
+            recyclerViewState = savedInstanceState.getParcelable(RECYCLER_VIEW_POS);
+        }
+    }*/
 }

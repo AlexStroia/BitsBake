@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="@dimen/_8dp"
-                    android:text="@string/ingredient" />
+                    android:textColor="@color/custom_red" />
 
                 <Button
                     android:id="@+id/btn_update_widget"

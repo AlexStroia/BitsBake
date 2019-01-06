@@ -3,6 +3,8 @@ package co.alexdev.bitsbake.ui.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -37,6 +39,24 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        saveRecyclerViewState(outState, mLayoutManager);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        checkRecyclerViewState(savedInstanceState);
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        if (recyclerViewState != null) mLayoutManager.onRestoreInstanceState(recyclerViewState);
+        super.onResume();
+    }
+
+    @Override
     public void onStart() {
 
         EventBus.getDefault().register(this);
@@ -51,7 +71,6 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void initView(ViewGroup container) {
-
         mBinding = DataBindingUtil.inflate(
                 getLayoutInflater(),
                 R.layout.fragment_recipe_detail, container,
@@ -63,7 +82,6 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void initRecycler() {
-
         Bundle args = getArguments();
         String recipeKey = getString(R.string.recipe_id);
         if (args != null && args.containsKey(recipeKey)) {
@@ -74,14 +92,12 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void configureStepsAdapter() {
-
         mStepsAdapter = new StepsAdapter(new ArrayList<>());
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         configureRecyclerView();
     }
 
     private void configureRecyclerView() {
-
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mBinding.rvDetails.getContext(), mLayoutManager.getOrientation());
         dividerItemDecoration.setDrawable(getActivity().getDrawable(R.color._black));
@@ -90,7 +106,6 @@ public class RecipesDetailFragment extends BaseFragment {
     }
 
     private void configureIngredientsTextView(int id) {
-
         vm.setId(id);
         vm.getIngredientById().observe(this,
                 ingredients -> {
@@ -105,5 +120,15 @@ public class RecipesDetailFragment extends BaseFragment {
         vm.getStepsById().observe(this, steps -> mStepsAdapter.setList(steps));
     }
 
+/*    *//*When configuration changes are happening *//*
+    private void saveRecyclerViewState(@NonNull Bundle outState) {
+        recyclerViewState = mLayoutManager.onSaveInstanceState();
+        outState.putParcelable(RECYCLER_VIEW_POS, recyclerViewState);
+    }
 
+    private void checkRecyclerViewState(Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(RECYCLER_VIEW_POS)) {
+            recyclerViewState = savedInstanceState.getParcelable(RECYCLER_VIEW_POS);
+        }
+    }*/
 }
