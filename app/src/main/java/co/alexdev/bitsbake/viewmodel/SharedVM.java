@@ -1,7 +1,6 @@
 package co.alexdev.bitsbake.viewmodel;
 
 import android.app.Application;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.util.List;
@@ -22,6 +21,7 @@ import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.PrefManager;
+import co.alexdev.bitsbake.utils.Validator;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -130,16 +130,6 @@ public class SharedVM extends AndroidViewModel {
     }
 
     public Boolean isFieldValid(List<Ingredient> ingredients, String text) {
-        boolean value = isArrayValid(ingredients) && isTextValid(text);
-        Timber.d("Value: " + value);
-        return isArrayValid(ingredients) && isTextValid(text);
-    }
-
-    private Boolean isArrayValid(List<Ingredient> ingredients) {
-        return ingredients != null && ingredients.size() > 0;
-    }
-
-    private Boolean isTextValid(String text) {
-        return !TextUtils.isEmpty(text);
+        return Validator.validate(ingredients, text);
     }
 }

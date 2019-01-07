@@ -20,6 +20,7 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
 import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.model.Step;
+import co.alexdev.bitsbake.utils.Validator;
 import co.alexdev.bitsbake.viewmodel.SharedVM;
 import timber.log.Timber;
 
@@ -99,10 +100,12 @@ public class BaseFragment extends Fragment {
         Step step = event.getStep();
         if (step != null) {
             Timber.d("Recipe step id: " + event.getStep().getVideoURL());
-            args.putString(recipe_cake_key, event.getStep().getVideoURL());
-            RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
-            recipeVideoDialogFragment.setArguments(args);
-            changeFragment(recipeVideoDialogFragment);
+            if (Validator.isTextValid(event.getStep().getVideoURL())) {
+                args.putString(recipe_cake_key, event.getStep().getVideoURL());
+                RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
+                recipeVideoDialogFragment.setArguments(args);
+                changeFragment(recipeVideoDialogFragment);
+            }
         }
     }
 }
