@@ -26,6 +26,7 @@ import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.Constants;
+import co.alexdev.bitsbake.utils.PrefManager;
 import co.alexdev.bitsbake.viewmodel.SharedVM;
 import timber.log.Timber;
 
@@ -52,7 +53,7 @@ public class BaseActivity extends AppCompatActivity {
     private void initView() {
         setupBroadcastReceiver();
         setupToolbar();
-        checkIfIsClickFromWidget();
+        checkIfIsFromWidget();
         loadRecipesFragment();
         vm.getNetworkResponse().observe(this, networkResponse -> processResponse(networkResponse));
     }
@@ -113,7 +114,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private void checkIfIsClickFromWidget() {
+    private void checkIfIsFromWidget() {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(Constants.RECIPE_INGREDIENT_ID_KEY)) {
             int recipeId = intent.getIntExtra(Constants.RECIPE_INGREDIENT_ID_KEY, 0);
@@ -121,7 +122,7 @@ public class BaseActivity extends AppCompatActivity {
             args.putInt(getString(R.string.recipe_id), recipeId);
             RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
             recipesDetailFragment.setArguments(args);
-            new Handler().postDelayed(() -> changeFragment(recipesDetailFragment),250);
+            new Handler().postDelayed(() -> changeFragment(recipesDetailFragment), 250);
         }
     }
 
@@ -144,7 +145,6 @@ public class BaseActivity extends AppCompatActivity {
     /*Monitor for network connectivity changes*/
     @Subscribe
     public void onNetworkStateChanged(NetworkConnectionEvent event) {
-
         if (vm != null) {
             if (event.getNetworkState()) {
                 vm.loadData();

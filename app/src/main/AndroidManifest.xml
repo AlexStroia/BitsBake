@@ -7,7 +7,7 @@
     <application
         android:name=".app.BitsBakeApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -32,5 +32,4 @@
 
     <service android:name=".model.intentservice.RecipeIngredientsService"/>
     </application>
-
 </manifest>
