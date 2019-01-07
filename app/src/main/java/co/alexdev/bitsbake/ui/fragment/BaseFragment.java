@@ -73,6 +73,7 @@ public class BaseFragment extends Fragment {
             ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
         } else {
             mFragmentManager.beginTransaction().
+                    setCustomAnimations(R.anim.fade_in, R.anim.fade_out).
                     replace(R.id.fragment_container, fragment).
                     commitNow();
         }
