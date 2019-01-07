@@ -45,7 +45,6 @@ public class RecipeVideoDialogFragment extends DialogFragment {
 
     @Override
     public void onStop() {
-
         releasePlayer();
         super.onStop();
     }
@@ -62,7 +61,6 @@ public class RecipeVideoDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         initView(container);
-
         if (arguments != null && arguments.containsKey(recipe_key) && arguments.containsKey(step_key)) {
             loadData();
         }
@@ -92,14 +90,12 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     }
 
     private MediaSource buildMediaSource(Uri uri) {
-
         String userAgent = Util.getUserAgent(this.getActivity(), getString(R.string.app_name));
         return new ExtractorMediaSource.Factory(
                 new DefaultHttpDataSourceFactory(userAgent)).createMediaSource(uri);
     }
 
     private void initView(ViewGroup container) {
-
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_video_dialog, container, false);
         mRepository = BitsBakeRepository.getInstance(this.getActivity());
         factory = new DialogViewModelFactory(mRepository);
@@ -112,7 +108,6 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     }
 
     private void loadData() {
-
         int recipeID = arguments.getInt(recipe_key);
         int stepPos = arguments.getInt(step_key);
         vm.prepareData(recipeID, stepPos);

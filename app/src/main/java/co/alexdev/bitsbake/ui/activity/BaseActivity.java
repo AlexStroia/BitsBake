@@ -37,16 +37,13 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         vm = ViewModelProviders.of(this).get(BaseVM.class);
         mFragmentManager = getSupportFragmentManager();
-
         initView();
     }
 
     private void initView() {
-
         setupBroadcastReceiver();
         setupToolbar();
         loadRecipesFragment();
@@ -93,14 +90,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     public void changeFragment(Fragment fragment) {
-
         if (fragment instanceof RecipesFragment) {
             mFragmentManager.beginTransaction().
                     replace(R.id.fragment_container, fragment).
@@ -114,7 +109,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setupBroadcastReceiver() {
-
         mNetworkReceiver = new NetworkReceiver();
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(INTENT_FILTER_STRING);

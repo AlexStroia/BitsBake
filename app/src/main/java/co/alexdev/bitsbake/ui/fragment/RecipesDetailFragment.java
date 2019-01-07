@@ -58,14 +58,12 @@ public class RecipesDetailFragment extends BaseFragment {
 
     @Override
     public void onStart() {
-
         EventBus.getDefault().register(this);
         super.onStart();
     }
 
     @Override
     public void onStop() {
-
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
@@ -119,16 +117,4 @@ public class RecipesDetailFragment extends BaseFragment {
 
         vm.getStepsById().observe(this, steps -> mStepsAdapter.setList(steps));
     }
-
-/*    *//*When configuration changes are happening *//*
-    private void saveRecyclerViewState(@NonNull Bundle outState) {
-        recyclerViewState = mLayoutManager.onSaveInstanceState();
-        outState.putParcelable(RECYCLER_VIEW_POS, recyclerViewState);
-    }
-
-    private void checkRecyclerViewState(Bundle savedInstanceState) {
-        if (savedInstanceState != null && savedInstanceState.containsKey(RECYCLER_VIEW_POS)) {
-            recyclerViewState = savedInstanceState.getParcelable(RECYCLER_VIEW_POS);
-        }
-    }*/
 }

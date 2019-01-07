@@ -69,15 +69,4 @@ public class RecipesFragment extends BaseFragment {
                     mAdapter.setRecipes(mRecipes);
                 });
     }
-
-/*    private void saveRecyclerViewState(Bundle outState) {
-        recyclerViewState = mLayoutManager.onSaveInstanceState();
-        outState.putParcelable(RECYCLER_VIEW_POS, recyclerViewState);
-    }
-
-    private void checkRecyclerViewState(Bundle savedInstanceState) {
-        if (savedInstanceState != null && savedInstanceState.containsKey(RECYCLER_VIEW_POS)) {
-            recyclerViewState = savedInstanceState.getParcelable(RECYCLER_VIEW_POS);
-        }
-    }*/
 }
