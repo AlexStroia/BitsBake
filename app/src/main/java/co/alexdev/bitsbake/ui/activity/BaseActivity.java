@@ -121,12 +121,7 @@ public class BaseActivity extends AppCompatActivity {
             args.putInt(getString(R.string.recipe_id), recipeId);
             RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
             recipesDetailFragment.setArguments(args);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    changeFragment(recipesDetailFragment);
-                }
-            },250);
+            new Handler().postDelayed(() -> changeFragment(recipesDetailFragment),250);
         }
     }
 
