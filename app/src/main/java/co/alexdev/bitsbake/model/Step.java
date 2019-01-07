@@ -13,6 +13,7 @@ public class Step extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
     private int room_id;
+
     private int id;
     @NonNull
     private String cake;

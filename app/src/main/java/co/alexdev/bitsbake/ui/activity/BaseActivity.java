@@ -3,7 +3,7 @@ package co.alexdev.bitsbake.ui.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.View;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import androidx.appcompat.widget.Toolbar;
@@ -21,7 +21,7 @@ import co.alexdev.bitsbake.ui.fragment.BaseFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.Constants;
-import co.alexdev.bitsbake.viewmodel.BaseVM;
+import co.alexdev.bitsbake.viewmodel.SharedVM;
 import timber.log.Timber;
 
 public class BaseActivity extends AppCompatActivity {
@@ -32,13 +32,13 @@ public class BaseActivity extends AppCompatActivity {
     private IntentFilter mIntentFilter;
     private ActivityBaseBinding mBinding;
     private FragmentManager mFragmentManager;
-    public BaseVM vm;
+    public SharedVM vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
-        vm = ViewModelProviders.of(this).get(BaseVM.class);
+        vm = ViewModelProviders.of(this).get(SharedVM.class);
         mFragmentManager = getSupportFragmentManager();
         initView();
     }

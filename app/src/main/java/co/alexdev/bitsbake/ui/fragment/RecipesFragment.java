@@ -19,7 +19,7 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.RecipesAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipesBinding;
 import co.alexdev.bitsbake.model.Recipe;
-import co.alexdev.bitsbake.viewmodel.BaseVM;
+import co.alexdev.bitsbake.viewmodel.SharedVM;
 
 public class RecipesFragment extends BaseFragment {
 
@@ -33,7 +33,7 @@ public class RecipesFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_recipes, container, false);
         final View rootView = mBinding.getRoot();
-        vm = ViewModelProviders.of(this.getActivity()).get(BaseVM.class);
+        vm = ViewModelProviders.of(this.getActivity()).get(SharedVM.class);
 
         initRecycler();
         return rootView;

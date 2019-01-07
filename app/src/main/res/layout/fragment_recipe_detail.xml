@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="co.alexdev.bitsbake.viewmodel.BaseVM" />
+            type="co.alexdev.bitsbake.viewmodel.SharedVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView

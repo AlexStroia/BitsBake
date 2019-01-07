@@ -61,12 +61,16 @@ public class BitsBakeRepository {
         return mDatabase.recipeDao().ingredientById(id);
     }
 
-    public LiveData<List<Step>> getStepsById(int id) {
-        return mDatabase.recipeDao().getStepById(id);
+    public LiveData<List<Step>> getStepsList(int id) {
+        return mDatabase.recipeDao().getStepsList(id);
     }
 
     public void deleteIngredients() {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().deleteIngredients());
+    }
+
+    public LiveData<Step> getSingleStepById(int id, String cake) {
+        return mDatabase.recipeDao().getStepById(id, cake);
     }
 
     public void deleteSteps() {

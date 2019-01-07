@@ -28,6 +28,7 @@
 
     <!--Keys-->
     <string name="recipe_id">RECIPE_ID</string>
+    <string name="recipe_cake_name">RECIPE_CAKE_NAME</string>
     <string name="step_id">STEP_ID</string>
     <string name="add_widget">Add widget</string>
 

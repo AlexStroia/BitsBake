@@ -26,7 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class BaseVM extends AndroidViewModel {
+public class SharedVM extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
@@ -35,7 +35,7 @@ public class BaseVM extends AndroidViewModel {
     private Toast mToast;
     private static final int TIMEOUT = 5000;
 
-    public BaseVM(@NonNull Application application) {
+    public SharedVM(@NonNull Application application) {
         super(application);
         mRepository = BitsBakeRepository.getInstance(this.getApplication());
     }
@@ -65,7 +65,7 @@ public class BaseVM extends AndroidViewModel {
     }
 
     public LiveData<List<Step>> getStepsById() {
-        return Transformations.switchMap(mBaseRecipeId, stepsID -> mRepository.getStepsById(stepsID));
+        return Transformations.switchMap(mBaseRecipeId, stepsID -> mRepository.getStepsList(stepsID));
     }
 
     public MutableLiveData<NetworkResponse> getNetworkResponse() {
@@ -110,7 +110,6 @@ public class BaseVM extends AndroidViewModel {
             recipe.setIngredients(ingredients);
             recipe.setSteps(steps);
         }
-
         mRepository.insertRecipesToDatabase(formatedRecipes);
     }
 
