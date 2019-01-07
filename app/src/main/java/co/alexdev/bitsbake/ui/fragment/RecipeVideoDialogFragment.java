@@ -34,9 +34,7 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     private FragmentVideoDialogBinding mBinding;
     private Bundle arguments;
     private String recipe_key;
-    private String step_key;
     private String recipe_url;
-    private int stepPos;
 
     @Override
     public void onStop() {

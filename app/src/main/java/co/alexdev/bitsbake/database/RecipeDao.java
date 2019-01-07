@@ -49,8 +49,4 @@ public interface RecipeDao {
 
     @Query("SELECT * FROM Step where id = :id")
     LiveData<List<Step>> getStepsList(int id);
-
-    @Query("SELECT * FROM Step where id = :id AND cake = :cake")
-    LiveData<Step> getStepById(int id, String cake);
-
 }

@@ -1,6 +1,7 @@
 package co.alexdev.bitsbake.viewmodel;
 
 import android.app.Application;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.util.List;
@@ -25,6 +26,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class SharedVM extends AndroidViewModel {
 
@@ -32,7 +34,7 @@ public class SharedVM extends AndroidViewModel {
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
     private final MediatorLiveData<Integer> mBaseRecipeId = new MediatorLiveData<>();
     private final MediatorLiveData<String> mRecipeName = new MediatorLiveData<>();
-    private Toast mToast;
+    private Toast mToast = null;
     private static final int TIMEOUT = 5000;
 
     public SharedVM(@NonNull Application application) {
@@ -125,5 +127,19 @@ public class SharedVM extends AndroidViewModel {
         mRepository.deleteIngredients();
         mRepository.deleteSteps();
         mRepository.deleteIngredients();
+    }
+
+    public Boolean isFieldValid(List<Ingredient> ingredients, String text) {
+        boolean value = isArrayValid(ingredients) && isTextValid(text);
+        Timber.d("Value: " + value);
+        return isArrayValid(ingredients) && isTextValid(text);
+    }
+
+    private Boolean isArrayValid(List<Ingredient> ingredients) {
+        return ingredients != null && ingredients.size() > 0;
+    }
+
+    private Boolean isTextValid(String text) {
+        return !TextUtils.isEmpty(text);
     }
 }

@@ -69,10 +69,6 @@ public class BitsBakeRepository {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().deleteIngredients());
     }
 
-    public LiveData<Step> getSingleStepById(int id, String cake) {
-        return mDatabase.recipeDao().getStepById(id, cake);
-    }
-
     public void deleteSteps() {
         mExecutor.getDiskIO().execute(() -> mDatabase.recipeDao().deleteSteps());
     }
