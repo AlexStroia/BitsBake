@@ -12,5 +12,4 @@
         <item name="windowActionBar">false</item>
         <item name="colorPrimaryDark">@color/top_red</item>
     </style>
-
 </resources>

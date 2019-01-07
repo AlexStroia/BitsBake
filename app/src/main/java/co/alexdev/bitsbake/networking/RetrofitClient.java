@@ -18,6 +18,7 @@ import timber.log.Timber;
  * @param TIMEOUT MILISECONDS defines the timeout
  * @param mRetrofit defines the retrofit instance
  * @param sRetrofitClient static variable used for the singleton instance*/
+
 public class RetrofitClient {
 
     public static final String SCHEME = "https";

@@ -2,7 +2,6 @@ package co.alexdev.bitsbake.ui.fragment;
 
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +73,7 @@ public class BaseFragment extends Fragment {
         } else {
             mFragmentManager.beginTransaction().
                     replace(R.id.fragment_container, fragment).
-                    commitAllowingStateLoss();
+                    commit();
         }
     }
 

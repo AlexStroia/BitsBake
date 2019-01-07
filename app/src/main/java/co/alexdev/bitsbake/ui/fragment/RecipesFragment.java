@@ -21,7 +21,6 @@ import co.alexdev.bitsbake.databinding.FragmentRecipesBinding;
 import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.viewmodel.BaseVM;
 
-
 public class RecipesFragment extends BaseFragment {
 
     private RecipesAdapter mAdapter;

@@ -5,7 +5,7 @@ import co.alexdev.bitsbake.model.Step;
 /**
  * Event which triggers when a recipe step is clicked
  *
- * @param  Step Step object when a step is clicked
+ * @param Step Step object when a step is clicked
  * @param position position where the step was clicked
  */
 

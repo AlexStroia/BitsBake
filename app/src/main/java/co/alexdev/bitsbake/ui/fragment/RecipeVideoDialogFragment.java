@@ -51,7 +51,6 @@ public class RecipeVideoDialogFragment extends DialogFragment {
 
     @Override
     public void onPause() {
-
         releasePlayer();
         super.onPause();
     }
@@ -68,7 +67,6 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     }
 
     private void initPlayer(Uri mediaUri) {
-
         if (mPlayer == null) {
             mPlayer = ExoPlayerFactory.newSimpleInstance(
                     new DefaultRenderersFactory(this.getActivity()),
@@ -81,7 +79,6 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     }
 
     private void releasePlayer() {
-
         if (mPlayer != null) {
             mPlayer.stop();
             mPlayer.release();

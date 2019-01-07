@@ -21,4 +21,7 @@
     <color name="_orange">#ffa500</color>
     <color name="custom_red">#d6030c</color>
     <color name="top_red">#ff3232</color>
+    <color name="btn_center_color">#CF0E0E</color>
+    <color name="btn_end_color">#FF2414</color>
+
 </resources>
