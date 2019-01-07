@@ -11,7 +11,6 @@ public class PrefManager {
 
     public static final String RECIPE_WIDGET_INGREDIENT_ID = "recipe_widget_ingredient_id";
     public static final String RECIPE_WIDGET_STATE = "recipe_widget_state";
-    private static final String EXO_POS = "exo_player_pos";
 
     public static void setWidgetIngredientId(int recipeIngredientId, Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
@@ -31,10 +30,5 @@ public class PrefManager {
     public static boolean getWidgetState(Context context) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPref.getBoolean(RECIPE_WIDGET_STATE, false);
-    }
-
-    public static void setVideoPosition(long position, Context context) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        sharedPref.edit().putLong(EXO_POS, position);
     }
 }

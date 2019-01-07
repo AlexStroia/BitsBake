@@ -16,6 +16,7 @@
     <dimen name="_100dp">100dp</dimen>
     <dimen name="_125dp">125dp</dimen>
     <dimen name="_120dp">120dp</dimen>
+    <dimen name="_150dp">150dp</dimen>
     <dimen name="_170dp">170dp</dimen>
     <dimen name="_180dp">180dp</dimen>
     <dimen name="_200dp">200dp</dimen>

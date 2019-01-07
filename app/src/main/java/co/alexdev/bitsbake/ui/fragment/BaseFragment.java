@@ -22,7 +22,6 @@ import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.utils.Validator;
 import co.alexdev.bitsbake.viewmodel.SharedVM;
-import timber.log.Timber;
 
 /*Base Fragment class which other fragments will extend*/
 public class BaseFragment extends Fragment {
@@ -31,7 +30,7 @@ public class BaseFragment extends Fragment {
     private View rootView;
     private FragmentManager mFragmentManager;
     private FragmentBaseBinding mBinding;
-    private String recipe_cake_key;
+    private String recipe_cake_id;
     private String step_key;
     private Bundle args;
 
@@ -50,8 +49,8 @@ public class BaseFragment extends Fragment {
     private void initView(ViewGroup container) {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_base, container, false);
         args = getArguments();
-        recipe_cake_key = getString(R.string.recipe_id);
-        if (args != null && args.containsKey(recipe_cake_key)) {
+        recipe_cake_id = getString(R.string.recipe_id);
+        if (args != null && args.containsKey(recipe_cake_id)) {
             mFragmentManager = getChildFragmentManager();
             rootView = mBinding.getRoot();
 
@@ -62,7 +61,7 @@ public class BaseFragment extends Fragment {
     }
 
     private void reinitData() {
-        recipe_cake_key = getString(R.string.recipe_id);
+        recipe_cake_id = getString(R.string.recipe_id);
         step_key = getString(R.string.step_id);
         vm = ViewModelProviders.of(this.getActivity()).get(SharedVM.class);
         args = new Bundle();
@@ -99,9 +98,8 @@ public class BaseFragment extends Fragment {
         reinitData();
         Step step = event.getStep();
         if (step != null) {
-            Timber.d("Recipe step id: " + event.getStep().getVideoURL());
             if (Validator.isTextValid(event.getStep().getVideoURL())) {
-                args.putString(recipe_cake_key, event.getStep().getVideoURL());
+                args.putString(recipe_cake_id, event.getStep().getVideoURL());
                 RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
                 recipeVideoDialogFragment.setArguments(args);
                 changeFragment(recipeVideoDialogFragment);

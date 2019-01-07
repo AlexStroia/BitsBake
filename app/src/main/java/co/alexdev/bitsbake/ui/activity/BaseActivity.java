@@ -1,11 +1,15 @@
 package co.alexdev.bitsbake.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -18,6 +22,7 @@ import co.alexdev.bitsbake.events.OnRecipeClickEvent;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.receiver.NetworkReceiver;
 import co.alexdev.bitsbake.ui.fragment.BaseFragment;
+import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.Constants;
@@ -40,24 +45,24 @@ public class BaseActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         vm = ViewModelProviders.of(this).get(SharedVM.class);
         mFragmentManager = getSupportFragmentManager();
+
         initView();
     }
 
     private void initView() {
         setupBroadcastReceiver();
         setupToolbar();
+        checkIfIsClickFromWidget();
         loadRecipesFragment();
         vm.getNetworkResponse().observe(this, networkResponse -> processResponse(networkResponse));
     }
 
     private void loadRecipesFragment() {
-
         Fragment fragment = new RecipesFragment();
         changeFragment(fragment);
     }
 
     private void processResponse(NetworkResponse networkResponse) {
-
         switch (networkResponse.status) {
             case Constants.RESPONSE_ERROR:
                 BitsBakeUtils.showAlert(this, networkResponse.error.getMessage());
@@ -108,6 +113,23 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    private void checkIfIsClickFromWidget() {
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(Constants.RECIPE_INGREDIENT_ID_KEY)) {
+            int recipeId = intent.getIntExtra(Constants.RECIPE_INGREDIENT_ID_KEY, 0);
+            Bundle args = new Bundle();
+            args.putInt(getString(R.string.recipe_id), recipeId);
+            RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
+            recipesDetailFragment.setArguments(args);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    changeFragment(recipesDetailFragment);
+                }
+            },250);
+        }
+    }
+
     private void setupBroadcastReceiver() {
         mNetworkReceiver = new NetworkReceiver();
         mIntentFilter = new IntentFilter();
@@ -116,7 +138,6 @@ public class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onRecipeClickEvent(OnRecipeClickEvent event) {
-
         Bundle args = new Bundle();
         int recipeId = event.getRecipeId();
         args.putInt(getString(R.string.recipe_id), recipeId);

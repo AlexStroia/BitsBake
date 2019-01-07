@@ -32,6 +32,7 @@ public class Constants {
     public static final String NUTELLA_PIE = "Nutella Pie";
     public static final String YELLOW_CAKE = "Yellow Cake";
     public static final String CHEESECAKE = "Cheesecake";
+    public static final String RECIPE_INGREDIENT_ID_KEY = "RECIPE_INGREDIENT_ID";
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({BROWNIES, NUTELLA_PIE, YELLOW_CAKE, CHEESECAKE})

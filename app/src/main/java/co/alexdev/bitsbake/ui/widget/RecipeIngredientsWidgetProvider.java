@@ -1,11 +1,15 @@
 package co.alexdev.bitsbake.ui.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import co.alexdev.bitsbake.R;
+import co.alexdev.bitsbake.ui.activity.BaseActivity;
+import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.utils.PrefManager;
 import timber.log.Timber;
 
@@ -20,6 +24,8 @@ public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_ingredients_widget);
         views.setTextViewText(R.id.appwidget_text, widgetIngredients);
+
+        setIntent(context, views);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -50,6 +56,14 @@ public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
     public void onDisabled(Context context) {
         PrefManager.setWidgetState(false, context);
         Timber.d("Widget disabled");
+    }
+
+    private static void setIntent(Context context, RemoteViews views) {
+        Intent intent = new Intent(context, BaseActivity.class);
+        int recipeIngredientID = PrefManager.getWidgetIngredientId(context);
+        intent.putExtra(Constants.RECIPE_INGREDIENT_ID_KEY, recipeIngredientID);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent,0);
+        views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
     }
 }
 
