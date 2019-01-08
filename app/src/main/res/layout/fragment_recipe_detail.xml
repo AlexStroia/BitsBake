@@ -52,6 +52,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/custom_red"
                     android:orientation="vertical">
 
                     <TextView
@@ -61,7 +62,7 @@
                         android:layout_marginStart="@dimen/_8dp"
                         android:layout_marginTop="@dimen/_8dp"
                         android:text="@string/recipe_cake_name"
-                        android:textColor="@color/custom_red"
+                        android:textColor="@color/_white"
                         android:textSize="@dimen/_20sp"
                         android:textStyle="bold" />
 
@@ -72,7 +73,7 @@
                         android:layout_marginStart="@dimen/_8dp"
                         android:layout_marginTop="@dimen/_8dp"
                         android:text="@string/ingredient"
-                        android:textColor="@color/_black"
+                        android:textColor="@color/_white"
                         android:textStyle="bold" />
 
                     <TextView
@@ -81,13 +82,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8dp"
                         android:layout_marginTop="@dimen/_8dp"
-                        android:textColor="@color/custom_red" />
+                        android:textColor="@color/_white" />
 
                     <Button
                         android:id="@+id/btn_update_widget"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8dp"
+                        android:layout_marginEnd="@dimen/_8dp"
                         android:layout_marginBottom="@dimen/_8dp"
                         android:background="@drawable/custom_button"
                         android:text="@string/update_widget_data"
