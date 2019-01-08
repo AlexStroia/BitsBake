@@ -21,7 +21,7 @@
             android:layout_marginTop="@dimen/_8dp"
             android:layout_marginEnd="@dimen/_8dp"
             android:elevation="@dimen/_50dp"
-            app:cardCornerRadius="@dimen/_30dp"
+            app:cardCornerRadius="@dimen/_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -33,9 +33,9 @@
 
                 <ImageView
                     android:id="@+id/iv_recipe"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_0dp"
+                    android:layout_marginBottom="@dimen/_8dp"
                     android:contentDescription="@string/ic_fav_icon"
                     app:layout_constraintBottom_toTopOf="@+id/view"
                     app:layout_constraintEnd_toEndOf="parent"
