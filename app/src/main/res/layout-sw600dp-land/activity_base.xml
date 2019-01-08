@@ -32,12 +32,10 @@
 
             <FrameLayout
                 android:id="@+id/fragment_container"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/include"
+                android:layout_marginEnd="@dimen/_8dp"
                 tools:context=".ui.fragment.BaseFragment" />
 
             <FrameLayout
@@ -45,10 +43,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/fragment_container"
-                app:layout_constraintTop_toBottomOf="@+id/include"
                 tools:context=".ui.fragment.BaseFragment" />
 
         </LinearLayout>
