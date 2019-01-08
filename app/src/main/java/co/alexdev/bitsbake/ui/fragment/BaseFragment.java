@@ -6,7 +6,9 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import org.greenrobot.eventbus.Subscribe;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -53,6 +55,8 @@ public class BaseFragment extends Fragment {
         args = getArguments();
 
         recipe_cake_id = getString(R.string.recipe_id);
+        mActivity = (BaseActivity) getActivity();
+
         if (args != null && args.containsKey(recipe_cake_id)) {
             mFragmentManager = getChildFragmentManager();
             rootView = mBinding.getRoot();
@@ -61,14 +65,12 @@ public class BaseFragment extends Fragment {
             recipesDetailFragment.setArguments(args);
             changeFragment(recipesDetailFragment);
         }
-
-        mActivity = (BaseActivity) getActivity();
     }
 
     private void reinitData() {
         recipe_cake_id = getString(R.string.recipe_id);
         step_key = getString(R.string.step_id);
-        mActivity = (BaseActivity)getActivity();
+        mActivity = (BaseActivity) getActivity();
         vm = ViewModelProviders.of(mActivity).get(SharedVM.class);
         args = new Bundle();
     }
@@ -76,10 +78,6 @@ public class BaseFragment extends Fragment {
     protected void changeFragment(Fragment fragment) {
         if (fragment instanceof RecipeVideoDialogFragment) {
             if (mFragmentManager == null) mFragmentManager = getChildFragmentManager();
-
-        /*Set the value for the moment when is on mTwoPane layout so we can change the behaviour of dialog fragment
-        to show in the right of the screen not as a dialog*/
-            mTwoPane = mActivity.mTwoPane;
             checkRecipeDialogPresentation(fragment);
         } else {
             mFragmentManager.beginTransaction().
@@ -94,7 +92,7 @@ public class BaseFragment extends Fragment {
         if (mTwoPane) {
             mFragmentManager = mActivity.getSupportFragmentManager();
             mFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left)
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                     .replace(R.id.fragment_video_container, fragment)
                     .addToBackStack(null)
                     .commit();
@@ -126,7 +124,11 @@ public class BaseFragment extends Fragment {
                 args.putString(recipe_cake_id, event.getStep().getVideoURL());
                 RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
                 recipeVideoDialogFragment.setArguments(args);
-                mActivity.showHideVideoLayout(true);
+
+                /*Set the value for the moment when is on mTwoPane layout so we can change the behaviour of dialog fragment
+                to show in the right of the screen not as a dialog*/
+                mTwoPane = mActivity.mTwoPane;
+                mActivity.showHideVideoLayout(mTwoPane);
                 changeFragment(recipeVideoDialogFragment);
             }
         }

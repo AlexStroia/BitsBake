@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -150,11 +149,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showHideVideoLayout(boolean shouldShow) {
-        if (shouldShow) {
-            mBinding.fragmentVideoContainer.setVisibility(View.VISIBLE);
-            return;
+        if(mBinding.fragmentVideoContainer != null) {
+            mBinding.fragmentVideoContainer.setVisibility(shouldShow ? View.VISIBLE : View.GONE);
         }
-        mBinding.fragmentVideoContainer.setVisibility(View.GONE);
     }
 
     @Subscribe
@@ -166,9 +163,7 @@ public class BaseActivity extends AppCompatActivity {
         baseFragment.setArguments(args);
         changeFragment(baseFragment);
         /*Set the visibility for the container to show*/
-        if (mTwoPane) {
-            showHideVideoLayout(false);
-        }
+        showHideVideoLayout(!mTwoPane);
     }
 
     /*Monitor for network connectivity changes*/
