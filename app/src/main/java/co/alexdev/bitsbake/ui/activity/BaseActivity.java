@@ -118,6 +118,7 @@ public class BaseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(Constants.RECIPE_INGREDIENT_ID_KEY)) {
             int recipeId = intent.getIntExtra(Constants.RECIPE_INGREDIENT_ID_KEY, 0);
+            Timber.d("Recipe id: " + recipeId);
             Bundle args = new Bundle();
             args.putInt(getString(R.string.recipe_id), recipeId);
             RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();

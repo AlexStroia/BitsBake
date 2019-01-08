@@ -61,8 +61,9 @@ public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
     private static void setIntent(Context context, RemoteViews views) {
         Intent intent = new Intent(context, BaseActivity.class);
         int recipeIngredientID = PrefManager.getWidgetIngredientId(context);
+        Timber.d("Ingredient id: " + recipeIngredientID);
         intent.putExtra(Constants.RECIPE_INGREDIENT_ID_KEY, recipeIngredientID);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent,0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
     }
 }
