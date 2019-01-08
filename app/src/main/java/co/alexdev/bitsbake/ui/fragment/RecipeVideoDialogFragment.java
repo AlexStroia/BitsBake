@@ -178,7 +178,6 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         mExoPos = mPlayer.getCurrentPosition();
-        Timber.d("Value: " + playWhenReady);
     }
 
     @Override

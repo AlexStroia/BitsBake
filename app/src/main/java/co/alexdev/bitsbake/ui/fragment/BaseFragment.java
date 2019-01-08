@@ -94,8 +94,8 @@ public class BaseFragment extends Fragment {
         if (mTwoPane) {
             mFragmentManager = mActivity.getSupportFragmentManager();
             mFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                    .replace(R.id.fragment_video_container, fragment,"TAG")
+                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left)
+                    .replace(R.id.fragment_video_container, fragment)
                     .addToBackStack(null)
                     .commit();
         } else {
