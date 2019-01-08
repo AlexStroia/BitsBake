@@ -50,9 +50,8 @@ public class BaseActivity extends AppCompatActivity {
         vm = ViewModelProviders.of(this).get(SharedVM.class);
         mFragmentManager = getSupportFragmentManager();
 
-        if(mBinding.fragmentVideoContainer != null) {
+        if (mBinding.fragmentVideoContainer != null) {
             mTwoPane = true;
-            Toast.makeText(this, "MtwoPane is true", Toast.LENGTH_LONG).show();
         }
 
         initView();
@@ -60,9 +59,9 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        mBinding.fragmentVideoContainer.setVisibility(View.GONE);
-        for(Fragment fragment: getSupportFragmentManager().getFragments()) {
-            Timber.d("Fragment:" + fragment.toString());
+        if (mTwoPane) {
+            mFragmentManager.popBackStack(R.id.fragment_video_container, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            showHideVideoLayout(false);
         }
         super.onBackPressed();
     }
@@ -150,6 +149,14 @@ public class BaseActivity extends AppCompatActivity {
         mIntentFilter.addAction(INTENT_FILTER_STRING);
     }
 
+    public void showHideVideoLayout(boolean shouldShow) {
+        if (shouldShow) {
+            mBinding.fragmentVideoContainer.setVisibility(View.VISIBLE);
+            return;
+        }
+        mBinding.fragmentVideoContainer.setVisibility(View.GONE);
+    }
+
     @Subscribe
     public void onRecipeClickEvent(OnRecipeClickEvent event) {
         Bundle args = new Bundle();
@@ -159,7 +166,9 @@ public class BaseActivity extends AppCompatActivity {
         baseFragment.setArguments(args);
         changeFragment(baseFragment);
         /*Set the visibility for the container to show*/
-        if(mTwoPane) mBinding.fragmentVideoContainer.setVisibility(View.VISIBLE);
+        if (mTwoPane) {
+            showHideVideoLayout(false);
+        }
     }
 
     /*Monitor for network connectivity changes*/

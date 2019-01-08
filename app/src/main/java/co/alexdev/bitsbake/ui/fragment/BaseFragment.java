@@ -33,6 +33,7 @@ public class BaseFragment extends Fragment {
     private String recipe_cake_id;
     private String step_key;
     private Bundle args;
+    private BaseActivity mActivity;
     private boolean mTwoPane;
 
     /*Used to restore recyclerView position when configuration changes occurs */
@@ -61,14 +62,14 @@ public class BaseFragment extends Fragment {
             changeFragment(recipesDetailFragment);
         }
 
-        boolean value = ((BaseActivity) getActivity()).mTwoPane;
-        Timber.d("Value is: " + value);
+        mActivity = (BaseActivity) getActivity();
     }
 
     private void reinitData() {
         recipe_cake_id = getString(R.string.recipe_id);
         step_key = getString(R.string.step_id);
-        vm = ViewModelProviders.of(this.getActivity()).get(SharedVM.class);
+        mActivity = (BaseActivity)getActivity();
+        vm = ViewModelProviders.of(mActivity).get(SharedVM.class);
         args = new Bundle();
     }
 
@@ -78,7 +79,7 @@ public class BaseFragment extends Fragment {
 
         /*Set the value for the moment when is on mTwoPane layout so we can change the behaviour of dialog fragment
         to show in the right of the screen not as a dialog*/
-            mTwoPane = ((BaseActivity) getActivity()).mTwoPane;
+            mTwoPane = mActivity.mTwoPane;
             checkRecipeDialogPresentation(fragment);
         } else {
             mFragmentManager.beginTransaction().
@@ -91,10 +92,11 @@ public class BaseFragment extends Fragment {
     /*If is in landscape mode, show the dialog fragment in the right of the screen, else show it as a regular dialog fragment*/
     private void checkRecipeDialogPresentation(Fragment fragment) {
         if (mTwoPane) {
-            mFragmentManager = getActivity().getSupportFragmentManager();
+            mFragmentManager = mActivity.getSupportFragmentManager();
             mFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                    .replace(R.id.fragment_video_container, fragment)
+                    .replace(R.id.fragment_video_container, fragment,"TAG")
+                    .addToBackStack(null)
                     .commit();
         } else {
             ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
@@ -124,6 +126,7 @@ public class BaseFragment extends Fragment {
                 args.putString(recipe_cake_id, event.getStep().getVideoURL());
                 RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
                 recipeVideoDialogFragment.setArguments(args);
+                mActivity.showHideVideoLayout(true);
                 changeFragment(recipeVideoDialogFragment);
             }
         }
