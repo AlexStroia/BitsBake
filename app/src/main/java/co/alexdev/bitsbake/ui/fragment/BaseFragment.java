@@ -6,9 +6,7 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import org.greenrobot.eventbus.Subscribe;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -20,8 +18,10 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
 import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.model.Step;
+import co.alexdev.bitsbake.ui.activity.BaseActivity;
 import co.alexdev.bitsbake.utils.Validator;
 import co.alexdev.bitsbake.viewmodel.SharedVM;
+import timber.log.Timber;
 
 /*Base Fragment class which other fragments will extend*/
 public class BaseFragment extends Fragment {
@@ -33,6 +33,7 @@ public class BaseFragment extends Fragment {
     private String recipe_cake_id;
     private String step_key;
     private Bundle args;
+    private boolean mTwoPane;
 
     /*Used to restore recyclerView position when configuration changes occurs */
     static final String RECYCLER_VIEW_POS = "RECYCLER_VIEW_POSITION";
@@ -49,6 +50,7 @@ public class BaseFragment extends Fragment {
     private void initView(ViewGroup container) {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_base, container, false);
         args = getArguments();
+
         recipe_cake_id = getString(R.string.recipe_id);
         if (args != null && args.containsKey(recipe_cake_id)) {
             mFragmentManager = getChildFragmentManager();
@@ -58,6 +60,9 @@ public class BaseFragment extends Fragment {
             recipesDetailFragment.setArguments(args);
             changeFragment(recipesDetailFragment);
         }
+
+        boolean value = ((BaseActivity) getActivity()).mTwoPane;
+        Timber.d("Value is: " + value);
     }
 
     private void reinitData() {
@@ -70,12 +75,29 @@ public class BaseFragment extends Fragment {
     protected void changeFragment(Fragment fragment) {
         if (fragment instanceof RecipeVideoDialogFragment) {
             if (mFragmentManager == null) mFragmentManager = getChildFragmentManager();
-            ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
+
+        /*Set the value for the moment when is on mTwoPane layout so we can change the behaviour of dialog fragment
+        to show in the right of the screen not as a dialog*/
+            mTwoPane = ((BaseActivity) getActivity()).mTwoPane;
+            checkRecipeDialogPresentation(fragment);
         } else {
             mFragmentManager.beginTransaction().
                     setCustomAnimations(R.anim.fade_in, R.anim.fade_out).
                     replace(R.id.fragment_container, fragment).
-                    commitNow();
+                    commit();
+        }
+    }
+
+    /*If is in landscape mode, show the dialog fragment in the right of the screen, else show it as a regular dialog fragment*/
+    private void checkRecipeDialogPresentation(Fragment fragment) {
+        if (mTwoPane) {
+            mFragmentManager = getActivity().getSupportFragmentManager();
+            mFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                    .replace(R.id.fragment_video_container, fragment)
+                    .commit();
+        } else {
+            ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
         }
     }
 

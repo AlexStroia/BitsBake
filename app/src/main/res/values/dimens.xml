@@ -23,6 +23,7 @@
     <dimen name="_250dp">250dp</dimen>
     <dimen name="_270dp">270dp</dimen>
     <dimen name="_300dp">300dp</dimen>
+    <dimen name="_400dp">400dp</dimen>
     <dimen name="_500dp">500dp</dimen>
 
     <!--SP's-->

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,6 +40,7 @@ public class BaseActivity extends AppCompatActivity {
     private IntentFilter mIntentFilter;
     private ActivityBaseBinding mBinding;
     private FragmentManager mFragmentManager;
+    public boolean mTwoPane = false;
     public SharedVM vm;
 
     @Override
@@ -47,7 +50,21 @@ public class BaseActivity extends AppCompatActivity {
         vm = ViewModelProviders.of(this).get(SharedVM.class);
         mFragmentManager = getSupportFragmentManager();
 
+        if(mBinding.fragmentVideoContainer != null) {
+            mTwoPane = true;
+            Toast.makeText(this, "MtwoPane is true", Toast.LENGTH_LONG).show();
+        }
+
         initView();
+    }
+
+    @Override
+    public void onBackPressed() {
+        mBinding.fragmentVideoContainer.setVisibility(View.GONE);
+        for(Fragment fragment: getSupportFragmentManager().getFragments()) {
+            Timber.d("Fragment:" + fragment.toString());
+        }
+        super.onBackPressed();
     }
 
     private void initView() {
@@ -141,6 +158,8 @@ public class BaseActivity extends AppCompatActivity {
         BaseFragment baseFragment = new BaseFragment();
         baseFragment.setArguments(args);
         changeFragment(baseFragment);
+        /*Set the visibility for the container to show*/
+        if(mTwoPane) mBinding.fragmentVideoContainer.setVisibility(View.VISIBLE);
     }
 
     /*Monitor for network connectivity changes*/
