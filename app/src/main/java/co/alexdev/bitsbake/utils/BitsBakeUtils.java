@@ -12,7 +12,9 @@ import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.model.Recipe;
 import timber.log.Timber;
 
-/**Utils class used to help the application for certain functionalities*/
+/**
+ * Utils class used to help the application for certain functionalities
+ */
 public class BitsBakeUtils {
     /*Ignore the id which comes from the API and use the main id from the Recipe
      * This way we can assure that we can make a connection between the recipe and ingredient and steps */
@@ -56,7 +58,9 @@ public class BitsBakeUtils {
     public static String buildIngredientsTextView(List<Ingredient> ingredients) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Ingredient ingredient : ingredients) {
-            stringBuilder.append("• " + ingredient.getIngredient()).append(" ("+ingredient.getQuantity()+")").append("\n");
+            stringBuilder.append("• " + ingredient.getIngredient())
+                    .append(" (" + ingredient.getQuantity() + " " + ingredient.getMeasure() + ")")
+                    .append("\n");
         }
         return stringBuilder.toString();
     }
