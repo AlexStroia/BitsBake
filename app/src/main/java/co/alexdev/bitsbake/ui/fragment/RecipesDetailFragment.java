@@ -105,7 +105,6 @@ public class RecipesDetailFragment extends BaseFragment {
     private void configureRecyclerView() {
         mBinding.rvDetails.setLayoutManager(mLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mBinding.rvDetails.getContext(), mLayoutManager.getOrientation());
-        dividerItemDecoration.setDrawable(getActivity().getDrawable(R.color._black));
         mBinding.rvDetails.addItemDecoration(dividerItemDecoration);
         mBinding.rvDetails.setAdapter(mStepsAdapter);
     }

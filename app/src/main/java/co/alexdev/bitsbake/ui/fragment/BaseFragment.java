@@ -1,6 +1,7 @@
 package co.alexdev.bitsbake.ui.fragment;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -110,6 +111,15 @@ public class BaseFragment extends Fragment {
         if (savedInstanceState != null && savedInstanceState.containsKey(RECYCLER_VIEW_POS)) {
             recyclerViewState = savedInstanceState.getParcelable(RECYCLER_VIEW_POS);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+      /*  if(mFragmentManager != null) {
+            mFragmentManager.beginTransaction().detach(this).attach(new RecipesFragment()).commit();
+        }*/
     }
 
     /*When this fragment is not anymore present and this EventBus is triggered and the fragment is not shown,

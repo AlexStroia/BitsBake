@@ -61,8 +61,8 @@ public class RecipesFragment extends BaseFragment {
     }
 
     private void initRecycler() {
-        boolean mTwoPane =((BaseActivity) getActivity()).mTwoPane;
-        mLayoutManager = (mTwoPane) ? new GridLayoutManager(this.getActivity(),2) : new LinearLayoutManager(this.getActivity());
+        boolean mTwoPane = ((BaseActivity) getActivity()).mTwoPane;
+        mLayoutManager = (mTwoPane) ? new GridLayoutManager(this.getActivity(), 2) : new LinearLayoutManager(this.getActivity());
 
         mAdapter = new RecipesAdapter(new ArrayList<>());
         mBinding.rvRecipes.setLayoutManager(mLayoutManager);
