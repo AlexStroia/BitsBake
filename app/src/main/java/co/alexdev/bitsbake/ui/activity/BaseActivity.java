@@ -82,7 +82,7 @@ public class BaseActivity extends AppCompatActivity {
         setupToolbar();
         checkIfIsFromWidget();
         loadRecipesFragment();
-        vm.getNetworkResponse().observe(this, networkResponse -> processResponse(networkResponse));
+        vm.getNetworkResponse().observe(this, this::processResponse);
     }
 
     private void loadRecipesFragment() {
@@ -102,7 +102,7 @@ public class BaseActivity extends AppCompatActivity {
                 break;
 
             case Constants.RESPONSE_SUCCES:
-                Timber.d("Data succes");
+                Timber.d("Data success");
                 vm.insertToDatabase(networkResponse.data);
                 break;
         }

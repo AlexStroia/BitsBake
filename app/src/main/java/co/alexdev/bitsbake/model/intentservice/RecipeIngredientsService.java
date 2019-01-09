@@ -17,11 +17,9 @@ import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.PrefManager;
 import timber.log.Timber;
 
-/**
+/*
  * RecipeIngredientService is an itent service which is triggered when the widget update button is clicked
  * This class is querying in the background the ingredients and after is displaying the ingredient for that recipe on the widget
- *
- * @param ACTION_GET_INGREDIENT action identifier
  */
 
 public class RecipeIngredientsService extends IntentService {

@@ -1,10 +1,10 @@
 package co.alexdev.bitsbake.events;
 
-/**
- * Event which triggers when a recipe is clicked
- *
- * @param recipeID  id of the recipe
- */
+
+/*
+  Event which triggers when a recipe is clicked
+*/
+
 
 public class OnRecipeClickEvent {
 

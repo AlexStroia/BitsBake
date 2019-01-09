@@ -32,7 +32,6 @@ import com.google.android.exoplayer2.util.Util;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentVideoDialogBinding;
 import co.alexdev.bitsbake.utils.Validator;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.

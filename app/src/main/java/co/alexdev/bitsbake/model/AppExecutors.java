@@ -8,26 +8,18 @@ import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 
-/** AppExecutors class used to do background work
- * @param LOCK used to lock the state of an object
- * @param diskIO - diskIO executor used for disk operations
- * */
+ /*AppExecutors class used to do background work*/
+
 public class AppExecutors {
 
     private static final Object LOCK = new Object();
 
     private final Executor diskIO;
 
-    private final Executor networkIO;
-
-    private final Executor mainThread;
-
     private static AppExecutors sExecutor;
 
     private AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread) {
         this.diskIO = diskIO;
-        this.networkIO = networkIO;
-        this.mainThread = mainThread;
     }
 
     public static AppExecutors getInstance() {
