@@ -1,5 +1,6 @@
 package co.alexdev.bitsbake.ui.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -27,7 +28,6 @@ import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.Constants;
-import co.alexdev.bitsbake.utils.PrefManager;
 import co.alexdev.bitsbake.viewmodel.SharedVM;
 import timber.log.Timber;
 
@@ -63,6 +63,11 @@ public class BaseActivity extends AppCompatActivity {
             showHideVideoLayout(false);
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     private void initView() {

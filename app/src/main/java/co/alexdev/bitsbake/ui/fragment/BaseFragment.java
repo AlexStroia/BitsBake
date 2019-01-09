@@ -23,7 +23,6 @@ import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.ui.activity.BaseActivity;
 import co.alexdev.bitsbake.utils.Validator;
 import co.alexdev.bitsbake.viewmodel.SharedVM;
-import timber.log.Timber;
 
 /*Base Fragment class which other fragments will extend*/
 public class BaseFragment extends Fragment {
@@ -35,7 +34,7 @@ public class BaseFragment extends Fragment {
     private String recipe_cake_id;
     private String step_key;
     private Bundle args;
-    private BaseActivity mActivity;
+    protected BaseActivity mActivity;
     private boolean mTwoPane;
 
     /*Used to restore recyclerView position when configuration changes occurs */

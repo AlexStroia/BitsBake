@@ -26,10 +26,12 @@ import java.util.ArrayList;
 
 public class RecipesDetailFragment extends BaseFragment {
 
+    private static final String SCROLL_VIEW_POS = "SCROLL_VIEW_POSITION";
     private StepsAdapter mStepsAdapter;
     private LinearLayoutManager mLayoutManager;
     private FragmentRecipeDetailBinding mBinding;
     private View rootView;
+    private int[] scrollPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,18 +44,23 @@ public class RecipesDetailFragment extends BaseFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         saveRecyclerViewState(outState, mLayoutManager);
+        saveScrollViewState(outState);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         checkRecyclerViewState(savedInstanceState);
+        checkScrollViewState(savedInstanceState);
         super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
     public void onResume() {
         if (recyclerViewState != null) mLayoutManager.onRestoreInstanceState(recyclerViewState);
+        if (scrollPosition != null && scrollPosition.length == 2) {
+            mBinding.nestedScroll.scrollTo(scrollPosition[0], scrollPosition[1]);
+        }
         super.onResume();
     }
 
@@ -76,7 +83,6 @@ public class RecipesDetailFragment extends BaseFragment {
                 false);
         rootView = mBinding.getRoot();
         vm = ViewModelProviders.of(this.getActivity()).get(SharedVM.class);
-
         mBinding.btnUpdateWidget.setOnClickListener(view -> vm.onWidgetUpdateClick());
     }
 
@@ -118,5 +124,15 @@ public class RecipesDetailFragment extends BaseFragment {
                     vm.setSharedPrefIngredientId(ingredient.getId());
                 });
         vm.getStepsById().observe(this, steps -> mStepsAdapter.setList(steps));
+    }
+
+    private void saveScrollViewState(@NonNull Bundle outState) {
+        outState.putIntArray(SCROLL_VIEW_POS, new int[]{mBinding.nestedScroll.getScrollX(), mBinding.nestedScroll.getScrollY()});
+    }
+
+    private void checkScrollViewState(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(SCROLL_VIEW_POS)) {
+            scrollPosition = savedInstanceState.getIntArray(SCROLL_VIEW_POS);
+        }
     }
 }
