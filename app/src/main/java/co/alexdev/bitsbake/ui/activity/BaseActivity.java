@@ -95,6 +95,7 @@ public class BaseActivity extends AppCompatActivity {
                 break;
 
             case Constants.RESPONSE_SUCCES:
+                Timber.d("Data succes");
                 vm.insertToDatabase(networkResponse.data);
                 break;
         }
