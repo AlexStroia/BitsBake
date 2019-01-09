@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomTheme">
-        <activity android:name=".ui.activity.BaseActivity" android:configChanges="orientation|screenSize|keyboardHidden" android:launchMode="singleTop">
+        <activity
+            android:name=".ui.activity.BaseActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,6 +33,9 @@
                 android:resource="@xml/recipe_ingredients_widget_info" />
         </receiver>
 
-    <service android:name=".model.intentservice.RecipeIngredientsService"/>
+        <service android:name=".model.intentservice.RecipeIngredientsService" />
+
+        <activity android:name=".ui.activity.DetailActivity"></activity>
     </application>
+
 </manifest>
