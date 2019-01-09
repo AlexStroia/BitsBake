@@ -74,7 +74,7 @@
                         android:layout_marginStart="@dimen/_8dp"
                         android:layout_marginTop="@dimen/_8dp"
                         android:text="@string/ingredient"
-                        android:textSize="@dimen/_25sp"
+                        android:textSize="@dimen/_20sp"
                         android:textColor="@color/_white"
                         android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
                         android:layout_marginStart="@dimen/_8dp"
                         android:layout_marginEnd="@dimen/_8dp"
                         android:layout_marginBottom="@dimen/_8dp"
-                        android:textSize="@dimen/_30sp"
+                        android:textSize="@dimen/_18sp"
                         android:background="@drawable/custom_button"
                         android:text="@string/update_widget_data"
                         android:textColor="@color/_white" />
