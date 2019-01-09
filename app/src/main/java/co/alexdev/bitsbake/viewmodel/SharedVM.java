@@ -34,7 +34,6 @@ public class SharedVM extends AndroidViewModel {
     private final MediatorLiveData<Integer> mBaseRecipeId = new MediatorLiveData<>();
     private final MediatorLiveData<String> mRecipeName = new MediatorLiveData<>();
     private Toast mToast = null;
-    private static final int TIMEOUT = 5000;
 
     public SharedVM(@NonNull Application application) {
         super(application);
@@ -76,7 +75,6 @@ public class SharedVM extends AndroidViewModel {
     public void loadData() {
         mRepository.fetchNetworkingData().
                 subscribeOn(Schedulers.io())
-                .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<Recipe>>() {
                     @Override

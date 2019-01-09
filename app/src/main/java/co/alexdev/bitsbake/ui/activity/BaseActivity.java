@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -17,6 +18,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import co.alexdev.bitsbake.BuildConfig;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityBaseBinding;
 import co.alexdev.bitsbake.events.NetworkConnectionEvent;
@@ -54,6 +56,11 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         initView();
+
+        /*Just for testing purposes */
+        if(BuildConfig.DEBUG){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
     }
 
     @Override

@@ -23,9 +23,4 @@ public class RecipesFragmentBasicTest {
                 replace(R.id.fragment_container, recipesFragment).
                 commitAllowingStateLoss();
     }
-
-    @Test
-    public void onRecyclerViewClick() {
-
-    }
 }

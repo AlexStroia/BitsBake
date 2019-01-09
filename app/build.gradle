@@ -43,6 +43,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
     implementation 'androidx.cardview:cardview:1.0.0'
 
@@ -87,5 +88,14 @@ dependencies {
 
     /*Annotations*/
     implementation 'com.android.support:support-annotations:28.0.0'
+
+    /*Espresso RecyclerView*/
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.1.0') {
+        // Necessary to avoid version conflicts
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+    }
 
 }
