@@ -5,7 +5,6 @@ import co.alexdev.bitsbake.model.Step;
 
 /*Event which triggers when a recipe step is clicked*/
 
-
 public class OnRecipeStepClickEvent {
 
     private Step step;

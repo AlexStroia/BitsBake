@@ -14,7 +14,6 @@ import static androidx.room.ForeignKey.CASCADE;
 
 @Dao
 public interface RecipeDao {
-
     /*Ingredients*/
 
     @Query("SELECT * FROM Ingredient where id = :id")

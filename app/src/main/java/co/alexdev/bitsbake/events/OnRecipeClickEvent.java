@@ -5,7 +5,6 @@ package co.alexdev.bitsbake.events;
   Event which triggers when a recipe is clicked
 */
 
-
 public class OnRecipeClickEvent {
 
     private int recipeId;

@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import co.alexdev.bitsbake.events.NetworkConnectionEvent;
 
-/**Broadcast Receiver which is triggered when the network connectivity changes*/
+/*Broadcast Receiver which is triggered when the network connectivity changes*/
 public class NetworkReceiver extends BroadcastReceiver {
 
     @Override

@@ -11,6 +11,7 @@ import co.alexdev.bitsbake.utils.Constants;
  * @param status current status for the network
  * @param data data that we need to receive
  * @param error error thrown */
+
 public class NetworkResponse {
 
     @Constants.NetworkStatus

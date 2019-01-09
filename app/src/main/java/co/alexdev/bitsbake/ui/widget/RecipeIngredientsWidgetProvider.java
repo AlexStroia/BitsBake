@@ -13,7 +13,7 @@ import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.utils.PrefManager;
 import timber.log.Timber;
 
-/**
+/*
  * Implementation of App Widget functionality.
  */
 public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {

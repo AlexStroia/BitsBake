@@ -11,7 +11,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-/** Recipe model class */
+/*Recipe model class */
 
 @Entity
 public class Recipe extends BaseObservable {

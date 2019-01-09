@@ -7,13 +7,12 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import co.alexdev.bitsbake.BR;
 
-/** Step model class */
+/*Step model class*/
 @Entity
 public class Step extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
     private int room_id;
-
     private int id;
     @NonNull
     private String cake;
