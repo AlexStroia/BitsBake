@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 import co.alexdev.bitsbake.ui.activity.RecipeActivity;
+import co.alexdev.bitsbake.ui.activity.RecipeDetailActivity;
 import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -20,15 +21,15 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class RecipeDetailFragmentTests {
 
     @Rule
-    public ActivityTestRule<RecipeActivity> mBaseActivityTest = new ActivityTestRule<>(RecipeActivity.class);
+    public ActivityTestRule<RecipeDetailActivity> mDetailActivityTest = new ActivityTestRule<>(RecipeDetailActivity.class);
 
     @Test
     public void onUpdateWidgetButtonClick() {
-        RecipesDetailFragment recipesFragment = new RecipesDetailFragment();
-        mBaseActivityTest.getActivity()
+        RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
+        mDetailActivityTest.getActivity()
                 .getSupportFragmentManager().
                 beginTransaction().
-                replace(R.id.fragment_container, recipesFragment).
+                replace(R.id.fragment_container, recipesDetailFragment).
                 commitAllowingStateLoss();
 
         onView(withId(R.id.btn_update_widget)).perform(click());
@@ -36,22 +37,22 @@ public class RecipeDetailFragmentTests {
 
     @Test
     public void ingredientsTextViewText() {
-        RecipesDetailFragment recipesFragment = new RecipesDetailFragment();
-        mBaseActivityTest.getActivity()
+        RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
+        mDetailActivityTest.getActivity()
                 .getSupportFragmentManager().
                 beginTransaction().
-                replace(R.id.fragment_container, recipesFragment).
+                replace(R.id.fragment_container, recipesDetailFragment).
                 commitAllowingStateLoss();
         onView(withId(R.id.tv_ingredientsName)).check(matches(withText(R.string.ingredient)));
     }
 
     @Test
     public void scrollToPositionStepsRecycler() {
-        RecipesDetailFragment recipesFragment = new RecipesDetailFragment();
-        mBaseActivityTest.getActivity()
+        RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
+        mDetailActivityTest.getActivity()
                 .getSupportFragmentManager().
                 beginTransaction().
-                replace(R.id.fragment_container, recipesFragment).
+                replace(R.id.fragment_container, recipesDetailFragment).
                 commitAllowingStateLoss();
 
         onView(withId(R.id.rv_details)).perform(closeSoftKeyboard());

@@ -15,13 +15,11 @@ import java.util.List;
 
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.RecipesAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipesBinding;
 import co.alexdev.bitsbake.model.Recipe;
-import co.alexdev.bitsbake.ui.activity.RecipeActivity;
 import co.alexdev.bitsbake.viewmodel.RecipeDetailSharedVM;
 
 public class RecipesFragment extends BaseFragment {
@@ -61,9 +59,7 @@ public class RecipesFragment extends BaseFragment {
     }
 
     private void initRecycler() {
-        boolean mTwoPane = ((RecipeActivity) getActivity()).mTwoPane;
-        mLayoutManager = (mTwoPane) ? new GridLayoutManager(this.getActivity(), 2) : new LinearLayoutManager(this.getActivity());
-
+        mLayoutManager = new GridLayoutManager(this.getActivity(),2);
         mAdapter = new RecipesAdapter(new ArrayList<>());
         mBinding.rvRecipes.setLayoutManager(mLayoutManager);
         mBinding.rvRecipes.setAdapter(mAdapter);

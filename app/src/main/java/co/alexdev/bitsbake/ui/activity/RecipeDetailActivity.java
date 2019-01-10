@@ -23,6 +23,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private FragmentManager mFragmentManager;
     private ActivityDetailBinding mBinding;
     private String recipe_cake_id;
+    private String recipe_detail_id;
     public boolean mTwoPane = false;
 
     @Override
@@ -31,7 +32,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         initView();
         Intent intent = getIntent();
-        setupBaseFragment(intent);
+        setupRecipeDetailFragment(intent);
     }
 
     @Override
@@ -52,6 +53,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         mFragmentManager = getSupportFragmentManager();
         recipe_cake_id = getString(R.string.recipe_id);
+        recipe_detail_id = getString(R.string.recipe_desc_id);
 
 
         if (mBinding.fragmentVideoContainer != null) {
@@ -59,7 +61,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void setupBaseFragment(Intent intent) {
+    private void setupRecipeDetailFragment(Intent intent) {
         String recipeKeyId = getString(R.string.recipe_id);
         if (intent != null && intent.hasExtra(recipeKeyId)) {
             int recipeID = intent.getIntExtra(recipeKeyId, 0);
@@ -76,7 +78,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
             if (mTwoPane) {
                 mFragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                        .addToBackStack(null)
                         .replace(R.id.fragment_video_container, fragment)
                         .commit();
             } else {
@@ -84,7 +85,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
             }
         } else {
             mFragmentManager.beginTransaction()
-                    .addToBackStack(null)
                     .replace(R.id.fragment_container, fragment)
                     .commit();
         }
@@ -100,6 +100,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             if (Validator.isTextValid(event.getStep().getVideoURL())) {
                 Bundle args = new Bundle();
                 args.putString(recipe_cake_id, event.getStep().getVideoURL());
+                args.putString(recipe_detail_id, event.getStep().getDescription());
                 RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
                 recipeVideoDialogFragment.setArguments(args);
                 changeFragment(recipeVideoDialogFragment);

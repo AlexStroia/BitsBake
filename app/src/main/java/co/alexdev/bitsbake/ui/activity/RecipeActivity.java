@@ -1,13 +1,18 @@
 package co.alexdev.bitsbake.ui.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -32,12 +37,12 @@ import timber.log.Timber;
 public class RecipeActivity extends AppCompatActivity {
 
     public static final String INTENT_FILTER_STRING = "android.net.conn.CONNECTIVITY_CHANGE";
+    public static final String IS_TWO_PANE = "IS_TWO_PANE";
     private Toolbar toolbar;
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
     private ActivityRecipeBinding mBinding = null;
     private FragmentManager mFragmentManager;
-    public boolean mTwoPane = false;
     public RecipeActivityVM vm;
     private ViewModelFactory mFactory;
 
@@ -59,6 +64,7 @@ public class RecipeActivity extends AppCompatActivity {
 
 
     private void initView() {
+
         setupBroadcastReceiver();
         setupToolbar();
         checkIfIsFromWidget();

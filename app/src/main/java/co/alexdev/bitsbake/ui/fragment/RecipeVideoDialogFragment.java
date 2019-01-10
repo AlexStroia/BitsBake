@@ -44,7 +44,9 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
     private FragmentVideoDialogBinding mBinding;
     private Bundle arguments;
     private String recipe_key;
+    private String recipe_desc_key;
     private String recipe_url;
+    private String recipeDescription;
     private long mExoPos = 0;
 
     @Override
@@ -123,6 +125,7 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
     private void initView(ViewGroup container) {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_video_dialog, container, false);
         rootView = mBinding.getRoot();
+        mBinding.tvDesc.setText(recipeDescription);
     }
 
     private void loadData() {
@@ -132,8 +135,10 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
     private void getArgs() {
         arguments = getArguments();
         recipe_key = getString(R.string.recipe_id);
-        if (arguments != null && arguments.containsKey(recipe_key)) {
+        recipe_desc_key = getString(R.string.recipe_desc_id);
+        if (arguments != null && arguments.containsKey(recipe_key) && arguments.containsKey(recipe_desc_key)) {
             recipe_url = arguments.getString(recipe_key);
+            recipeDescription = arguments.getString(recipe_desc_key);
         }
     }
 
