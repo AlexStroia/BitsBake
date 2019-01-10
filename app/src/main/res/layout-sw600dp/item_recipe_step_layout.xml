@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8dp"
             android:text="@string/step_details"
-            android:textSize="@dimen/_25sp"
+            android:textSize="@dimen/_20sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_step_number"
             app:layout_constraintStart_toEndOf="@+id/tv_step_number"
             app:layout_constraintTop_toBottomOf="@+id/tv_step_number" />
@@ -29,8 +28,8 @@
             android:layout_marginTop="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:text="@string/step_number"
-            android:textSize="@dimen/_25sp"
             android:textColor="@color/custom_red"
+            android:textSize="@dimen/_20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +38,7 @@
             android:id="@+id/iv_video"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginEnd="8dp"
             android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="@+id/tv_step_detail"
             app:layout_constraintEnd_toEndOf="parent"

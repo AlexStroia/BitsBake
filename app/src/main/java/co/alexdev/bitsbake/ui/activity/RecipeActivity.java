@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.BuildConfig;
 import co.alexdev.bitsbake.R;
-import co.alexdev.bitsbake.databinding.ActivityBaseBinding;
+import co.alexdev.bitsbake.databinding.ActivityRecipeBinding;
 import co.alexdev.bitsbake.events.NetworkConnectionEvent;
 import co.alexdev.bitsbake.events.OnRecipeClickEvent;
 import co.alexdev.bitsbake.networking.NetworkResponse;
@@ -35,7 +35,7 @@ public class RecipeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
-    private ActivityBaseBinding mBinding = null;
+    private ActivityRecipeBinding mBinding = null;
     private FragmentManager mFragmentManager;
     public boolean mTwoPane = false;
     public RecipeActivityVM vm;
@@ -44,7 +44,7 @@ public class RecipeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_recipe);
         mFactory = new ViewModelFactory(BitsBakeRepository.getInstance(this));
         vm = ViewModelProviders.of(this, mFactory).get(RecipeActivityVM.class);
         mFragmentManager = getSupportFragmentManager();

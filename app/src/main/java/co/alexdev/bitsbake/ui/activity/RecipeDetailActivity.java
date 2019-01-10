@@ -8,7 +8,6 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityDetailBinding;
 import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.model.Step;
-import co.alexdev.bitsbake.ui.fragment.BaseFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipeVideoDialogFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 import co.alexdev.bitsbake.utils.Validator;
@@ -73,14 +72,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     public void changeFragment(Fragment fragment) {
-        if (fragment instanceof BaseFragment) {
-            mFragmentManager.beginTransaction().
-                    replace(R.id.fragment_container, fragment).
-                    commit();
-
-        } else if (fragment instanceof RecipeVideoDialogFragment) {
+         if (fragment instanceof RecipeVideoDialogFragment) {
             if (mTwoPane) {
                 mFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                         .addToBackStack(null)
                         .replace(R.id.fragment_video_container, fragment)
                         .commit();
