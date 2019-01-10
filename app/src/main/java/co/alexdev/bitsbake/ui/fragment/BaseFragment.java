@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import androidx.annotation.NonNull;
@@ -19,8 +20,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentBaseBinding;
+import co.alexdev.bitsbake.events.IsTwoPaneEvent;
 import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.model.Step;
+import co.alexdev.bitsbake.ui.activity.RecipeDetailActivity;
 import co.alexdev.bitsbake.utils.Validator;
 import co.alexdev.bitsbake.viewmodel.RecipeDetailSharedVM;
 
@@ -32,9 +35,8 @@ public class BaseFragment extends Fragment {
     private FragmentManager mFragmentManager;
     private FragmentBaseBinding mBinding;
     private String recipe_cake_id;
-    private String step_key;
     private Bundle args;
-    private boolean mTwoPane = false;
+    private boolean mTwoPane;
 
     /*Used to restore recyclerView position when configuration changes occurs */
     static final String RECYCLER_VIEW_POS = "RECYCLER_VIEW_POSITION";
@@ -53,7 +55,6 @@ public class BaseFragment extends Fragment {
         args = getArguments();
 
         recipe_cake_id = getString(R.string.recipe_id);
-      //  mActivity = (RecipeActivity) getActivity();
 
         if (args != null && args.containsKey(recipe_cake_id)) {
             mFragmentManager = getChildFragmentManager();
@@ -67,7 +68,6 @@ public class BaseFragment extends Fragment {
 
     private void reinitData() {
         recipe_cake_id = getString(R.string.recipe_id);
-        step_key = getString(R.string.step_id);
         vm = ViewModelProviders.of(this.getActivity()).get(RecipeDetailSharedVM.class);
         args = new Bundle();
     }
@@ -86,13 +86,9 @@ public class BaseFragment extends Fragment {
 
     /*If is in landscape mode, show the dialog fragment in the right of the screen, else show it as a regular dialog fragment*/
     private void checkRecipeDialogPresentation(Fragment fragment) {
+        if (getActivity() != null) mTwoPane = ((RecipeDetailActivity) getActivity()).mTwoPane;
         if (mTwoPane) {
-            mFragmentManager = getChildFragmentManager();
-            mFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                    .replace(R.id.fragment_video_container, fragment)
-                    .addToBackStack(null)
-                    .commit();
+            EventBus.getDefault().post(new IsTwoPaneEvent(mTwoPane, (RecipeVideoDialogFragment) fragment));
         } else {
             ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
         }

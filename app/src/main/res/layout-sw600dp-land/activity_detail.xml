@@ -31,7 +31,6 @@
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="@dimen/_0dp"
                 android:baselineAligned="false"
-                android:weightSum="3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -51,8 +50,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/fragment_video_container"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                   />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <FrameLayout
                     android:id="@+id/fragment_video_container"
@@ -62,11 +60,10 @@
                     android:layout_marginEnd="@dimen/_8dp"
                     android:layout_marginBottom="@dimen/_8dp"
                     android:layout_weight="1"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-               />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

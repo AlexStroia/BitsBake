@@ -99,6 +99,12 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Override
     protected void onPause() {
         unregisterReceiver(mNetworkReceiver);
         super.onPause();

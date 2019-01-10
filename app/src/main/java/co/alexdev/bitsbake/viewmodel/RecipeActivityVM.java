@@ -20,7 +20,6 @@ public class RecipeActivityVM extends ViewModel {
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
 
-
     public RecipeActivityVM(BitsBakeRepository mRepository) {
         this.mRepository = mRepository;
     }

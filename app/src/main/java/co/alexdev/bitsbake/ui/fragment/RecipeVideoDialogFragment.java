@@ -80,21 +80,6 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         getArgs();
         super.onCreate(savedInstanceState);

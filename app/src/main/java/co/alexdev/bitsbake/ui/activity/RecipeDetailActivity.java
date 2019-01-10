@@ -6,19 +6,21 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityDetailBinding;
+import co.alexdev.bitsbake.events.IsTwoPaneEvent;
 import co.alexdev.bitsbake.ui.fragment.BaseFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipeVideoDialogFragment;
-import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
-import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
     private FragmentManager mFragmentManager;
     private ActivityDetailBinding mBinding;
-    private boolean mTwoPane = false;
+    public boolean mTwoPane = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +29,27 @@ public class RecipeDetailActivity extends AppCompatActivity {
         initView();
         Intent intent = getIntent();
         setupBaseFragment(intent);
+    }
 
-        //TODO SETUP THE THE NEW VM
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         mFragmentManager = getSupportFragmentManager();
 
-        if(mBinding.fragmentVideoContainer != null) {
+        if (mBinding.fragmentVideoContainer != null) {
             mTwoPane = true;
         }
     }
@@ -45,7 +59,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra(recipeKeyId)) {
             int recipeID = intent.getIntExtra(recipeKeyId, 0);
             Bundle args = new Bundle();
-            args.putInt(getString(R.string.recipe_id), recipeID);
+            args.putInt(recipeKeyId, recipeID);
             BaseFragment baseFragment = new BaseFragment();
             baseFragment.setArguments(args);
             changeFragment(baseFragment);
@@ -53,15 +67,30 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     public void changeFragment(Fragment fragment) {
+
         if (fragment instanceof BaseFragment) {
             mFragmentManager.beginTransaction().
                     replace(R.id.fragment_container, fragment).
                     commit();
+        } else if (fragment instanceof  RecipeVideoDialogFragment) {
+            mBinding.fragmentVideoContainer.removeAllViews();
+            mFragmentManager.beginTransaction()
+                    .add(R.id.fragment_video_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
         } else {
             mFragmentManager.beginTransaction()
                     .addToBackStack(null)
                     .replace(R.id.fragment_container, fragment)
                     .commit();
+        }
+    }
+
+    @Subscribe
+    public void isTwoPaneEvent(IsTwoPaneEvent event) {
+        boolean isTwoPane = event.isTwoPane();
+        if(isTwoPane) {
+            changeFragment(event.getRecipeVideoDialogFragment());
         }
     }
 }
