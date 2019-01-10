@@ -88,7 +88,9 @@ public class BaseFragment extends Fragment {
     private void checkRecipeDialogPresentation(Fragment fragment) {
         if (getActivity() != null) mTwoPane = ((RecipeDetailActivity) getActivity()).mTwoPane;
         if (mTwoPane) {
-            EventBus.getDefault().post(new IsTwoPaneEvent(mTwoPane, (RecipeVideoDialogFragment) fragment));
+
+            //TODO Move the logic to DetailActivity
+
         } else {
             ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
         }

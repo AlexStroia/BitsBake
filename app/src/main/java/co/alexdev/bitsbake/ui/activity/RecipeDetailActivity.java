@@ -90,7 +90,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public void isTwoPaneEvent(IsTwoPaneEvent event) {
         boolean isTwoPane = event.isTwoPane();
         if(isTwoPane) {
-            changeFragment(event.getRecipeVideoDialogFragment());
+        //    changeFragment(event.getRecipeVideoDialogFragment());
         }
     }
 }
