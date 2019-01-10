@@ -11,7 +11,7 @@
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/exoplayer"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_200dp"
+            android:layout_height="@dimen/_150dp"
             android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -20,17 +20,28 @@
 
         </com.google.android.exoplayer2.ui.PlayerView>
 
-        <TextView
-            android:id="@+id/tv_desc"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_8dp"
-            android:paddingTop="@dimen/_8dp"
-            android:paddingEnd="@dimen/_8dp"
-            android:textColor="@color/custom_red"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            android:layout_marginTop="@dimen/_18dp"
+            android:elevation="@dimen/_30dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exoplayer">
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/custom_red"
+                android:paddingStart="@dimen/_8dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingEnd="@dimen/_8dp"
+                android:textAlignment="center"
+                android:textSize="@dimen/_20sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 </layout>
