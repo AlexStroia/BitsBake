@@ -21,8 +21,8 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.adapter.RecipesAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipesBinding;
 import co.alexdev.bitsbake.model.Recipe;
-import co.alexdev.bitsbake.ui.activity.BaseActivity;
-import co.alexdev.bitsbake.viewmodel.SharedVM;
+import co.alexdev.bitsbake.ui.activity.RecipeActivity;
+import co.alexdev.bitsbake.viewmodel.RecipeDetailSharedVM;
 
 public class RecipesFragment extends BaseFragment {
 
@@ -36,7 +36,7 @@ public class RecipesFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_recipes, container, false);
         final View rootView = mBinding.getRoot();
-        vm = ViewModelProviders.of(this.getActivity()).get(SharedVM.class);
+        vm = ViewModelProviders.of(this.getActivity()).get(RecipeDetailSharedVM.class);
 
         initRecycler();
         return rootView;
@@ -61,7 +61,7 @@ public class RecipesFragment extends BaseFragment {
     }
 
     private void initRecycler() {
-        boolean mTwoPane = ((BaseActivity) getActivity()).mTwoPane;
+        boolean mTwoPane = ((RecipeActivity) getActivity()).mTwoPane;
         mLayoutManager = (mTwoPane) ? new GridLayoutManager(this.getActivity(), 2) : new LinearLayoutManager(this.getActivity());
 
         mAdapter = new RecipesAdapter(new ArrayList<>());

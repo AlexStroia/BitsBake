@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
-import co.alexdev.bitsbake.ui.activity.BaseActivity;
+import co.alexdev.bitsbake.ui.activity.RecipeActivity;
 import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -20,7 +20,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class RecipeDetailFragmentTests {
 
     @Rule
-    public ActivityTestRule<BaseActivity> mBaseActivityTest = new ActivityTestRule<>(BaseActivity.class);
+    public ActivityTestRule<RecipeActivity> mBaseActivityTest = new ActivityTestRule<>(RecipeActivity.class);
 
     @Test
     public void onUpdateWidgetButtonClick() {

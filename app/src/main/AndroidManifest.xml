@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/CustomTheme">
         <activity
-            android:name=".ui.activity.BaseActivity"
+            android:name=".ui.activity.RecipeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTop">
             <intent-filter>
@@ -35,7 +35,7 @@
 
         <service android:name=".model.intentservice.RecipeIngredientsService" />
 
-        <activity android:name=".ui.activity.DetailActivity"></activity>
+        <activity android:name=".ui.activity.RecipeDetailActivity" android:launchMode="singleTop"></activity>
     </application>
 
 </manifest>

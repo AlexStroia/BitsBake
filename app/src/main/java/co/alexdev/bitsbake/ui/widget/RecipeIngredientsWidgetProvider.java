@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import co.alexdev.bitsbake.R;
-import co.alexdev.bitsbake.ui.activity.BaseActivity;
+import co.alexdev.bitsbake.ui.activity.RecipeDetailActivity;
 import co.alexdev.bitsbake.utils.Constants;
 import co.alexdev.bitsbake.utils.PrefManager;
 import timber.log.Timber;
@@ -59,7 +59,7 @@ public class RecipeIngredientsWidgetProvider extends AppWidgetProvider {
     }
 
     private static void setIntent(Context context, RemoteViews views) {
-        Intent intent = new Intent(context, BaseActivity.class);
+        Intent intent = new Intent(context, RecipeDetailActivity.class);
         int recipeIngredientID = PrefManager.getWidgetIngredientId(context);
         Timber.d("Ingredient id: " + recipeIngredientID);
         intent.putExtra(Constants.RECIPE_INGREDIENT_ID_KEY, recipeIngredientID);

@@ -1,19 +1,13 @@
 package co.alexdev.bitsbake.ui.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.WindowManager;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -26,57 +20,43 @@ import co.alexdev.bitsbake.events.NetworkConnectionEvent;
 import co.alexdev.bitsbake.events.OnRecipeClickEvent;
 import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.receiver.NetworkReceiver;
-import co.alexdev.bitsbake.ui.fragment.BaseFragment;
+import co.alexdev.bitsbake.repo.BitsBakeRepository;
 import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesFragment;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.Constants;
-import co.alexdev.bitsbake.viewmodel.SharedVM;
+import co.alexdev.bitsbake.viewmodel.RecipeActivityVM;
+import co.alexdev.bitsbake.viewmodel.factory.ViewModelFactory;
 import timber.log.Timber;
 
-public class BaseActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity {
 
     public static final String INTENT_FILTER_STRING = "android.net.conn.CONNECTIVITY_CHANGE";
     private Toolbar toolbar;
     private NetworkReceiver mNetworkReceiver;
     private IntentFilter mIntentFilter;
-    private ActivityBaseBinding mBinding;
+    private ActivityBaseBinding mBinding = null;
     private FragmentManager mFragmentManager;
     public boolean mTwoPane = false;
-    public SharedVM vm;
+    public RecipeActivityVM vm;
+    private ViewModelFactory mFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
-        vm = ViewModelProviders.of(this).get(SharedVM.class);
+        mFactory = new ViewModelFactory(BitsBakeRepository.getInstance(this));
+        vm = ViewModelProviders.of(this, mFactory).get(RecipeActivityVM.class);
         mFragmentManager = getSupportFragmentManager();
-
-        if (mBinding.fragmentVideoContainer != null) {
-            mTwoPane = true;
-        }
 
         initView();
 
         /*Just for testing purposes */
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mTwoPane) {
-            mFragmentManager.popBackStack(R.id.fragment_video_container, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            showHideVideoLayout(false);
-        }
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
     private void initView() {
         setupBroadcastReceiver();
@@ -162,22 +142,15 @@ public class BaseActivity extends AppCompatActivity {
         mIntentFilter.addAction(INTENT_FILTER_STRING);
     }
 
-    public void showHideVideoLayout(boolean shouldShow) {
-        if(mBinding.fragmentVideoContainer != null) {
-            mBinding.fragmentVideoContainer.setVisibility(shouldShow ? View.VISIBLE : View.GONE);
-        }
-    }
-
     @Subscribe
     public void onRecipeClickEvent(OnRecipeClickEvent event) {
         Bundle args = new Bundle();
         int recipeId = event.getRecipeId();
         args.putInt(getString(R.string.recipe_id), recipeId);
-        BaseFragment baseFragment = new BaseFragment();
-        baseFragment.setArguments(args);
-        changeFragment(baseFragment);
-        /*Set the visibility for the container to show*/
-        showHideVideoLayout(!mTwoPane);
+
+        Intent intent = new Intent(this, RecipeDetailActivity.class);
+        intent.putExtra(getString(R.string.recipe_id), recipeId);
+        startActivity(intent);
     }
 
     /*Monitor for network connectivity changes*/

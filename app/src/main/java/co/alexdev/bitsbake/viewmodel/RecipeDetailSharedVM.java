@@ -26,7 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SharedVM extends AndroidViewModel {
+public class RecipeDetailSharedVM extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
     private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
@@ -34,7 +34,7 @@ public class SharedVM extends AndroidViewModel {
     private final MediatorLiveData<String> mRecipeName = new MediatorLiveData<>();
     private Toast mToast = null;
 
-    public SharedVM(@NonNull Application application) {
+    public RecipeDetailSharedVM(@NonNull Application application) {
         super(application);
         mRepository = BitsBakeRepository.getInstance(this.getApplication());
     }

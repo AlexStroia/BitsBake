@@ -14,7 +14,7 @@ import co.alexdev.bitsbake.adapter.StepsAdapter;
 import co.alexdev.bitsbake.databinding.FragmentRecipeDetailBinding;
 import co.alexdev.bitsbake.model.Ingredient;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
-import co.alexdev.bitsbake.viewmodel.SharedVM;
+import co.alexdev.bitsbake.viewmodel.RecipeDetailSharedVM;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +82,7 @@ public class RecipesDetailFragment extends BaseFragment {
                 R.layout.fragment_recipe_detail, container,
                 false);
         rootView = mBinding.getRoot();
-        vm = ViewModelProviders.of(this.getActivity()).get(SharedVM.class);
+        vm = ViewModelProviders.of(this.getActivity()).get(RecipeDetailSharedVM.class);
         mBinding.btnUpdateWidget.setOnClickListener(view -> vm.onWidgetUpdateClick());
     }
 
