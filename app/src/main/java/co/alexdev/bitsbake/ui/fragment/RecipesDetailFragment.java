@@ -15,13 +15,9 @@ import co.alexdev.bitsbake.databinding.FragmentRecipeDetailBinding;
 import co.alexdev.bitsbake.model.Ingredient;
 import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.viewmodel.RecipeDetailSharedVM;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 
 public class RecipesDetailFragment extends BaseFragment {
@@ -62,18 +58,6 @@ public class RecipesDetailFragment extends BaseFragment {
             mBinding.nestedScroll.scrollTo(scrollPosition[0], scrollPosition[1]);
         }
         super.onResume();
-    }
-
-    @Override
-    public void onStart() {
-        EventBus.getDefault().register(this);
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     private void initView(ViewGroup container) {

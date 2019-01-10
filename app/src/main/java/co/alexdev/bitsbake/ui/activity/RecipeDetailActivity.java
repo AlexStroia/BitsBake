@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityDetailBinding;
-import co.alexdev.bitsbake.events.IsTwoPaneEvent;
+import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
+import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.ui.fragment.BaseFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipeVideoDialogFragment;
+import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
+import co.alexdev.bitsbake.utils.Validator;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     private FragmentManager mFragmentManager;
     private ActivityDetailBinding mBinding;
+    private String recipe_cake_id;
     public boolean mTwoPane = false;
 
     @Override
@@ -34,7 +38,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!EventBus.getDefault().isRegistered(this)) {
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
     }
@@ -48,6 +52,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         mFragmentManager = getSupportFragmentManager();
+        recipe_cake_id = getString(R.string.recipe_id);
+
 
         if (mBinding.fragmentVideoContainer != null) {
             mTwoPane = true;
@@ -60,24 +66,27 @@ public class RecipeDetailActivity extends AppCompatActivity {
             int recipeID = intent.getIntExtra(recipeKeyId, 0);
             Bundle args = new Bundle();
             args.putInt(recipeKeyId, recipeID);
-            BaseFragment baseFragment = new BaseFragment();
-            baseFragment.setArguments(args);
-            changeFragment(baseFragment);
+            RecipesDetailFragment recipesDetailFragment = new RecipesDetailFragment();
+            recipesDetailFragment.setArguments(args);
+            changeFragment(recipesDetailFragment);
         }
     }
 
     public void changeFragment(Fragment fragment) {
-
         if (fragment instanceof BaseFragment) {
             mFragmentManager.beginTransaction().
                     replace(R.id.fragment_container, fragment).
                     commit();
-        } else if (fragment instanceof  RecipeVideoDialogFragment) {
-            mBinding.fragmentVideoContainer.removeAllViews();
-            mFragmentManager.beginTransaction()
-                    .add(R.id.fragment_video_container, fragment)
-                    .addToBackStack(null)
-                    .commit();
+
+        } else if (fragment instanceof RecipeVideoDialogFragment) {
+            if (mTwoPane) {
+                mFragmentManager.beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.fragment_video_container, fragment)
+                        .commit();
+            } else {
+                ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, "");
+            }
         } else {
             mFragmentManager.beginTransaction()
                     .addToBackStack(null)
@@ -86,11 +95,20 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
     }
 
+
+    /*When this fragment is not anymore present and this EventBus is triggered and the fragment is not shown,
+     * reinitialize the data */
     @Subscribe
-    public void isTwoPaneEvent(IsTwoPaneEvent event) {
-        boolean isTwoPane = event.isTwoPane();
-        if(isTwoPane) {
-        //    changeFragment(event.getRecipeVideoDialogFragment());
+    public void onRecipeStepClickEvent(OnRecipeStepClickEvent event) {
+        Step step = event.getStep();
+        if (step != null) {
+            if (Validator.isTextValid(event.getStep().getVideoURL())) {
+                Bundle args = new Bundle();
+                args.putString(recipe_cake_id, event.getStep().getVideoURL());
+                RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
+                recipeVideoDialogFragment.setArguments(args);
+                changeFragment(recipeVideoDialogFragment);
+            }
         }
     }
 }

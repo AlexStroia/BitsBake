@@ -43,7 +43,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/fragment_video_container"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:context=".ui.fragment.BaseFragment" />
+                 />
 
             <FrameLayout
                 android:id="@+id/fragment_video_container"
@@ -57,7 +57,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:context=".ui.fragment.BaseFragment" />
+               />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
