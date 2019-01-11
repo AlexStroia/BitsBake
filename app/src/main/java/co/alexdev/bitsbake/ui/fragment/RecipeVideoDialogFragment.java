@@ -1,6 +1,7 @@
 package co.alexdev.bitsbake.ui.fragment;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentVideoDialogBinding;
@@ -43,15 +45,17 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
     private ExoPlayer mPlayer;
     private FragmentVideoDialogBinding mBinding;
     private Bundle arguments;
-    private String recipe_key;
+    private String recipe_url_key;
     private String recipe_desc_key;
     private String recipe_url;
+    private String recipe_thumbnail_url_key;
     private String recipeDescription;
     private long mExoPos = 0;
+    private boolean canDisplayVideo = false;
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putString(recipe_key, recipe_url);
+        outState.putString(recipe_url_key, recipe_url);
         outState.putLong(EXO_POS, mExoPos);
         super.onSaveInstanceState(outState);
     }
@@ -64,20 +68,23 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
 
     @Override
     public void onResume() {
-        if (Validator.isTextValid(recipe_url)) initPlayer(Uri.parse(recipe_url));
-        mPlayer.seekTo(mExoPos);
+        if (canDisplayVideo) {
+            if (Validator.isTextValid(recipe_url)) initPlayer(Uri.parse(recipe_url));
+            mPlayer.seekTo(mExoPos);
+            mPlayer.setPlayWhenReady(true);
+        }
         super.onResume();
     }
 
     @Override
     public void onStop() {
-        releasePlayer();
+        if (Build.VERSION.SDK_INT >= 24) releasePlayer();
         super.onStop();
     }
 
     @Override
     public void onPause() {
-        releasePlayer();
+        if (Build.VERSION.SDK_INT <= 23) releasePlayer();
         super.onPause();
     }
 
@@ -91,7 +98,9 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         initView(container);
-        loadData();
+
+        mBinding.exoplayer.setVisibility(canDisplayVideo ? View.VISIBLE : View.GONE);
+        if (canDisplayVideo) loadData();
         return rootView;
     }
 
@@ -129,22 +138,45 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
     }
 
     private void loadData() {
-        initPlayer(Uri.parse(recipe_url));
+        if (canDisplayVideo) initPlayer(Uri.parse(recipe_url));
     }
 
     private void getArgs() {
         arguments = getArguments();
-        recipe_key = getString(R.string.recipe_id);
-        recipe_desc_key = getString(R.string.recipe_desc_id);
-        if (arguments != null && arguments.containsKey(recipe_key) && arguments.containsKey(recipe_desc_key)) {
-            recipe_url = arguments.getString(recipe_key);
-            recipeDescription = arguments.getString(recipe_desc_key);
+        setKeys();
+        if (arguments != null) {
+            if (arguments.containsKey(recipe_desc_key)) {
+                recipeDescription = arguments.getString(recipe_desc_key);
+            }
+            if (arguments.containsKey(recipe_url_key)) {
+                prepareLayoutForVideoUrl();
+            } else if (arguments.containsKey(recipe_thumbnail_url_key)) {
+                prepareLayoutForThumbnailUrl();
+            }
         }
     }
 
+    private void setKeys() {
+        recipe_url_key = getString(R.string.recipe_id);
+        recipe_desc_key = getString(R.string.recipe_desc_id);
+        recipe_thumbnail_url_key = getString(R.string.recipe_cake_thumbnail_url);
+    }
+
+    private void prepareLayoutForVideoUrl() {
+        canDisplayVideo = true;
+        recipe_url = arguments.getString(recipe_url_key);
+    }
+
+    private void prepareLayoutForThumbnailUrl() {
+        canDisplayVideo = false;
+        Uri imageUri = Uri.parse(arguments.getString(recipe_thumbnail_url_key));
+        mBinding.ivRecipeImage.setVisibility(View.VISIBLE);
+        Picasso.get().load(imageUri).into(mBinding.ivRecipeImage);
+    }
+
     private void getViewState(Bundle savedInstanceState) {
-        if (savedInstanceState != null && savedInstanceState.containsKey(recipe_key) && savedInstanceState.containsKey(EXO_POS)) {
-            recipe_url = savedInstanceState.getString(recipe_key);
+        if (savedInstanceState != null && savedInstanceState.containsKey(recipe_url_key) && savedInstanceState.containsKey(EXO_POS)) {
+            recipe_url = savedInstanceState.getString(recipe_url_key);
             mExoPos = savedInstanceState.getLong(EXO_POS);
         }
     }

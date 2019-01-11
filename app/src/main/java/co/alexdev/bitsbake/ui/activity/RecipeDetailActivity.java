@@ -22,8 +22,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     private FragmentManager mFragmentManager;
     private ActivityDetailBinding mBinding;
-    private String recipe_cake_id;
-    private String recipe_detail_id;
+    private String recipe_cake_key;
+    private String recipe_detail_key;
+    private String recipe_cake_thumbnail_url_key;
     public boolean mTwoPane = false;
 
     @Override
@@ -52,8 +53,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private void initView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         mFragmentManager = getSupportFragmentManager();
-        recipe_cake_id = getString(R.string.recipe_id);
-        recipe_detail_id = getString(R.string.recipe_desc_id);
+        recipe_cake_key = getString(R.string.recipe_id);
+        recipe_detail_key = getString(R.string.recipe_desc_id);
+        recipe_cake_thumbnail_url_key = getString(R.string.recipe_cake_thumbnail_url);
 
 
         if (mBinding.fragmentVideoContainer != null) {
@@ -74,7 +76,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     public void changeFragment(Fragment fragment) {
-         if (fragment instanceof RecipeVideoDialogFragment) {
+        if (fragment instanceof RecipeVideoDialogFragment) {
             if (mTwoPane) {
                 mFragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
@@ -95,16 +97,19 @@ public class RecipeDetailActivity extends AppCompatActivity {
      * reinitialize the data */
     @Subscribe
     public void onRecipeStepClickEvent(OnRecipeStepClickEvent event) {
+        Bundle args = new Bundle();
         Step step = event.getStep();
         if (step != null) {
-            if (Validator.isTextValid(event.getStep().getVideoURL())) {
-                Bundle args = new Bundle();
-                args.putString(recipe_cake_id, event.getStep().getVideoURL());
-                args.putString(recipe_detail_id, event.getStep().getDescription());
-                RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
-                recipeVideoDialogFragment.setArguments(args);
-                changeFragment(recipeVideoDialogFragment);
+            if (Validator.isTextValid(step.getVideoURL())) {
+                args.putString(recipe_cake_key, step.getVideoURL());
+            } else if (Validator.isTextValid(step.getThumbnailUrl())) {
+                args.putString(recipe_cake_thumbnail_url_key, step.getThumbnailUrl());
             }
+
+            args.putString(recipe_detail_key, step.getDescription());
+            RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
+            recipeVideoDialogFragment.setArguments(args);
+            changeFragment(recipeVideoDialogFragment);
         }
     }
 }

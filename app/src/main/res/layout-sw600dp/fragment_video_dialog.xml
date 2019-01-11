@@ -2,23 +2,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:minWidth="@dimen/_300dp"
         android:minHeight="@dimen/_8dp"
+        android:orientation="vertical"
         tools:context="co.alexdev.bitsbake.ui.fragment.RecipeVideoDialogFragment">
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/exoplayer"
-            android:layout_width="@dimen/_0dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/_300dp"
+            android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
+        </com.google.android.exoplayer2.ui.PlayerView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView2"
@@ -36,6 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/exoplayer">
+
             <TextView
                 android:id="@+id/tv_desc"
                 android:layout_width="match_parent"
@@ -58,12 +61,8 @@
             android:layout_marginEnd="@dimen/_8dp"
             android:layout_marginBottom="@dimen/_8dp"
             android:contentDescription="@null"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/cardView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="gone" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
 

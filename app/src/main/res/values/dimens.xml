@@ -27,12 +27,13 @@
     <dimen name="_500dp">500dp</dimen>
 
     <!--SP's-->
+    <dimen name="_14sp">14sp</dimen>
     <dimen name="_18sp">18sp</dimen>
     <dimen name="_20sp">20sp</dimen>
     <dimen name="_25sp">25sp</dimen>
     <dimen name="_30sp">30sp</dimen>
 
-    <!--Sises-->
+    <!--Size-->
     <dimen name="__0">0</dimen>
     <dimen name="_03">0.3</dimen>
     <dimen name="_05">0.5</dimen>

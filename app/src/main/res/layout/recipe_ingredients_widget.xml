@@ -4,21 +4,21 @@
     android:background="@color/custom_red"
     android:padding="@dimen/widget_margin">
 
-    <TextView
-        android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/_8dp"
-        android:layout_marginTop="@dimen/_8dp"
-        android:layout_marginEnd="@dimen/_8dp"
-        android:layout_marginBottom="@dimen/_8dp"
-        android:background="@color/custom_red"
-        android:contentDescription="@string/no_recipe_selected"
-        android:text="@string/no_recipe_selected"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/appwidget_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginBottom="@dimen/_8dp"
+            android:background="@color/custom_red"
+            android:contentDescription="@string/no_recipe_selected"
+            android:text="@string/no_recipe_selected"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_14sp"
+            android:textStyle="bold|italic" />
 
 </RelativeLayout>

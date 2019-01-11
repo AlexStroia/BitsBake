@@ -44,7 +44,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
         Timber.d("Step: " + step.toString());
         holder.bind(step, position);
 
-        holder.mBinding.ivVideo.setVisibility(TextUtils.isEmpty(step.getVideoURL()) ? TextUtils.isEmpty(step.getThumbnailUrl()) ? GONE : VISIBLE : VISIBLE);
+        holder.mBinding.ivVideo.setVisibility(TextUtils.isEmpty(step.getVideoURL()) ? GONE: VISIBLE);
     }
 
     @Override
