@@ -5,17 +5,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:minWidth="@dimen/_300dp"
         android:minHeight="@dimen/_8dp"
+        android:orientation="vertical"
         tools:context="co.alexdev.bitsbake.ui.fragment.RecipeVideoDialogFragment">
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/exoplayer"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_150dp"
+            android:layout_height="@dimen/_200dp"
             android:layout_gravity="center"
-            app:layout_constraintBottom_toTopOf="@+id/cardView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -26,18 +25,14 @@
             android:id="@+id/cardView2"
             android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_8dp"
-            android:layout_marginEnd="@dimen/_8dp"
-            android:layout_marginBottom="@dimen/_8dp"
+            android:layout_margin="@dimen/_8dp"
             android:elevation="@dimen/_30dp"
             android:visibility="visible"
             app:cardBackgroundColor="@color/custom_red"
             app:cardElevation="@dimen/_30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/exoplayer">
+            app:layout_constraintTop_toBottomOf="@+id/exoplayer">
 
             <TextView
                 android:id="@+id/tv_desc"
@@ -51,6 +46,7 @@
                 android:textStyle="bold"
                 android:visibility="visible" />
         </androidx.cardview.widget.CardView>
+
 
         <ImageView
             android:id="@+id/iv_recipe_image"
@@ -66,6 +62,40 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageButton
+            android:id="@+id/ib_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginBottom="@dimen/_8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@null"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ib_next"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2"
+            app:layout_constraintVertical_bias="0.59"
+            app:srcCompat="@drawable/ic_prev" />
+
+        <ImageButton
+            android:id="@+id/ib_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8dp"
+            android:layout_marginBottom="@dimen/_8dp"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@android:color/transparent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/ib_prev"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2"
+            app:layout_constraintVertical_bias="0.566"
+            app:srcCompat="@drawable/ic_next" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

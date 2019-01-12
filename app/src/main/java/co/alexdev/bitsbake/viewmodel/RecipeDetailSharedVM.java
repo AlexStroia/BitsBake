@@ -9,29 +9,30 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.model.Ingredient;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.model.Recipe;
 import co.alexdev.bitsbake.model.intentservice.RecipeIngredientsService;
-import co.alexdev.bitsbake.networking.NetworkResponse;
 import co.alexdev.bitsbake.repo.BitsBakeRepository;
-import co.alexdev.bitsbake.utils.BitsBakeUtils;
 import co.alexdev.bitsbake.utils.PrefManager;
 import co.alexdev.bitsbake.utils.Validator;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class RecipeDetailSharedVM extends AndroidViewModel {
 
     private BitsBakeRepository mRepository;
-    private final MutableLiveData<NetworkResponse> mNetworkResponse = new MutableLiveData<>();
     private final MediatorLiveData<Integer> mBaseRecipeId = new MediatorLiveData<>();
     private final MediatorLiveData<String> mRecipeName = new MediatorLiveData<>();
+
+    private List<Step> steps;
+    private Step step;
+    private long exoPlayerPos = 0;
+    private int stepListPos = 0;
+
+    private boolean isExoReadyToPlay = true;
+    private boolean canDisplayVideo = false;
+
     private Toast mToast = null;
 
     public RecipeDetailSharedVM(@NonNull Application application) {
@@ -67,50 +68,6 @@ public class RecipeDetailSharedVM extends AndroidViewModel {
         return Transformations.switchMap(mBaseRecipeId, stepsID -> mRepository.getStepsList(stepsID));
     }
 
-    public MutableLiveData<NetworkResponse> getNetworkResponse() {
-        return mNetworkResponse;
-    }
-
-    public void loadData() {
-        mRepository.fetchNetworkingData().
-                subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<Recipe>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        mNetworkResponse.setValue(NetworkResponse.loading());
-                    }
-
-                    @Override
-                    public void onSuccess(List<Recipe> recipes) {
-                        mNetworkResponse.setValue(NetworkResponse.success(recipes));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mNetworkResponse.setValue(NetworkResponse.error(e));
-                    }
-                });
-    }
-
-    public void insertToDatabase(List<Recipe> recipes) {
-        List<Recipe> formatedRecipes = BitsBakeUtils.formatRecipes(recipes);
-
-        wipeAll();
-
-        for (Recipe recipe : formatedRecipes) {
-            List<Step> steps = recipe.getSteps();
-            List<Ingredient> ingredients = recipe.getIngredients();
-
-            mRepository.insertIngredientsToDatabase(ingredients);
-            mRepository.insertStepsToDatabase(steps);
-
-            recipe.setIngredients(ingredients);
-            recipe.setSteps(steps);
-        }
-        mRepository.insertRecipesToDatabase(formatedRecipes);
-    }
-
     public void setId(int id) {
         mBaseRecipeId.setValue(id);
     }
@@ -119,13 +76,75 @@ public class RecipeDetailSharedVM extends AndroidViewModel {
         mRecipeName.setValue(name);
     }
 
-    private void wipeAll() {
-        mRepository.deleteIngredients();
-        mRepository.deleteSteps();
-        mRepository.deleteIngredients();
+    public boolean isFieldValid(List<Ingredient> ingredients, String text) {
+        return Validator.validate(ingredients, text);
     }
 
-    public Boolean isFieldValid(List<Ingredient> ingredients, String text) {
-        return Validator.validate(ingredients, text);
+    public boolean isTextValid(String text) {
+        return Validator.isTextValid(text);
+    }
+
+    public void goToNext(List<Step> steps) {
+        if (stepListPos < (steps.size() - 1)) {
+            stepListPos++;
+        }
+    }
+
+    public void goToPrev() {
+        if (stepListPos > 0) {
+            stepListPos--;
+        }
+    }
+
+    public boolean shouldShowPrevBtn() {
+        return getStepListPos() > 0;
+    }
+
+    public boolean shouldShowNextBtn() {
+        return (stepListPos < (steps.size() - 1));
+    }
+
+    public int getStepListPos() {
+        return stepListPos;
+    }
+
+    public Step getStep() {
+        return step;
+    }
+
+    public void setStep(Step step) {
+        this.step = step;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
+    }
+
+    public long getExoPlayerPos() {
+        return exoPlayerPos;
+    }
+
+    public void setExoPlayerPos(long exoPlayerPos) {
+        this.exoPlayerPos = exoPlayerPos;
+    }
+
+    public boolean isExoReadyToPlay() {
+        return isExoReadyToPlay;
+    }
+
+    public void setExoReadyToPlay(boolean exoReadyToPlay) {
+        isExoReadyToPlay = exoReadyToPlay;
+    }
+
+    public boolean isCanDisplayVideo() {
+        return canDisplayVideo;
+    }
+
+    public void setCanDisplayVideo(boolean canDisplayVideo) {
+        this.canDisplayVideo = canDisplayVideo;
     }
 }

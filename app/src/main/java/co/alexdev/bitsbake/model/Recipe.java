@@ -3,10 +3,6 @@ package co.alexdev.bitsbake.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -14,7 +10,7 @@ import androidx.room.PrimaryKey;
 /*Recipe model class */
 
 @Entity
-public class Recipe extends BaseObservable {
+public class Recipe {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -37,14 +33,13 @@ public class Recipe extends BaseObservable {
         this.id = id;
     }
 
-    @Bindable
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-        notifyPropertyChanged(BR.name);
+
     }
 
     public List<Ingredient> getIngredients() {
@@ -55,7 +50,6 @@ public class Recipe extends BaseObservable {
         return steps;
     }
 
-    @Bindable
     public boolean isFavorite() {
         return isFavorite;
     }
@@ -64,14 +58,12 @@ public class Recipe extends BaseObservable {
         isFavorite = favorite;
     }
 
-    @Bindable
     public int getServings() {
         return servings;
     }
 
     public void setServings(int servings) {
         this.servings = servings;
-        notifyPropertyChanged(BR.servings);
     }
 
     public void setIngredients(List<Ingredient> ingredients) {

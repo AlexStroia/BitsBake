@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8dp"
             android:text="@string/step_details"
-            android:textSize="@dimen/_20sp"
+            android:textSize="@dimen/_18sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_step_number"
             app:layout_constraintStart_toEndOf="@+id/tv_step_number"
             app:layout_constraintTop_toBottomOf="@+id/tv_step_number" />
@@ -29,7 +29,7 @@
             android:layout_marginBottom="@dimen/_8dp"
             android:text="@string/step_number"
             android:textColor="@color/custom_red"
-            android:textSize="@dimen/_20sp"
+            android:textSize="@dimen/_18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -10,7 +10,6 @@ import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.ui.fragment.RecipeVideoDialogFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
-import co.alexdev.bitsbake.utils.Validator;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,7 +56,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         recipe_detail_key = getString(R.string.recipe_desc_id);
         recipe_cake_thumbnail_url_key = getString(R.string.recipe_cake_thumbnail_url);
 
-
         if (mBinding.fragmentVideoContainer != null) {
             mTwoPane = true;
         }
@@ -83,7 +81,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                         .replace(R.id.fragment_video_container, fragment)
                         .commit();
             } else {
-                ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, "");
+                ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
             }
         } else {
             mFragmentManager.beginTransaction()
@@ -100,12 +98,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         Step step = event.getStep();
         if (step != null) {
-            if (Validator.isTextValid(step.getVideoURL())) {
-                args.putString(recipe_cake_key, step.getVideoURL());
-            } else if (Validator.isTextValid(step.getThumbnailUrl())) {
-                args.putString(recipe_cake_thumbnail_url_key, step.getThumbnailUrl());
-            }
-
+            args.putParcelable(getString(R.string.step_obj_key), event.getStep());
             args.putString(recipe_detail_key, step.getDescription());
             RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
             recipeVideoDialogFragment.setArguments(args);

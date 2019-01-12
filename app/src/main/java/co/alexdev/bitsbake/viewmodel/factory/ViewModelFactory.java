@@ -17,6 +17,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new RecipeActivityVM(mRepository);
+        if (modelClass.isAssignableFrom(RecipeActivityVM.class)) {
+            return (T) new RecipeActivityVM(mRepository);
+        }
+        throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }
 }

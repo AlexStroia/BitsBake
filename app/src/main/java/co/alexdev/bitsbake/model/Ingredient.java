@@ -1,14 +1,11 @@
 package co.alexdev.bitsbake.model;
 
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import co.alexdev.bitsbake.BR;
 
 /** Ingredient model class */
 @Entity
-public class Ingredient extends BaseObservable {
+public class Ingredient {
 
     @PrimaryKey(autoGenerate = true)
     private int room_id;
@@ -26,7 +23,6 @@ public class Ingredient extends BaseObservable {
         this.room_id = room_id;
     }
 
-    @Bindable
     public int getId() {
         return id;
     }
@@ -41,37 +37,30 @@ public class Ingredient extends BaseObservable {
 
     public void setId(int id) {
         this.id = id;
-        notifyPropertyChanged(BR.id);
     }
 
-    @Bindable
     public double getQuantity() {
         return quantity;
     }
 
     public void setQuantity(double quantity) {
         this.quantity = quantity;
-        notifyPropertyChanged(BR.quantity);
     }
 
-    @Bindable
     public String getMeasure() {
         return measure;
     }
 
     public void setMeasure(String measure) {
         this.measure = measure;
-        notifyPropertyChanged(BR.measure);
     }
 
-    @Bindable
     public String getIngredient() {
         return ingredient;
     }
 
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
-        notifyPropertyChanged(BR.ingredient);
     }
 
     @Override
