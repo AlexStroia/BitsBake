@@ -28,6 +28,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private Bundle args = new Bundle();
     RecipeVideoDialogFragment recipeVideoDialogFragment;
     public boolean mTwoPane = false;
+    private boolean isTablet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         vm = ViewModelProviders.of(this).get(RecipeDetailSharedVM.class);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         mFragmentManager = getSupportFragmentManager();
+        isTablet = getResources().getBoolean(R.bool.isTablet);
         if (mBinding.fragmentVideoContainer != null) {
             mTwoPane = true;
         }
@@ -81,7 +83,14 @@ public class RecipeDetailActivity extends AppCompatActivity {
                         .replace(R.id.fragment_video_container, fragment, RECIPE_DIALOG_TAG)
                         .commit();
             } else {
-                ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
+                if (isTablet) {
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
+                }
             }
         } else {
             mFragmentManager.beginTransaction()
@@ -98,6 +107,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         if (step != null) {
             args.putParcelable(getString(R.string.step_obj_key), event.getStep());
             args.putInt(getString(R.string.step_pos), event.getPosition());
+            vm.setExoPlayerPos(0);
             recipeVideoDialogFragment = new RecipeVideoDialogFragment();
             recipeVideoDialogFragment.setArguments(args);
             changeFragment(recipeVideoDialogFragment);
