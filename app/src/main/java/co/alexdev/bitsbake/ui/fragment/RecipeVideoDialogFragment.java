@@ -56,18 +56,22 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     @Override
     public void onStop() {
         if (Build.VERSION.SDK_INT >= 24) {
-            vm.setExoPlayerPos(mPlayer.getCurrentPosition());
-            vm.setExoReadyToPlay(mPlayer.getPlayWhenReady());
-            releasePlayer();
+            if (mPlayer != null) {
+                vm.setExoPlayerPos(mPlayer.getCurrentPosition());
+                vm.setExoReadyToPlay(mPlayer.getPlayWhenReady());
+                releasePlayer();
+            }
         }
         super.onStop();
     }
 
     @Override
     public void onPause() {
-        if (Build.VERSION.SDK_INT <= 23) {
-            vm.setExoPlayerPos(mPlayer.getCurrentPosition());
-            vm.setExoReadyToPlay(mPlayer.getPlayWhenReady());
+        if (Build.VERSION.SDK_INT < 23) {
+            if (mPlayer != null) {
+                vm.setExoPlayerPos(mPlayer.getCurrentPosition());
+                vm.setExoReadyToPlay(mPlayer.getPlayWhenReady());
+            }
             releasePlayer();
         }
         super.onPause();
@@ -79,7 +83,7 @@ public class RecipeVideoDialogFragment extends DialogFragment {
         initView(container);
 
         mBinding.exoplayer.setVisibility(vm.isCanDisplayVideo() ? View.VISIBLE : View.GONE);
-        if (vm.isCanDisplayVideo()) loadData();
+        if (vm.isCanDisplayVideo()) initPlayer(Uri.parse(recipe_url));
         return rootView;
     }
 
@@ -147,18 +151,17 @@ public class RecipeVideoDialogFragment extends DialogFragment {
         });
     }
 
-    private void loadData() {
-        if (vm.isCanDisplayVideo()) initPlayer(Uri.parse(recipe_url));
-    }
-
     private void getArgs() {
         arguments = getArguments();
         String stepObjKey = getString(R.string.step_obj_key);
+        String stepPosKey = getString(R.string.step_pos);
 
         if (arguments != null) {
-            if (arguments.containsKey(stepObjKey)) {
+            if (arguments.containsKey(stepObjKey) && arguments.containsKey(stepPosKey)) {
                 step = arguments.getParcelable(stepObjKey);
+                int position = arguments.getInt(stepPosKey);
                 vm.setStep(step);
+                vm.setStepListPos(position);
                 validateFields();
             }
         }
@@ -175,6 +178,7 @@ public class RecipeVideoDialogFragment extends DialogFragment {
             prepareLayoutForThumbnailUrl();
             return;
         }
+        /*If it came here then we cannot display a video */
         vm.setCanDisplayVideo(false);
     }
 

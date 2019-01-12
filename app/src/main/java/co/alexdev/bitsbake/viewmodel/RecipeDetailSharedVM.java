@@ -108,6 +108,10 @@ public class RecipeDetailSharedVM extends AndroidViewModel {
         return stepListPos;
     }
 
+    public void setStepListPos(int stepListPos) {
+        this.stepListPos = stepListPos;
+    }
+
     public Step getStep() {
         return step;
     }

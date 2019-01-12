@@ -35,6 +35,7 @@
     <string name="isTwoPane">IS_TWO_PANE</string>
     <string name="recipe_cake_thumbnail_url">RECIPE_CAKE_THUMBNAIL_URL</string>
     <string name="step_obj_key">STEP_OBJ_KEY</string>
+    <string name="step_pos">STEP_POS</string>
 
     <!--Widget-->
     <string name="no_recipe_selected">No recipe selected</string>

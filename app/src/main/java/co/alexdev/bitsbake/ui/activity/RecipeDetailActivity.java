@@ -99,7 +99,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Step step = event.getStep();
         if (step != null) {
             args.putParcelable(getString(R.string.step_obj_key), event.getStep());
-            args.putString(recipe_detail_key, step.getDescription());
+            args.putInt(getString(R.string.step_pos), event.getPosition());
             RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
             recipeVideoDialogFragment.setArguments(args);
             changeFragment(recipeVideoDialogFragment);
