@@ -31,6 +31,7 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentVideoDialogBinding;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.viewmodel.RecipeDetailSharedVM;
+import timber.log.Timber;
 
 public class RecipeVideoDialogFragment extends DialogFragment {
 
@@ -45,7 +46,7 @@ public class RecipeVideoDialogFragment extends DialogFragment {
 
     @Override
     public void onResume() {
-        if (vm.isCanDisplayVideo()) {
+        if (vm.canDisplayVideo()) {
             if (vm.isTextValid(recipe_url)) initPlayer(Uri.parse(recipe_url));
             mPlayer.seekTo(vm.getExoPlayerPos());
             mPlayer.setPlayWhenReady(vm.isExoReadyToPlay());
@@ -82,8 +83,8 @@ public class RecipeVideoDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         initView(container);
 
-        mBinding.exoplayer.setVisibility(vm.isCanDisplayVideo() ? View.VISIBLE : View.GONE);
-        if (vm.isCanDisplayVideo()) initPlayer(Uri.parse(recipe_url));
+        mBinding.exoplayer.setVisibility(vm.canDisplayVideo() ? View.VISIBLE : View.GONE);
+        if (vm.canDisplayVideo()) initPlayer(Uri.parse(recipe_url));
         return rootView;
     }
 
@@ -116,13 +117,10 @@ public class RecipeVideoDialogFragment extends DialogFragment {
 
     private void initView(ViewGroup container) {
         vm = ViewModelProviders.of(this.getActivity()).get(RecipeDetailSharedVM.class);
-        getArgs();
-
-        setStepsList();
-
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_video_dialog, container, false);
+        getArgs();
+        setStepsList();
         rootView = mBinding.getRoot();
-
         setBtnListeners();
     }
 
@@ -131,22 +129,29 @@ public class RecipeVideoDialogFragment extends DialogFragment {
         mBinding.ibNext.setOnClickListener(view -> {
             vm.goToNext(vm.getSteps());
             vm.setStep(vm.getSteps().get(vm.getStepListPos()));
-            mBinding.ibPrev.setVisibility(vm.shouldShowPrevBtn() ? View.VISIBLE : View.GONE);
-            mBinding.ibNext.setVisibility(vm.shouldShowNextBtn() ? View.VISIBLE : View.INVISIBLE);
-
+            showHideButtons();
+            setLayout();
         });
 
         mBinding.ibPrev.setOnClickListener(view -> {
             vm.goToPrev();
             vm.setStep(vm.getSteps().get(vm.getStepListPos()));
-            mBinding.ibPrev.setVisibility(vm.shouldShowPrevBtn() ? View.VISIBLE : View.INVISIBLE);
+            showHideButtons();
+            setLayout();
         });
+    }
+
+    /*Show or hide buttons based on the boolean value */
+    private void showHideButtons() {
+        mBinding.ibPrev.setVisibility(vm.shouldShowPrevBtn() ? View.VISIBLE : View.INVISIBLE);
+        mBinding.ibNext.setVisibility(vm.shouldShowNextBtn() ? View.VISIBLE : View.INVISIBLE);
     }
 
     private void setStepsList() {
         LiveData<List<Step>> stepsLiveData = vm.getStepsById();
         stepsLiveData.observe(this.getActivity(), steps -> {
             vm.setSteps(steps);
+            showHideButtons();
             stepsLiveData.removeObservers(this);
         });
     }
@@ -162,12 +167,12 @@ public class RecipeVideoDialogFragment extends DialogFragment {
                 int position = arguments.getInt(stepPosKey);
                 vm.setStep(step);
                 vm.setStepListPos(position);
-                validateFields();
+                setLayout();
             }
         }
     }
 
-    private void validateFields() {
+    private void setLayout() {
         if (vm.isTextValid(vm.getStep().getDescription())) {
             recipeDescription = vm.getStep().getDescription();
         }
@@ -177,20 +182,35 @@ public class RecipeVideoDialogFragment extends DialogFragment {
         } else if (vm.isTextValid((vm.getStep().getThumbnailUrl()))) {
             prepareLayoutForThumbnailUrl();
             return;
+        } else {
+            prepareLayoutForNoVideoAndNoThumbnail();
+            vm.setCanDisplayVideo(false);
         }
+    }
+
+    private void prepareLayoutForNoVideoAndNoThumbnail() {
+        /*Means that there is no video and no image */
+        mBinding.tvDesc.setText(vm.getStep().getDescription());
+        mBinding.exoplayer.setVisibility(View.GONE);
+        mBinding.ivRecipeImage.setVisibility(View.GONE);
         /*If it came here then we cannot display a video */
-        vm.setCanDisplayVideo(false);
     }
 
     private void prepareLayoutForVideoUrl() {
+        mBinding.exoplayer.setVisibility(View.VISIBLE);
         vm.setCanDisplayVideo(true);
         recipe_url = vm.getStep().getVideoURL();
+        if (mPlayer != null) {
+            mPlayer.prepare(buildMediaSource(Uri.parse(vm.getStep().getVideoURL())));
+        }
+        mBinding.tvDesc.setText(recipeDescription);
     }
 
     private void prepareLayoutForThumbnailUrl() {
+        mBinding.ivRecipeImage.setVisibility(View.VISIBLE);
         vm.setCanDisplayVideo(false);
         Uri imageUri = Uri.parse(vm.getStep().getThumbnailUrl());
-        mBinding.ivRecipeImage.setVisibility(View.VISIBLE);
+        mBinding.tvDesc.setText(recipeDescription);
         Picasso.get().load(imageUri).into(mBinding.ivRecipeImage);
     }
 }

@@ -144,7 +144,7 @@ public class RecipeDetailSharedVM extends AndroidViewModel {
         isExoReadyToPlay = exoReadyToPlay;
     }
 
-    public boolean isCanDisplayVideo() {
+    public boolean canDisplayVideo() {
         return canDisplayVideo;
     }
 
