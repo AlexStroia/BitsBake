@@ -31,7 +31,6 @@ import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.FragmentVideoDialogBinding;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.viewmodel.RecipeDetailSharedVM;
-import timber.log.Timber;
 
 public class RecipeVideoDialogFragment extends DialogFragment {
 
@@ -56,6 +55,7 @@ public class RecipeVideoDialogFragment extends DialogFragment {
 
     @Override
     public void onStop() {
+        super.onStop();
         if (Build.VERSION.SDK_INT >= 24) {
             if (mPlayer != null) {
                 vm.setExoPlayerPos(mPlayer.getCurrentPosition());
@@ -63,7 +63,6 @@ public class RecipeVideoDialogFragment extends DialogFragment {
                 releasePlayer();
             }
         }
-        super.onStop();
     }
 
     @Override
@@ -84,7 +83,9 @@ public class RecipeVideoDialogFragment extends DialogFragment {
         initView(container);
 
         mBinding.exoplayer.setVisibility(vm.canDisplayVideo() ? View.VISIBLE : View.GONE);
-        if (vm.canDisplayVideo()) initPlayer(Uri.parse(recipe_url));
+        if (vm.canDisplayVideo()) {
+            initPlayer(Uri.parse(recipe_url));
+        }
         return rootView;
     }
 
@@ -127,6 +128,7 @@ public class RecipeVideoDialogFragment extends DialogFragment {
     private void setBtnListeners() {
         mBinding.tvDesc.setText(recipeDescription);
         mBinding.ibNext.setOnClickListener(view -> {
+            vm.setExoPlayerPos(0);
             vm.goToNext(vm.getSteps());
             vm.setStep(vm.getSteps().get(vm.getStepListPos()));
             showHideButtons();
@@ -134,6 +136,7 @@ public class RecipeVideoDialogFragment extends DialogFragment {
         });
 
         mBinding.ibPrev.setOnClickListener(view -> {
+            vm.setExoPlayerPos(0);
             vm.goToPrev();
             vm.setStep(vm.getSteps().get(vm.getStepListPos()));
             showHideButtons();

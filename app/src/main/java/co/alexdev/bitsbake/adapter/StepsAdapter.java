@@ -44,7 +44,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
         Timber.d("Step: " + step.toString());
         holder.bind(step, position);
 
-        holder.mBinding.ivVideo.setVisibility(TextUtils.isEmpty(step.getVideoURL()) ? GONE: VISIBLE);
+        holder.mBinding.ivVideo.setVisibility(TextUtils.isEmpty(step.getVideoURL()) ? GONE : VISIBLE);
     }
 
     @Override
@@ -72,13 +72,13 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
 
         public void bind(Step step, int position) {
             mBinding.tvStepDetail.setText(step.getShortDescription());
-            mBinding.tvStepNumber.setText(String.valueOf(position) + ".") ;
+            mBinding.tvStepNumber.setText(String.valueOf(position) + ".");
         }
 
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            EventBus.getDefault().postSticky(new OnRecipeStepClickEvent(steps.get(position),steps, position));
+            EventBus.getDefault().post(new OnRecipeStepClickEvent(steps.get(position), position));
         }
     }
 }

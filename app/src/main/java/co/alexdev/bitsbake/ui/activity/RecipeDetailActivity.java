@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 import co.alexdev.bitsbake.R;
 import co.alexdev.bitsbake.databinding.ActivityDetailBinding;
 import co.alexdev.bitsbake.events.OnRecipeStepClickEvent;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.ui.fragment.RecipeVideoDialogFragment;
 import co.alexdev.bitsbake.ui.fragment.RecipesDetailFragment;
+import co.alexdev.bitsbake.viewmodel.RecipeDetailSharedVM;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,11 +21,12 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
+    private static final String RECIPE_DIALOG_TAG = "RECIPE_DIALOG_TAG";
     private FragmentManager mFragmentManager;
     private ActivityDetailBinding mBinding;
-    private String recipe_cake_key;
-    private String recipe_detail_key;
-    private String recipe_cake_thumbnail_url_key;
+    private RecipeDetailSharedVM vm;
+    private Bundle args = new Bundle();
+    RecipeVideoDialogFragment recipeVideoDialogFragment;
     public boolean mTwoPane = false;
 
     @Override
@@ -50,12 +53,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        vm = ViewModelProviders.of(this).get(RecipeDetailSharedVM.class);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         mFragmentManager = getSupportFragmentManager();
-        recipe_cake_key = getString(R.string.recipe_id);
-        recipe_detail_key = getString(R.string.recipe_desc_id);
-        recipe_cake_thumbnail_url_key = getString(R.string.recipe_cake_thumbnail_url);
-
         if (mBinding.fragmentVideoContainer != null) {
             mTwoPane = true;
         }
@@ -78,7 +78,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             if (mTwoPane) {
                 mFragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                        .replace(R.id.fragment_video_container, fragment)
+                        .replace(R.id.fragment_video_container, fragment, RECIPE_DIALOG_TAG)
                         .commit();
             } else {
                 ((RecipeVideoDialogFragment) fragment).show(mFragmentManager, null);
@@ -90,17 +90,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
     }
 
-
     /*When this fragment is not anymore present and this EventBus is triggered and the fragment is not shown,
      * reinitialize the data */
     @Subscribe
     public void onRecipeStepClickEvent(OnRecipeStepClickEvent event) {
-        Bundle args = new Bundle();
         Step step = event.getStep();
         if (step != null) {
             args.putParcelable(getString(R.string.step_obj_key), event.getStep());
             args.putInt(getString(R.string.step_pos), event.getPosition());
-            RecipeVideoDialogFragment recipeVideoDialogFragment = new RecipeVideoDialogFragment();
+            recipeVideoDialogFragment = new RecipeVideoDialogFragment();
             recipeVideoDialogFragment.setArguments(args);
             changeFragment(recipeVideoDialogFragment);
         }
