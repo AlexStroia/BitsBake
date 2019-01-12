@@ -4,8 +4,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
@@ -15,17 +13,11 @@ import android.view.ViewGroup;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.PlaybackParameters;
-import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -40,7 +32,7 @@ import co.alexdev.bitsbake.databinding.FragmentVideoDialogBinding;
 import co.alexdev.bitsbake.model.Step;
 import co.alexdev.bitsbake.viewmodel.RecipeDetailSharedVM;
 
-public class RecipeVideoDialogFragment extends DialogFragment implements Player.EventListener {
+public class RecipeVideoDialogFragment extends DialogFragment {
 
     private View rootView;
     private ExoPlayer mPlayer;
@@ -48,7 +40,6 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
     private Bundle arguments;
     private String recipe_url;
     private String recipeDescription;
-    private String stepObjKey;
     private Step step = null;
     private RecipeDetailSharedVM vm;
 
@@ -64,13 +55,21 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
 
     @Override
     public void onStop() {
-        if (Build.VERSION.SDK_INT >= 24) releasePlayer();
+        if (Build.VERSION.SDK_INT >= 24) {
+            vm.setExoPlayerPos(mPlayer.getCurrentPosition());
+            vm.setExoReadyToPlay(mPlayer.getPlayWhenReady());
+            releasePlayer();
+        }
         super.onStop();
     }
 
     @Override
     public void onPause() {
-        if (Build.VERSION.SDK_INT <= 23) releasePlayer();
+        if (Build.VERSION.SDK_INT <= 23) {
+            vm.setExoPlayerPos(mPlayer.getCurrentPosition());
+            vm.setExoReadyToPlay(mPlayer.getPlayWhenReady());
+            releasePlayer();
+        }
         super.onPause();
     }
 
@@ -94,7 +93,6 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
             mPlayer.prepare(buildMediaSource(mediaUri));
             mPlayer.setPlayWhenReady(true);
             mBinding.exoplayer.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-            mPlayer.addListener(this);
         }
     }
 
@@ -155,7 +153,8 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
 
     private void getArgs() {
         arguments = getArguments();
-        setKeys();
+        String stepObjKey = getString(R.string.step_obj_key);
+
         if (arguments != null) {
             if (arguments.containsKey(stepObjKey)) {
                 step = arguments.getParcelable(stepObjKey);
@@ -179,10 +178,6 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
         vm.setCanDisplayVideo(false);
     }
 
-    private void setKeys() {
-        stepObjKey = getString(R.string.step_obj_key);
-    }
-
     private void prepareLayoutForVideoUrl() {
         vm.setCanDisplayVideo(true);
         recipe_url = vm.getStep().getVideoURL();
@@ -193,57 +188,5 @@ public class RecipeVideoDialogFragment extends DialogFragment implements Player.
         Uri imageUri = Uri.parse(vm.getStep().getThumbnailUrl());
         mBinding.ivRecipeImage.setVisibility(View.VISIBLE);
         Picasso.get().load(imageUri).into(mBinding.ivRecipeImage);
-    }
-
-    @Override
-    public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
-
-    }
-
-    @Override
-    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray
-            trackSelections) {
-
-    }
-
-    @Override
-    public void onLoadingChanged(boolean isLoading) {
-
-    }
-
-    @Override
-    public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-        vm.setExoPlayerPos(mPlayer.getCurrentPosition());
-        vm.setExoReadyToPlay(playWhenReady);
-    }
-
-    @Override
-    public void onRepeatModeChanged(int repeatMode) {
-
-    }
-
-    @Override
-    public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
-
-    }
-
-    @Override
-    public void onPlayerError(ExoPlaybackException error) {
-
-    }
-
-    @Override
-    public void onPositionDiscontinuity(int reason) {
-
-    }
-
-    @Override
-    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-
-    }
-
-    @Override
-    public void onSeekProcessed() {
-
     }
 }
