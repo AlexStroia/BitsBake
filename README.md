@@ -2,9 +2,8 @@
 
 Android Baking App that will allow Udacity’s resident baker-in-chief, Miriam, to share her recipes with the world. You will create an app that will allow a user to select a recipe and see video-guided steps for how to complete it.
 
-![layout_portrait](https://user-images.githubusercontent.com/35500199/50993478-9ceb5e00-14ce-11e9-937d-9976c9960893.jpg)\ 
-  ![layout_portrait](https://user-images.githubusercontent.com/35500199/51078727-1326c680-166f-11e9-9659-4fcb17a5cc27.jpg)
-
+![layout_portrait](https://user-images.githubusercontent.com/35500199/50993478-9ceb5e00-14ce-11e9-937d-9976c9960893.jpg) 
+![layout_portrait](https://user-images.githubusercontent.com/35500199/51078775-dc9d7b80-166f-11e9-9078-25437f8bb024.jpg)
 ![tablet_land](https://user-images.githubusercontent.com/35500199/51078672-fb027780-166d-11e9-957d-f64f9612d103.jpg)
 ![tablet_land](https://user-images.githubusercontent.com/35500199/50992825-02d6e600-14cd-11e9-94b4-56ef0cb5f6fb.jpg)
 
